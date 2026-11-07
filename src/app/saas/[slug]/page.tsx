@@ -51,9 +51,28 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
               </div>
             </div>
             <p className="mt-5 text-lg leading-relaxed text-slate-600">{saas.tagline}</p>
+            {saas.demo_url && (
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <a href={saas.demo_url} target="_blank" rel="noreferrer" className="btn px-6 py-3 text-base">
+                  ▶ Probar la app
+                </a>
+                <span className="text-sm text-slate-500">Entra y úsala por dentro, con datos de ejemplo.</span>
+              </div>
+            )}
 
             <div className="mt-6 rounded-2xl border border-line p-3 sm:p-6" style={{ background: `linear-gradient(160deg, ${saas.color}26, transparent 70%)` }}>
-              <AppPreview saas={saas} />
+              {saas.demo_url ? (
+                <a href={saas.demo_url} target="_blank" rel="noreferrer" className="group relative block" aria-label={`Probar ${saas.name}`}>
+                  <AppPreview saas={saas} />
+                  <span className="absolute inset-0 grid place-items-center rounded-xl bg-ink/0 transition group-hover:bg-ink/30">
+                    <span className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink opacity-0 shadow-lg transition group-hover:opacity-100">
+                      ▶ Probar la app
+                    </span>
+                  </span>
+                </a>
+              ) : (
+                <AppPreview saas={saas} />
+              )}
             </div>
 
             {saas.description && (
@@ -90,7 +109,7 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
               <div className="flex flex-col gap-2.5">
                 {saas.demo_url && (
                   <a href={saas.demo_url} target="_blank" rel="noreferrer" className="btn-ghost w-full">
-                    Ver demo en vivo ↗
+                    ▶ Probar la app ↗
                   </a>
                 )}
                 {deployUrl && (
