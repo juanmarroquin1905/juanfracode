@@ -33,7 +33,7 @@ Cuando pongas las claves, se apaga solo.
    insert into public.admins (user_id) select id from auth.users where email = 'tu-correo@ejemplo.com';
    ```
 5. En Vercel → tu proyecto → **Settings → Environment Variables**, agrega
-   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (Supabase → Project
+   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (Supabase → botón Connect o Project
    Settings → API) y `NEXT_PUBLIC_SITE_URL`. Vuelve a publicar.
 6. Entra a `/admin` y sube tus SaaS.
 

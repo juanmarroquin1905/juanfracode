@@ -3,7 +3,12 @@ import type { Saas } from "./types";
 // ID de la integración oficial de Supabase en Vercel: al desplegar, Vercel
 // ofrece crear/conectar el proyecto de Supabase y rellena las claves solo.
 const SUPABASE_INTEGRATION = "oac_VqOgBHqhEoFTPzGkPd7L0iH6";
-const SUPABASE_FILLED = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY"];
+const SUPABASE_FILLED = [
+  "NEXT_PUBLIC_SUPABASE_URL",
+  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+  "SUPABASE_SERVICE_ROLE_KEY",
+];
 
 // Arma el enlace del botón "Deploy en Vercel" para un repo público de GitHub.
 export function vercelDeployUrl(saas: Pick<Saas, "repo_url" | "slug" | "env_vars" | "stack">): string | null {
