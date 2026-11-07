@@ -8,7 +8,7 @@ export function SaasCard({ saas }: { saas: Saas }) {
   return (
     <Link
       href={`/saas/${saas.slug}`}
-      className="card group relative flex h-full flex-col overflow-hidden transition-shadow hover:shadow-[0_30px_60px_-20px_rgba(76,52,200,0.35)]"
+      className="card group relative flex flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-[0_20px_40px_-16px_rgba(16,24,40,0.18)]"
     >
       <div className="relative border-b border-line px-5 pt-5" style={{ background: `linear-gradient(180deg, ${saas.color}1f, ${saas.color}05)` }}>
         <AppPreview saas={saas} className="translate-y-1 rounded-b-none transition group-hover:translate-y-0" />

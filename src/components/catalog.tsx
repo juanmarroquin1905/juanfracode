@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import type { Saas } from "@/lib/types";
 import { SaasCard } from "./saas-card";
-import { Tilt } from "./tilt";
 
 export function Catalog({ items }: { items: Saas[] }) {
   const [category, setCategory] = useState("Todas");
@@ -51,9 +50,7 @@ export function Catalog({ items }: { items: Saas[] }) {
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((s) => (
-            <Tilt key={s.id} className="h-full rounded-2xl">
-              <SaasCard saas={s} />
-            </Tilt>
+            <SaasCard key={s.id} saas={s} />
           ))}
         </div>
       )}

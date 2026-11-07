@@ -1,6 +1,6 @@
+import { AppPreview } from "@/components/app-preview";
 import { Catalog } from "@/components/catalog";
 import { Faq } from "@/components/faq";
-import { Hero3D } from "@/components/hero-3d";
 import { HowTo } from "@/components/how-to";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -14,6 +14,7 @@ const STACK = ["Next.js", "Supabase", "Vercel", "GitHub", "Claude Code"];
 
 export default async function Home() {
   const items = await getPublishedSaas();
+  const showcase = items.slice(0, 3);
 
   return (
     <>
@@ -21,16 +22,15 @@ export default async function Home() {
       <main>
         <section className="relative overflow-hidden">
           <div aria-hidden className="grid-bg absolute inset-0" />
-          <div aria-hidden className="floor-grid" />
           <div aria-hidden className="absolute -top-48 right-[-10%] size-[560px] rounded-full bg-accent/15 blur-3xl" />
           <div aria-hidden className="absolute top-20 right-[25%] size-[360px] rounded-full bg-accent-2/10 blur-3xl" />
-          <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-16 sm:pt-16 lg:grid-cols-[1.15fr_1fr]">
+          <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pt-14 pb-12 sm:pt-20 lg:grid-cols-[1.1fr_1fr]">
             <div>
               <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-medium text-slate-600 shadow-sm">
                 <span className="brand-gradient size-1.5 rounded-full" />
                 Plantillas gratis · listas para Vercel + Supabase
               </p>
-              <h1 className="mt-5 text-5xl font-bold tracking-[-0.045em] text-balance text-ink sm:text-7xl">
+              <h1 className="mt-5 text-4xl font-semibold tracking-[-0.035em] text-balance text-ink sm:text-6xl">
                 <HighlightTitle />
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-500">{BRAND.tagline}</p>
@@ -52,19 +52,29 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="relative mx-auto -mt-4 w-full max-w-[260px] sm:max-w-[340px] lg:mt-0 lg:max-w-none">
-              <Hero3D />
-            </div>
+            {showcase.length > 0 && (
+              <div aria-hidden className="relative hidden h-[420px] lg:block">
+                {showcase.map((s, i) => (
+                  <AppPreview
+                    key={s.id}
+                    saas={s}
+                    className={`absolute w-[72%] ${
+                      ["top-0 right-0 rotate-3", "top-[16%] left-0 -rotate-2", "top-[32%] right-[8%] rotate-1"][i]
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
         </section>
 
-        <section id="saas" className="reveal mx-auto max-w-6xl scroll-mt-20 px-4 pt-14">
+        <section id="saas" className="mx-auto max-w-6xl scroll-mt-20 px-4 pt-14">
           <SectionTitle kicker="Catálogo" title="Todas las apps" text="Pruébalas en vivo. Si te sirve una, lánzala como tuya." />
           <Catalog items={items} />
         </section>
 
-        <section id="como-usar" className="reveal mx-auto max-w-6xl scroll-mt-20 px-4 pt-24">
+        <section id="como-usar" className="mx-auto max-w-6xl scroll-mt-20 px-4 pt-24">
           <SectionTitle
             kicker="Cómo funciona"
             title="De plantilla a tu propia app en 4 pasos"
@@ -74,7 +84,7 @@ export default async function Home() {
           <TutorialVideo />
         </section>
 
-        <section className="reveal mx-auto max-w-6xl px-4 pt-24">
+        <section className="mx-auto max-w-6xl px-4 pt-24">
           <div className="card grid items-center gap-8 overflow-hidden rounded-3xl p-6 sm:p-10 md:grid-cols-[auto_1fr]">
             <span className="brand-gradient grid size-24 place-items-center rounded-3xl font-mono text-3xl font-bold text-white shadow-[0_16px_32px_-12px_rgba(109,74,255,0.6)]">
               {"</>"}
@@ -90,12 +100,12 @@ export default async function Home() {
           </div>
         </section>
 
-        <section id="preguntas" className="reveal mx-auto max-w-3xl scroll-mt-20 px-4 pt-24">
+        <section id="preguntas" className="mx-auto max-w-3xl scroll-mt-20 px-4 pt-24">
           <SectionTitle kicker="Preguntas" title="Preguntas frecuentes" center />
           <Faq />
         </section>
 
-        <section className="reveal mx-auto max-w-6xl px-4 pt-24">
+        <section className="mx-auto max-w-6xl px-4 pt-24">
           <div className="relative overflow-hidden rounded-3xl bg-ink px-6 py-16 text-center">
             <div aria-hidden className="absolute -top-24 left-1/2 size-[480px] -translate-x-1/2 rounded-full bg-accent/40 blur-3xl" />
             <h2 className="relative text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl">
@@ -132,7 +142,7 @@ function HighlightTitle() {
   return (
     <>
       {title.slice(0, i)}
-      <span className="accent-serif text-gradient">{titleHighlight}</span>
+      <span className="text-gradient">{titleHighlight}</span>
       {title.slice(i + titleHighlight.length)}
     </>
   );
