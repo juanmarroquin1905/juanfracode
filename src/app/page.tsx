@@ -1,13 +1,12 @@
 import { AppPreview } from "@/components/app-preview";
 import { Catalog } from "@/components/catalog";
-import { DemoBanner } from "@/components/demo-banner";
 import { Faq } from "@/components/faq";
 import { HowTo } from "@/components/how-to";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialButtons } from "@/components/socials";
 import { BRAND } from "@/config/brand";
-import { getPublishedSaas, isDemo } from "@/lib/data";
+import { getPublishedSaas } from "@/lib/data";
 
 export const revalidate = 60;
 
@@ -19,7 +18,6 @@ export default async function Home() {
 
   return (
     <>
-      {isDemo && <DemoBanner />}
       <SiteHeader />
       <main>
         <section className="relative overflow-hidden">

@@ -3,14 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { after } from "next/server";
 import { AppPreview } from "@/components/app-preview";
-import { DemoBanner } from "@/components/demo-banner";
 import { HowTo } from "@/components/how-to";
 import { SaasLogo } from "@/components/saas-logo";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { StatusBadge } from "@/components/status-badge";
 import { BRAND } from "@/config/brand";
-import { getSaasBySlug, isDemo, track } from "@/lib/data";
+import { getSaasBySlug, track } from "@/lib/data";
 import { vercelDeployUrl } from "@/lib/deploy";
 
 export async function generateMetadata({ params }: PageProps<"/saas/[slug]">): Promise<Metadata> {
@@ -35,7 +34,6 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
 
   return (
     <>
-      {isDemo && <DemoBanner />}
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 pt-8">
         <Link href="/#saas" className="text-sm text-slate-500 hover:text-ink">
