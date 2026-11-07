@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Saas } from "@/lib/types";
+import { AppPreview } from "./app-preview";
 import { SaasLogo } from "./saas-logo";
 import { StatusBadge } from "./status-badge";
 
@@ -8,13 +9,12 @@ export function SaasCard({ saas }: { saas: Saas }) {
   return (
     <Link
       href={`/saas/${saas.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card p-5 transition hover:-translate-y-0.5 hover:border-slate-600"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card transition hover:-translate-y-0.5 hover:border-slate-600"
     >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -top-16 -right-16 size-40 rounded-full opacity-20 blur-3xl transition group-hover:opacity-40"
-        style={{ background: saas.color }}
-      />
+      <div className="relative border-b border-line px-5 pt-5" style={{ background: `linear-gradient(180deg, ${saas.color}22, transparent)` }}>
+        <AppPreview saas={saas} className="translate-y-1 rounded-b-none transition group-hover:translate-y-0" />
+      </div>
+      <div className="flex flex-1 flex-col p-5">
       <div className="flex items-start gap-3">
         <SaasLogo saas={saas} />
         <div className="min-w-0 flex-1">
@@ -40,6 +40,7 @@ export function SaasCard({ saas }: { saas: Saas }) {
           {hasTemplate ? <span className="text-accent">↓ Plantilla gratis</span> : <span>Plantilla pronto</span>}
         </span>
         <span className="font-semibold text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-white">Ver →</span>
+      </div>
       </div>
     </Link>
   );

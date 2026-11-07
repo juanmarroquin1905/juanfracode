@@ -11,11 +11,19 @@ export function SiteHeader() {
         </Link>
         <nav className="flex items-center gap-1 text-sm">
           <Link href="/#saas" className="rounded-md px-3 py-1.5 text-slate-300 hover:bg-white/5 hover:text-white">
-            SaaS
+            Apps
           </Link>
-          <Link href="/#como-usar" className="rounded-md px-3 py-1.5 text-slate-300 hover:bg-white/5 hover:text-white">
+          <Link href="/#como-usar" className="hidden rounded-md px-3 py-1.5 text-slate-300 hover:bg-white/5 hover:text-white sm:block">
             Cómo usarlas
           </Link>
+          <Link href="/#preguntas" className="hidden rounded-md px-3 py-1.5 text-slate-300 hover:bg-white/5 hover:text-white sm:block">
+            Preguntas
+          </Link>
+          {BRAND.socials.tiktok && (
+            <a href={BRAND.socials.tiktok} target="_blank" rel="noreferrer" className="ml-1 rounded-md bg-white px-3 py-1.5 font-semibold text-ink hover:bg-slate-200">
+              Sígueme
+            </a>
+          )}
         </nav>
       </div>
     </header>

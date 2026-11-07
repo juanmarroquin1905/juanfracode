@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { after } from "next/server";
+import { AppPreview } from "@/components/app-preview";
 import { DemoBanner } from "@/components/demo-banner";
 import { HowTo } from "@/components/how-to";
 import { SaasLogo } from "@/components/saas-logo";
@@ -33,7 +34,7 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 pt-8">
         <Link href="/#saas" className="text-sm text-slate-500 hover:text-white">
-          ← Todos los SaaS
+          ← Todas las apps
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_340px]">
@@ -50,14 +51,9 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
             </div>
             <p className="mt-5 text-lg leading-relaxed text-slate-300">{saas.tagline}</p>
 
-            {saas.cover_url && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={saas.cover_url}
-                alt={`Captura de ${saas.name}`}
-                className="mt-6 w-full rounded-2xl border border-line object-cover"
-              />
-            )}
+            <div className="mt-6 rounded-2xl border border-line p-3 sm:p-6" style={{ background: `linear-gradient(160deg, ${saas.color}26, transparent 70%)` }}>
+              <AppPreview saas={saas} />
+            </div>
 
             {saas.description && (
               <section className="mt-8">
