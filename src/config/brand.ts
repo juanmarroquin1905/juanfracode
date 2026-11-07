@@ -2,9 +2,9 @@
 // Si dejas una red vacía (""), no se muestra.
 export const BRAND = {
   name: "Juanfra Code",
-  title: "SaaS que construyo en público",
+  title: "Apps simples para tu día a día",
   tagline:
-    "Cada SaaS que creo con Next.js, Supabase, Vercel y Claude Code. Pruébalos en vivo y descarga la plantilla gratis para adaptarla a tu idea.",
+    "Pequeños SaaS de uso personal que creo con Next.js, Supabase, Vercel y Claude Code. Pruébalos, descarga la plantilla gratis y lanza tu propia versión en minutos.",
   socials: {
     tiktok: "https://www.tiktok.com/@juanfracode",
     instagram: "https://www.instagram.com/juanfracode",
