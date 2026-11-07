@@ -15,17 +15,7 @@ const STACK = ["Next.js", "Supabase", "Vercel", "GitHub", "Claude Code"];
 
 export default async function Home() {
   const items = await getPublishedSaas();
-  const live = items.filter((s) => s.status === "en_vivo").length;
-  const templates = items.filter((s) => s.repo_url || s.zip_url).length;
-  const downloads = items.reduce((n, s) => n + s.downloads, 0);
   const showcase = items.slice(0, 3);
-
-  const stats = [
-    { label: "Apps creadas", value: items.length },
-    { label: "En vivo", value: live },
-    { label: "Plantillas gratis", value: templates },
-    { label: "Descargas", value: downloads },
-  ];
 
   return (
     <>
@@ -79,16 +69,6 @@ export default async function Home() {
             )}
           </div>
 
-          <div className="relative mx-auto max-w-6xl px-4 pb-6">
-            <dl className="card grid grid-cols-2 gap-px overflow-hidden bg-line sm:grid-cols-4">
-              {stats.map((s) => (
-                <div key={s.label} className="bg-card px-5 py-4">
-                  <dt className="text-xs text-slate-500">{s.label}</dt>
-                  <dd className="mt-1 text-3xl font-semibold tracking-tight text-ink">{s.value.toLocaleString("es")}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
         </section>
 
         <section id="saas" className="mx-auto max-w-6xl scroll-mt-20 px-4 pt-14">
