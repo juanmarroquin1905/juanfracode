@@ -81,6 +81,7 @@ export default async function Home() {
             text="Todas vienen listas para Vercel + Supabase. No necesitas instalar nada en tu computadora."
           />
           <HowTo />
+          <TutorialVideo />
         </section>
 
         <section className="mx-auto max-w-6xl px-4 pt-24">
@@ -144,5 +145,29 @@ function HighlightTitle() {
       <span className="text-gradient">{titleHighlight}</span>
       {title.slice(i + titleHighlight.length)}
     </>
+  );
+}
+
+// Convierte un enlace de YouTube (watch, youtu.be o shorts) en uno para incrustar.
+function youtubeEmbed(url: string) {
+  const m = url.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/);
+  return m ? `https://www.youtube-nocookie.com/embed/${m[1]}` : null;
+}
+
+function TutorialVideo() {
+  const src = BRAND.tutorialUrl ? youtubeEmbed(BRAND.tutorialUrl) : null;
+  if (!src) return null;
+  return (
+    <div className="card mt-6 overflow-hidden p-2">
+      <div className="relative aspect-video overflow-hidden rounded-xl">
+        <iframe
+          src={src}
+          title="Tutorial: cómo lanzar una plantilla"
+          className="absolute inset-0 size-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </div>
   );
 }
