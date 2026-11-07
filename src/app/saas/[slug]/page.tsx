@@ -9,6 +9,7 @@ import { SaasLogo } from "@/components/saas-logo";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { StatusBadge } from "@/components/status-badge";
+import { BRAND } from "@/config/brand";
 import { getSaasBySlug, isDemo, track } from "@/lib/data";
 import { vercelDeployUrl } from "@/lib/deploy";
 
@@ -27,6 +28,10 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
 
   const deployUrl = vercelDeployUrl(saas);
   const hasTemplate = Boolean(saas.repo_url || saas.zip_url);
+  const stats = [
+    { label: "Visitas", value: saas.views },
+    { label: "Descargas", value: saas.downloads },
+  ].filter((st) => st.value >= BRAND.minStatToShow);
 
   return (
     <>
@@ -127,16 +132,18 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
                 </p>
               )}
 
-              <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line text-center">
-                <div className="bg-canvas px-3 py-3">
-                  <dt className="text-[11px] text-slate-500">Visitas</dt>
-                  <dd className="text-xl font-semibold text-ink">{saas.views.toLocaleString("es")}</dd>
-                </div>
-                <div className="bg-canvas px-3 py-3">
-                  <dt className="text-[11px] text-slate-500">Descargas</dt>
-                  <dd className="text-xl font-semibold text-ink">{saas.downloads.toLocaleString("es")}</dd>
-                </div>
-              </dl>
+              {stats.length > 0 && (
+                <dl
+                  className={`mt-5 grid gap-px overflow-hidden rounded-xl border border-line bg-line text-center ${stats.length === 2 ? "grid-cols-2" : ""}`}
+                >
+                  {stats.map((st) => (
+                    <div key={st.label} className="bg-canvas px-3 py-3">
+                      <dt className="text-[11px] text-slate-500">{st.label}</dt>
+                      <dd className="text-xl font-semibold text-ink">{st.value.toLocaleString("es")}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
 
               {saas.stack.length > 0 && (
                 <div className="mt-5">

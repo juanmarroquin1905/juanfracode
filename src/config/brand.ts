@@ -6,6 +6,8 @@ export const BRAND = {
   titleHighlight: "tu día a día", // parte del título que va con degradado
   tagline:
     "Pequeños SaaS de uso personal que creo con Next.js, Supabase, Vercel y Claude Code. Pruébalos, descarga la plantilla gratis y lanza tu propia versión en minutos.",
+  // Visitas y descargas de cada app solo se muestran desde este número (para que no se vea vacío).
+  minStatToShow: 10,
   // Sección "Quién soy" del inicio.
   about:
     "Soy Juan y en Juanfra Code enseño a crear tus propios SaaS desde cero con Next.js, Supabase, Vercel y Claude Code, aunque nunca hayas programado. Cada app de esta página la construyo en mis videos y te dejo el código para que la uses.",
