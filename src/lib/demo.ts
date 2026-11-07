@@ -1,0 +1,88 @@
+import type { Saas } from "./types";
+
+// SaaS de ejemplo para el MODO DEMO (cuando aún no hay claves de Supabase).
+// Puedes editarlos aquí; cuando conectes Supabase, se leen de la base de datos.
+const base = {
+  cover_url: null,
+  zip_url: null,
+  video_url: null,
+  published: true,
+  env_vars: ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+};
+
+export const DEMO_SAAS: Saas[] = [
+  {
+    ...base,
+    id: "demo-vitrally",
+    slug: "vitrally",
+    name: "Vitrally",
+    tagline: "Catálogo online para tiendas pequeñas con pedidos por WhatsApp.",
+    description:
+      "Cada tienda tiene su propia página con productos, categorías y carrito. El cliente arma su pedido y le llega a la tienda por WhatsApp ya escrito. La tienda ve pedidos y clientes en un panel, y puede mandar cupones.",
+    category: "E-commerce",
+    status: "en_vivo",
+    emoji: "🛍️",
+    color: "#c026d3",
+    demo_url: "https://vitrally.vercel.app",
+    repo_url: null,
+    stack: ["Next.js", "Supabase", "Tailwind", "Mercado Pago", "Vercel"],
+    features: [
+      "Página propia para cada tienda",
+      "Carrito con pedido directo a WhatsApp",
+      "Panel de pedidos y clientes",
+      "Cupones y ofertas por WhatsApp",
+      "Suscripción mensual con prueba gratis",
+    ],
+    sort_order: 1,
+    views: 0,
+    downloads: 0,
+    created_at: "2026-10-01T00:00:00Z",
+  },
+  {
+    ...base,
+    id: "demo-escuela",
+    slug: "escuela-ia",
+    name: "Escuela IA",
+    tagline: "Plataforma de cursos estilo Netflix con comunidad y ranking.",
+    description:
+      "Una escuela online para vender un curso por suscripción: catálogo de módulos estilo streaming, progreso por lección, comunidad con preguntas resueltas, calendario de sesiones en vivo y un personaje que gana armadura a medida que avanzas.",
+    category: "Educación",
+    status: "en_construccion",
+    emoji: "🎓",
+    color: "#2563eb",
+    demo_url: "https://juancode-tawny.vercel.app",
+    repo_url: null,
+    stack: ["Next.js", "Tailwind", "Vercel"],
+    features: [
+      "Catálogo de módulos estilo streaming",
+      "Progreso por lección",
+      "Comunidad con categorías",
+      "Calendario de sesiones y mentorías",
+      "Ranking y logros",
+    ],
+    sort_order: 2,
+    views: 0,
+    downloads: 0,
+    created_at: "2026-10-20T00:00:00Z",
+  },
+  {
+    ...base,
+    id: "demo-tufierro",
+    slug: "tufierro",
+    name: "Tufierro",
+    tagline: "Escribe aquí en una línea qué hace este SaaS.",
+    description: "Texto de ejemplo: cámbialo desde el panel cuando conectes Supabase, o en src/lib/demo.ts.",
+    category: "Otro",
+    status: "en_construccion",
+    emoji: "🔧",
+    color: "#ea580c",
+    demo_url: null,
+    repo_url: null,
+    stack: ["Next.js", "Supabase", "Vercel"],
+    features: [],
+    sort_order: 3,
+    views: 0,
+    downloads: 0,
+    created_at: "2026-11-01T00:00:00Z",
+  },
+];
