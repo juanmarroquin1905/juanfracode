@@ -122,7 +122,14 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
                   </a>
                 )}
               </div>
-              {hasTemplate && <p className="hint text-center">Gratis y sin cuenta. Úsala, cámbiala y lánzala como tuya.</p>}
+              {saas.demo_url && (
+                <p className="hint text-center">La demo usa datos de ejemplo y no guarda nada.</p>
+              )}
+              {hasTemplate && (
+                <p className="hint text-center">
+                  Para usarla de verdad, lánzala gratis con tu propio GitHub, Vercel y Supabase.
+                </p>
+              )}
 
               <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line text-center">
                 <div className="bg-ink px-3 py-3">
