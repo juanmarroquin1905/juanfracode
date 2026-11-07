@@ -41,7 +41,7 @@ export function SaasForm({ saas, demo }: { saas?: Saas; demo: boolean }) {
         </div>
         <div>
           <label className="label" htmlFor="cover">Captura o portada</label>
-          <input id="cover" name="cover" type="file" accept="image/*" className="input file:mr-3 file:rounded-md file:border-0 file:bg-white/10 file:px-3 file:py-1 file:text-sm file:text-white" />
+          <input id="cover" name="cover" type="file" accept="image/*" className="input file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:text-sm file:text-ink" />
           {saas?.cover_url && <p className="hint">Ya tiene una imagen. Sube otra solo si quieres cambiarla.</p>}
         </div>
       </Section>
@@ -74,17 +74,17 @@ export function SaasForm({ saas, demo }: { saas?: Saas; demo: boolean }) {
           <Field label="Orden" name="sort_order" type="number" defaultValue={String(saas?.sort_order ?? 0)} hint="Los números menores salen primero." />
           <label className="flex items-center gap-3 self-center rounded-lg border border-line px-4 py-3">
             <input type="checkbox" name="published" defaultChecked={saas?.published ?? true} className="size-4 accent-emerald-400" />
-            <span className="text-sm text-slate-200">Visible en la web</span>
+            <span className="text-sm text-slate-700">Visible en la web</span>
           </label>
         </div>
       </Section>
 
-      {state?.error && <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">{state.error}</p>}
+      {state?.error && <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{state.error}</p>}
       <div className="flex gap-3">
         <button className="btn" disabled={pending || demo}>
           {pending ? "Guardando…" : "Guardar"}
         </button>
-        {demo && <p className="self-center text-sm text-amber-300">En modo demo no se guarda nada.</p>}
+        {demo && <p className="self-center text-sm text-amber-700">En modo demo no se guarda nada.</p>}
       </div>
     </form>
   );
@@ -92,8 +92,8 @@ export function SaasForm({ saas, demo }: { saas?: Saas; demo: boolean }) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <fieldset className="space-y-4 rounded-2xl border border-line bg-card p-5">
-      <legend className="px-1 text-sm font-bold text-white">{title}</legend>
+    <fieldset className="space-y-4 card p-5">
+      <legend className="px-1 text-sm font-bold text-ink">{title}</legend>
       {children}
     </fieldset>
   );

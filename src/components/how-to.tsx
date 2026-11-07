@@ -21,10 +21,10 @@ export function HowTo({ compact = false }: { compact?: boolean }) {
   return (
     <ol className={`grid gap-3 ${compact ? "" : "sm:grid-cols-2 lg:grid-cols-4"}`}>
       {STEPS.map((s, i) => (
-        <li key={s.title} className="rounded-2xl border border-line bg-card p-5">
-          <span className="font-mono text-xs text-accent">paso {String(i + 1).padStart(2, "0")}</span>
-          <h3 className="mt-1 font-bold text-white">{s.title}</h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-slate-400">{s.text}</p>
+        <li key={s.title} className="card p-5">
+          <span className="brand-gradient grid size-8 place-items-center rounded-full text-sm font-semibold text-white">{i + 1}</span>
+          <h3 className="mt-4 font-semibold text-ink">{s.title}</h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{s.text}</p>
         </li>
       ))}
     </ol>

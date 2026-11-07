@@ -6,12 +6,14 @@ type Props = { saas: Pick<Saas, "name" | "emoji" | "color" | "cover_url" | "slug
 // dibuja una interfaz de ejemplo con el color y el emoji de la app.
 export function AppPreview({ saas, className = "" }: Props) {
   return (
-    <div className={`overflow-hidden rounded-xl border border-white/10 bg-[#0d0f16] shadow-2xl shadow-black/40 ${className}`}>
-      <div className="flex items-center gap-1.5 border-b border-white/5 bg-white/[0.03] px-3 py-2">
-        <span className="size-2 rounded-full bg-[#ff5f57]" />
-        <span className="size-2 rounded-full bg-[#febc2e]" />
-        <span className="size-2 rounded-full bg-[#28c840]" />
-        <span className="ml-2 truncate rounded-md bg-white/5 px-2 py-0.5 font-mono text-[10px] text-slate-500">
+    <div
+      className={`overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_24px_48px_-20px_rgba(16,24,40,0.25)] ${className}`}
+    >
+      <div className="flex items-center gap-1.5 border-b border-slate-100 bg-slate-50 px-3 py-2">
+        <span className="size-2 rounded-full bg-slate-300" />
+        <span className="size-2 rounded-full bg-slate-300" />
+        <span className="size-2 rounded-full bg-slate-300" />
+        <span className="ml-2 truncate rounded-md border border-slate-200 bg-white px-2 py-0.5 font-mono text-[10px] text-slate-500">
           {saas.slug}.vercel.app
         </span>
       </div>
@@ -31,32 +33,32 @@ function MockUI({ saas }: { saas: Props["saas"] }) {
   const c = saas.color;
   const bars = [62, 38, 80, 54, 92, 46, 70];
   return (
-    <div className="absolute inset-0 flex" style={{ background: `radial-gradient(120% 90% at 100% 0%, ${c}30, transparent 60%)` }}>
-      <div className="hidden w-[22%] flex-col gap-2 border-r border-white/5 p-[4%] sm:flex">
+    <div className="absolute inset-0 flex bg-white">
+      <div className="hidden w-[22%] flex-col gap-2 border-r border-slate-100 bg-slate-50/60 p-[4%] sm:flex">
         <div className="flex items-center gap-1.5">
           <span className="text-[min(2.4vw,14px)] leading-none">{saas.emoji}</span>
-          <span className="h-1.5 w-2/3 rounded-full bg-white/30" />
+          <span className="h-1.5 w-2/3 rounded-full bg-slate-300" />
         </div>
         {[0, 1, 2, 3].map((i) => (
-          <span key={i} className="h-1.5 rounded-full" style={{ width: `${70 - i * 10}%`, background: i === 0 ? c : "rgb(255 255 255 / 0.1)" }} />
+          <span key={i} className="h-1.5 rounded-full" style={{ width: `${70 - i * 10}%`, background: i === 0 ? c : "#e2e8f0" }} />
         ))}
       </div>
       <div className="flex flex-1 flex-col gap-[5%] p-[4%]">
         <div className="flex items-center justify-between">
-          <span className="h-2 w-1/3 rounded-full bg-white/40" />
-          <span className="h-3 w-[18%] rounded-md" style={{ background: c }} />
+          <span className="h-2 w-1/3 rounded-full bg-slate-800/80" />
+          <span className="h-3 w-[18%] rounded-full" style={{ background: c }} />
         </div>
         <div className="grid grid-cols-3 gap-[4%]">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="rounded-md border border-white/5 bg-white/[0.04] p-[8%]">
-              <span className="block h-1 w-1/2 rounded-full bg-white/15" />
-              <span className="mt-1.5 block h-2 w-3/4 rounded-full" style={{ background: i === 0 ? c : "rgb(255 255 255 / 0.35)" }} />
+            <div key={i} className="rounded-md border border-slate-100 bg-white p-[8%] shadow-sm">
+              <span className="block h-1 w-1/2 rounded-full bg-slate-200" />
+              <span className="mt-1.5 block h-2 w-3/4 rounded-full" style={{ background: i === 0 ? c : "#cbd5e1" }} />
             </div>
           ))}
         </div>
-        <div className="flex flex-1 items-end gap-[3%] rounded-md border border-white/5 bg-white/[0.03] p-[4%]">
+        <div className="flex flex-1 items-end gap-[3%] rounded-md border border-slate-100 p-[4%]">
           {bars.map((h, i) => (
-            <span key={i} className="flex-1 rounded-t-sm" style={{ height: `${h}%`, background: i === 4 ? c : `${c}55` }} />
+            <span key={i} className="flex-1 rounded-t-sm" style={{ height: `${h}%`, background: i === 4 ? c : `${c}40` }} />
           ))}
         </div>
       </div>

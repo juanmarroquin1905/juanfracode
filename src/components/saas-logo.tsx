@@ -5,8 +5,8 @@ export function SaasLogo({ saas, size = "md" }: { saas: Pick<Saas, "emoji" | "co
   return (
     <span
       aria-hidden
-      className={`grid shrink-0 place-items-center border border-white/10 ${cls}`}
-      style={{ background: `linear-gradient(135deg, ${saas.color}55, ${saas.color}18)` }}
+      className={`grid shrink-0 place-items-center border border-black/5 ${cls}`}
+      style={{ background: `linear-gradient(135deg, ${saas.color}33, ${saas.color}12)` }}
     >
       {saas.emoji}
     </span>

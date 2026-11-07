@@ -11,8 +11,8 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
     return (
       <main className="grid min-h-screen place-items-center px-4 text-center">
         <div className="max-w-md">
-          <h1 className="text-xl font-bold text-white">Tu cuenta no es administradora</h1>
-          <p className="mt-2 text-sm text-slate-400">
+          <h1 className="text-xl font-bold text-ink">Tu cuenta no es administradora</h1>
+          <p className="mt-2 text-sm text-slate-500">
             Entraste como {user.email}. Para hacerla admin, ejecuta en Supabase la última línea de supabase/schema.sql con
             este correo.
           </p>
@@ -28,16 +28,16 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
       {isDemo && <DemoBanner />}
       <header className="border-b border-line/60">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-          <Link href="/admin" className="font-bold text-white">
+          <Link href="/admin" className="font-bold text-ink">
             Panel · SaaS
           </Link>
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/" className="rounded-md px-3 py-1.5 text-slate-400 hover:text-white">
+            <Link href="/" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
               Ver web ↗
             </Link>
             {!isDemo && (
               <form action={logout}>
-                <button className="rounded-md px-3 py-1.5 text-slate-400 hover:text-white">Salir</button>
+                <button className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">Salir</button>
               </form>
             )}
           </div>

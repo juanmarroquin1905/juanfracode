@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { BRAND } from "@/config/brand";
 import "./globals.css";
 
-const sans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-jetbrains" });
+const sans = Geist({ subsets: ["latin"] });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: BRAND.tagline,
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0a0b10" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#fafafc" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

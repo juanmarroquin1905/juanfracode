@@ -33,7 +33,7 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
       {isDemo && <DemoBanner />}
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 pt-8">
-        <Link href="/#saas" className="text-sm text-slate-500 hover:text-white">
+        <Link href="/#saas" className="text-sm text-slate-500 hover:text-ink">
           ← Todas las apps
         </Link>
 
@@ -43,13 +43,13 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
               <SaasLogo saas={saas} size="lg" />
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{saas.name}</h1>
+                  <h1 className="text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">{saas.name}</h1>
                   <StatusBadge status={saas.status} />
                 </div>
                 <p className="mt-1 text-sm text-slate-500">{saas.category}</p>
               </div>
             </div>
-            <p className="mt-5 text-lg leading-relaxed text-slate-300">{saas.tagline}</p>
+            <p className="mt-5 text-lg leading-relaxed text-slate-600">{saas.tagline}</p>
 
             <div className="mt-6 rounded-2xl border border-line p-3 sm:p-6" style={{ background: `linear-gradient(160deg, ${saas.color}26, transparent 70%)` }}>
               <AppPreview saas={saas} />
@@ -57,17 +57,17 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
 
             {saas.description && (
               <section className="mt-8">
-                <h2 className="text-lg font-bold text-white">Qué hace</h2>
-                <p className="mt-2 leading-relaxed whitespace-pre-line text-slate-400">{saas.description}</p>
+                <h2 className="text-lg font-bold text-ink">Qué hace</h2>
+                <p className="mt-2 leading-relaxed whitespace-pre-line text-slate-500">{saas.description}</p>
               </section>
             )}
 
             {saas.features.length > 0 && (
               <section className="mt-8">
-                <h2 className="text-lg font-bold text-white">Qué incluye la plantilla</h2>
+                <h2 className="text-lg font-bold text-ink">Qué incluye la plantilla</h2>
                 <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                   {saas.features.map((f) => (
-                    <li key={f} className="flex gap-2.5 rounded-xl border border-line bg-card px-4 py-3 text-sm text-slate-300">
+                    <li key={f} className="card flex gap-2.5 rounded-xl px-4 py-3 text-sm text-slate-700">
                       <span className="text-accent">✓</span>
                       {f}
                     </li>
@@ -77,7 +77,7 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
             )}
 
             <section className="mt-10">
-              <h2 className="text-lg font-bold text-white">Cómo lanzarla</h2>
+              <h2 className="text-lg font-bold text-ink">Cómo lanzarla</h2>
               <div className="mt-3">
                 <HowTo compact />
               </div>
@@ -85,7 +85,7 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
           </div>
 
           <aside className="lg:sticky lg:top-20 lg:self-start">
-            <div className="rounded-2xl border border-line bg-card p-5">
+            <div className="card p-5">
               <div className="flex flex-col gap-2.5">
                 {saas.demo_url && (
                   <a href={saas.demo_url} target="_blank" rel="noreferrer" className="btn-ghost w-full">
@@ -113,7 +113,7 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
                   </p>
                 )}
                 {saas.video_url && (
-                  <a href={saas.video_url} target="_blank" rel="noreferrer" className="text-center text-sm text-slate-400 hover:text-white">
+                  <a href={saas.video_url} target="_blank" rel="noreferrer" className="text-center text-sm text-slate-500 hover:text-ink">
                     ▶ Mira cómo lo construí
                   </a>
                 )}
@@ -128,13 +128,13 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
               )}
 
               <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line text-center">
-                <div className="bg-ink px-3 py-3">
+                <div className="bg-canvas px-3 py-3">
                   <dt className="text-[11px] text-slate-500">Visitas</dt>
-                  <dd className="font-mono text-lg text-white">{saas.views.toLocaleString("es")}</dd>
+                  <dd className="text-xl font-semibold text-ink">{saas.views.toLocaleString("es")}</dd>
                 </div>
-                <div className="bg-ink px-3 py-3">
+                <div className="bg-canvas px-3 py-3">
                   <dt className="text-[11px] text-slate-500">Descargas</dt>
-                  <dd className="font-mono text-lg text-white">{saas.downloads.toLocaleString("es")}</dd>
+                  <dd className="text-xl font-semibold text-ink">{saas.downloads.toLocaleString("es")}</dd>
                 </div>
               </dl>
 

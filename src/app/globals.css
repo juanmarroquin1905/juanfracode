@@ -1,46 +1,55 @@
 @import "tailwindcss";
 
-/* Estilo de la vitrina: fondo oscuro tipo editor de código, acento verde. */
+/* Estilo de la vitrina: claro y limpio, acento violeta → azul eléctrico. */
 @theme {
-  --color-ink: #0a0b10;
-  --color-card: #12141c;
-  --color-line: #232634;
-  --color-accent: #34d399;
-  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --color-canvas: #fafafc; /* fondo de la página */
+  --color-ink: #0b0b17; /* texto principal */
+  --color-card: #ffffff;
+  --color-line: #e7e7ef;
+  --color-accent: #6d4aff;
+  --color-accent-2: #2f6bff;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-html {
-  color-scheme: dark;
-}
 body {
-  background: var(--color-ink);
-  color: #e5e7eb;
+  background: var(--color-canvas);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
 }
 
 .grid-bg {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse at top, black 30%, transparent 75%);
+    linear-gradient(to right, rgb(15 23 42 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at top, black 25%, transparent 70%);
+}
+
+.text-gradient {
+  @apply bg-linear-to-r from-accent to-accent-2 bg-clip-text text-transparent;
+}
+.brand-gradient {
+  @apply bg-linear-to-br from-accent to-accent-2;
+}
+.card {
+  @apply rounded-2xl border border-line bg-card shadow-[0_1px_2px_rgba(16,24,40,0.04),0_8px_24px_-12px_rgba(16,24,40,0.08)];
 }
 
 .input {
-  @apply w-full rounded-lg border border-line bg-ink px-3.5 py-2.5 text-base text-white outline-none transition placeholder:text-slate-500 focus:border-accent focus:ring-4 focus:ring-accent/15;
+  @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-base text-ink shadow-[0_1px_2px_rgba(16,24,40,0.04)] outline-none transition placeholder:text-slate-400 focus:border-accent focus:ring-4 focus:ring-accent/15;
 }
 .label {
-  @apply mb-1.5 block text-sm font-semibold text-slate-200;
+  @apply mb-1.5 block text-sm font-semibold text-slate-700;
 }
 .hint {
   @apply mt-1.5 text-xs leading-relaxed text-slate-500;
 }
 .btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-ink transition hover:brightness-110 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60;
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_rgba(109,74,255,0.7)] transition hover:brightness-110 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60;
 }
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-card px-4 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-slate-500 active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_1px_2px_rgba(16,24,40,0.05)] transition hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98];
 }
 .chip {
-  @apply inline-flex items-center rounded-md border border-line bg-white/[0.03] px-2 py-0.5 font-mono text-[11px] text-slate-400;
+  @apply inline-flex items-center rounded-md border border-line bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-600;
 }

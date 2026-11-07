@@ -1,9 +1,9 @@
 import { STATUS_LABEL, type SaasStatus } from "@/lib/types";
 
 const STYLE: Record<SaasStatus, string> = {
-  en_vivo: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
-  en_construccion: "border-amber-500/30 bg-amber-500/10 text-amber-300",
-  pausado: "border-slate-500/30 bg-slate-500/10 text-slate-400",
+  en_vivo: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  en_construccion: "border-amber-200 bg-amber-50 text-amber-700",
+  pausado: "border-slate-200 bg-slate-50 text-slate-500",
 };
 
 export function StatusBadge({ status }: { status: SaasStatus }) {

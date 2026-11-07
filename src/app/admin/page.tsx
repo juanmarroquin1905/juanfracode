@@ -9,21 +9,21 @@ export default async function AdminHome() {
     <>
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Tus SaaS</h1>
+          <h1 className="text-2xl font-bold text-ink">Tus SaaS</h1>
           <p className="text-sm text-slate-500">{items.length} en total</p>
         </div>
         <Link href="/admin/nuevo" className="btn">
           + Nuevo SaaS
         </Link>
       </div>
-      <ul className="mt-6 divide-y divide-line overflow-hidden rounded-2xl border border-line bg-card">
+      <ul className="mt-6 divide-y divide-line overflow-hidden card">
         {items.map((s) => (
           <li key={s.id}>
-            <Link href={`/admin/${s.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-white/[0.03]">
+            <Link href={`/admin/${s.id}`} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50">
               <SaasLogo saas={s} />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-semibold text-white">{s.name}</span>
+                  <span className="font-semibold text-ink">{s.name}</span>
                   <StatusBadge status={s.status} />
                   {!s.published && <span className="chip">Oculto</span>}
                 </div>

@@ -17,8 +17,8 @@ export default function OgImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: 80,
-          background: "radial-gradient(circle at 85% 10%, #134e3a 0%, #0a0b10 55%)",
-          color: "white",
+          background: "radial-gradient(circle at 90% 0%, #ddd6fe 0%, #fafafc 55%)",
+          color: "#0b0b17",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 36, fontWeight: 700 }}>
@@ -30,8 +30,8 @@ export default function OgImage() {
               width: 64,
               height: 64,
               borderRadius: 14,
-              background: "#34d399",
-              color: "#0a0b10",
+              background: "linear-gradient(135deg, #6d4aff, #2f6bff)",
+              color: "white",
               fontSize: 28,
             }}
           >
@@ -39,8 +39,8 @@ export default function OgImage() {
           </div>
           {BRAND.name}
         </div>
-        <div style={{ marginTop: 40, fontSize: 84, fontWeight: 800, lineHeight: 1.05, letterSpacing: -2 }}>{BRAND.title}</div>
-        <div style={{ marginTop: 28, fontSize: 32, color: "#94a3b8" }}>Pruébalas gratis y lanza tu propia versión en minutos.</div>
+        <div style={{ marginTop: 40, fontSize: 84, fontWeight: 700, lineHeight: 1.05, letterSpacing: -3 }}>{BRAND.title}</div>
+        <div style={{ marginTop: 28, fontSize: 32, color: "#475569" }}>Pruébalas gratis y lanza tu propia versión en minutos.</div>
       </div>
     ),
     size,

@@ -26,7 +26,7 @@ export function Catalog({ items }: { items: Saas[] }) {
               type="button"
               onClick={() => setCategory(c)}
               className={`shrink-0 rounded-full border px-3.5 py-1.5 text-sm font-medium transition ${
-                c === category ? "border-accent bg-accent/10 text-accent" : "border-line text-slate-400 hover:text-white"
+                c === category ? "border-ink bg-ink text-white" : "border-line bg-white text-slate-600 hover:border-slate-300 hover:text-ink"
               }`}
             >
               {c}
@@ -44,7 +44,7 @@ export function Catalog({ items }: { items: Saas[] }) {
       </div>
 
       {shown.length === 0 ? (
-        <p className="mt-10 rounded-2xl border border-dashed border-line p-10 text-center text-slate-500">
+        <p className="mt-10 rounded-2xl border border-dashed border-slate-300 p-10 text-center text-slate-500">
           No hay SaaS que coincidan con tu búsqueda.
         </p>
       ) : (

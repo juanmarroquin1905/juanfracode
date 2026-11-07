@@ -23,14 +23,14 @@ const QUESTIONS = [
 
 export function Faq() {
   return (
-    <div className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-card">
+    <div className="card divide-y divide-line overflow-hidden">
       {QUESTIONS.map((item) => (
-        <details key={item.q} className="group px-5 py-4 open:bg-white/[0.02]">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-white">
+        <details key={item.q} className="group px-5 py-4 open:bg-slate-50">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink">
             {item.q}
             <span className="font-mono text-accent transition group-open:rotate-45">+</span>
           </summary>
-          <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.a}</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-500">{item.a}</p>
         </details>
       ))}
     </div>
