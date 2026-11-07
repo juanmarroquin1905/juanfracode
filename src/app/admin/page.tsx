@@ -9,11 +9,11 @@ export default async function AdminHome() {
     <>
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-ink">Tus SaaS</h1>
+          <h1 className="text-2xl font-bold text-ink">Tus apps</h1>
           <p className="text-sm text-slate-500">{items.length} en total</p>
         </div>
         <Link href="/admin/nuevo" className="btn">
-          + Nuevo SaaS
+          + Nueva app
         </Link>
       </div>
       <ul className="mt-6 divide-y divide-line overflow-hidden card">
@@ -36,7 +36,7 @@ export default async function AdminHome() {
             </Link>
           </li>
         ))}
-        {items.length === 0 && <li className="p-8 text-center text-slate-500">Aún no has subido ningún SaaS.</li>}
+        {items.length === 0 && <li className="p-8 text-center text-slate-500">Aún no has subido ninguna app. Pulsa “+ Nueva app” para agregar la primera.</li>}
       </ul>
     </>
   );

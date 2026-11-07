@@ -39,13 +39,13 @@ export function Catalog({ items }: { items: Saas[] }) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar por nombre o tecnología…"
           className="input sm:max-w-xs"
-          aria-label="Buscar SaaS"
+          aria-label="Buscar apps"
         />
       </div>
 
       {shown.length === 0 ? (
         <p className="mt-10 rounded-2xl border border-dashed border-slate-300 p-10 text-center text-slate-500">
-          No hay SaaS que coincidan con tu búsqueda.
+          {items.length === 0 ? "Muy pronto las primeras apps. ¡Sígueme para enterarte cuando salgan!" : "No hay apps que coincidan con tu búsqueda."}
         </p>
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
