@@ -29,7 +29,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
       <header className="border-b border-line/60">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           <Link href="/admin" className="font-bold text-ink">
-            Panel · SaaS
+            Panel
           </Link>
           <div className="flex items-center gap-2 text-sm">
             <Link href="/admin" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
