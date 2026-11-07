@@ -32,6 +32,12 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
             Panel · SaaS
           </Link>
           <div className="flex items-center gap-2 text-sm">
+            <Link href="/admin" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
+              Apps
+            </Link>
+            <Link href="/admin/contactos" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
+              Contactos
+            </Link>
             <Link href="/" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
               Ver web ↗
             </Link>

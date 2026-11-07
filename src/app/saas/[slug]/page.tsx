@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { after } from "next/server";
 import { AppPreview } from "@/components/app-preview";
+import { DownloadButtons } from "@/components/download-buttons";
 import { HowTo } from "@/components/how-to";
 import { SaasLogo } from "@/components/saas-logo";
 import { SiteFooter } from "@/components/site-footer";
@@ -10,6 +12,7 @@ import { SiteHeader } from "@/components/site-header";
 import { BRAND } from "@/config/brand";
 import { getSaasBySlug, track } from "@/lib/data";
 import { vercelDeployUrl } from "@/lib/deploy";
+import { LEAD_COOKIE } from "@/lib/lead";
 
 export async function generateMetadata({ params }: PageProps<"/saas/[slug]">): Promise<Metadata> {
   const saas = await getSaasBySlug((await params).slug);
@@ -17,8 +20,9 @@ export async function generateMetadata({ params }: PageProps<"/saas/[slug]">): P
   return { title: saas.name, description: saas.tagline, openGraph: saas.cover_url ? { images: [saas.cover_url] } : undefined };
 }
 
-export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
+export default async function SaasPage({ params, searchParams }: PageProps<"/saas/[slug]">) {
   const { slug } = await params;
+  const sp = await searchParams;
   const saas = await getSaasBySlug(slug);
   if (!saas) notFound();
 
@@ -26,6 +30,12 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
 
   const deployUrl = vercelDeployUrl(saas);
   const hasTemplate = Boolean(saas.repo_url || saas.zip_url);
+  const hasLead = (await cookies()).has(LEAD_COOKIE);
+  const actions = [deployUrl && "vercel", saas.repo_url && "repo", saas.zip_url && "zip"].filter(Boolean) as (
+    | "vercel"
+    | "repo"
+    | "zip"
+  )[];
   const stats = [
     { label: "Visitas", value: saas.views },
     { label: "Descargas", value: saas.downloads },
@@ -112,21 +122,13 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
                     ▶ Probar la app ↗
                   </a>
                 )}
-                {deployUrl && (
-                  <a href={`/descargar/${saas.slug}?a=vercel`} target="_blank" rel="noreferrer" className="btn w-full">
-                    ▲ Deploy en Vercel
-                  </a>
-                )}
-                {saas.repo_url && (
-                  <a href={`/descargar/${saas.slug}?a=repo`} target="_blank" rel="noreferrer" className="btn-ghost w-full">
-                    Plantilla en GitHub
-                  </a>
-                )}
-                {saas.zip_url && (
-                  <a href={`/descargar/${saas.slug}?a=zip`} className="btn-ghost w-full">
-                    ↓ Descargar .zip
-                  </a>
-                )}
+                <DownloadButtons
+                  slug={saas.slug}
+                  name={saas.name}
+                  hasLead={hasLead}
+                  actions={actions}
+                  autoOpen={actions.find((a) => a === sp.descargar) ?? null}
+                />
                 {!hasTemplate && (
                   <p className="rounded-lg border border-dashed border-line px-3 py-3 text-center text-sm text-slate-500">
                     La plantilla de este SaaS estará disponible pronto.

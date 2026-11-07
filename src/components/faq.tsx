@@ -1,7 +1,7 @@
 const QUESTIONS = [
   {
     q: "¿Es gratis?",
-    a: "Sí. Las plantillas son gratis y no necesitas crear cuenta aquí. Vercel, Supabase y GitHub también tienen planes gratis que alcanzan para uso personal.",
+    a: "Sí. Las plantillas son gratis: solo te pido tu nombre, correo y WhatsApp la primera vez que descargas. Vercel, Supabase y GitHub también tienen planes gratis que alcanzan para uso personal.",
   },
   {
     q: "¿Necesito saber programar?",

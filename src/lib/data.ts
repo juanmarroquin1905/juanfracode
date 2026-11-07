@@ -64,3 +64,23 @@ export async function getSaasById(id: string): Promise<Saas | null> {
   const { data } = await supabase.from("saas").select("*").eq("id", id).maybeSingle();
   return (data as Saas | null) ?? null;
 }
+
+export type Lead = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  social: string;
+  consent: boolean;
+  apps: string[];
+  created_at: string;
+  last_download_at: string;
+};
+
+export async function getLeads(): Promise<Lead[]> {
+  if (isDemo) return [];
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("leads").select("*").order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  return (data ?? []) as Lead[];
+}

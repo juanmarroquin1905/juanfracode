@@ -75,3 +75,51 @@ create policy "Admin borra portadas" on storage.objects
 -- 5) HAZTE ADMIN: primero crea tu usuario en Supabase > Authentication > Users > Add user
 --    y luego cambia el correo de abajo y ejecuta SOLO esta línea:
 -- insert into public.admins (user_id) select id from auth.users where email = 'tu-correo@ejemplo.com';
+
+-- ============================================================
+-- 6) Contactos: quienes dejan sus datos para descargar una plantilla
+--    (si ya ejecutaste lo anterior, puedes ejecutar solo desde aquí)
+-- ============================================================
+create table if not exists public.leads (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null unique,
+  phone text not null default '',
+  social text not null default '',
+  consent boolean not null default false,
+  apps text[] not null default '{}', -- slugs de las apps que descargó
+  created_at timestamptz not null default now(),
+  last_download_at timestamptz not null default now()
+);
+alter table public.leads enable row level security;
+
+drop policy if exists "Solo el admin ve los contactos" on public.leads;
+create policy "Solo el admin ve los contactos" on public.leads
+  for select using (public.is_admin());
+drop policy if exists "Solo el admin borra contactos" on public.leads;
+create policy "Solo el admin borra contactos" on public.leads
+  for delete using (public.is_admin());
+
+-- Los visitantes solo pueden registrarse a través de esta función (no pueden leer la tabla).
+create or replace function public.register_lead(
+  p_name text, p_email text, p_phone text, p_social text, p_consent boolean, p_slug text
+) returns void language plpgsql security definer set search_path = public as $$
+begin
+  if coalesce(trim(p_name), '') = '' or p_email !~* '^[^@\s]+@[^@\s]+\.[^@\s]+$' then
+    raise exception 'Datos inválidos';
+  end if;
+  insert into public.leads (name, email, phone, social, consent, apps)
+  values (left(trim(p_name), 120), lower(trim(p_email)), left(trim(coalesce(p_phone, '')), 40),
+          left(trim(coalesce(p_social, '')), 120), coalesce(p_consent, false),
+          case when p_slug is null or p_slug = '' then '{}' else array[p_slug] end)
+  on conflict (email) do update set
+    name = excluded.name,
+    phone = case when excluded.phone <> '' then excluded.phone else leads.phone end,
+    social = case when excluded.social <> '' then excluded.social else leads.social end,
+    consent = leads.consent or excluded.consent,
+    apps = case when p_slug = any(leads.apps) or coalesce(p_slug, '') = '' then leads.apps
+                else array_append(leads.apps, p_slug) end,
+    last_download_at = now();
+end;
+$$;
+grant execute on function public.register_lead(text, text, text, text, boolean, text) to anon, authenticated;

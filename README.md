@@ -1,6 +1,7 @@
 # Juanfra Code · Vitrina de SaaS
 
-Web donde muestro los SaaS que voy creando. Cada SaaS tiene su ficha con demo en
+Web donde muestro los SaaS que voy creando. Antes de descargar, el visitante deja nombre, correo y WhatsApp (una sola vez).
+Cada SaaS tiene su ficha con demo en
 vivo, botón **Deploy en Vercel** (con Supabase conectado) y descarga de la
 plantilla desde GitHub o en `.zip`. Gratis y sin cuenta para quien visita.
 
@@ -14,6 +15,7 @@ plantilla desde GitHub o en `.zip`. Gratis y sin cuenta para quien visita.
 | Ficha | `/saas/nombre` | Descripción, qué incluye, stack, demo, Deploy en Vercel, GitHub, .zip, video, visitas y descargas |
 | Descarga | `/descargar/nombre?a=repo\|zip\|vercel` | Cuenta la descarga y lleva al repo, al .zip o a Vercel |
 | Panel | `/admin` | Solo tú: crear, editar, ocultar y borrar SaaS, subir portada |
+| Contactos | `/admin/contactos` | Quienes dejaron nombre, correo y WhatsApp para descargar; se exporta a CSV/Excel |
 
 ## Modo demo (sin Supabase)
 
