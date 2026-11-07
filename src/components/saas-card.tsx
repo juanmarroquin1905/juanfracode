@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Saas } from "@/lib/types";
 import { AppPreview } from "./app-preview";
 import { SaasLogo } from "./saas-logo";
-import { StatusBadge } from "./status-badge";
 
 export function SaasCard({ saas }: { saas: Saas }) {
   const hasTemplate = Boolean(saas.repo_url || saas.zip_url);
@@ -20,7 +19,6 @@ export function SaasCard({ saas }: { saas: Saas }) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="truncate text-lg font-semibold tracking-tight text-ink">{saas.name}</h3>
-            <StatusBadge status={saas.status} />
           </div>
           <p className="text-xs text-slate-500">{saas.category}</p>
         </div>

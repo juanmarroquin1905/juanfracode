@@ -7,7 +7,6 @@ import { HowTo } from "@/components/how-to";
 import { SaasLogo } from "@/components/saas-logo";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { StatusBadge } from "@/components/status-badge";
 import { BRAND } from "@/config/brand";
 import { getSaasBySlug, track } from "@/lib/data";
 import { vercelDeployUrl } from "@/lib/deploy";
@@ -47,8 +46,7 @@ export default async function SaasPage({ params }: PageProps<"/saas/[slug]">) {
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">{saas.name}</h1>
-                  <StatusBadge status={saas.status} />
-                </div>
+                      </div>
                 <p className="mt-1 text-sm text-slate-500">{saas.category}</p>
               </div>
             </div>
