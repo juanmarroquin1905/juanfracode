@@ -26,11 +26,7 @@ export default async function Home() {
           <div aria-hidden className="absolute top-20 right-[25%] size-[360px] rounded-full bg-accent-2/10 blur-3xl" />
           <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pt-14 pb-12 sm:pt-20 lg:grid-cols-[1.1fr_1fr]">
             <div>
-              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-medium text-slate-600 shadow-sm">
-                <span className="brand-gradient size-1.5 rounded-full" />
-                Plantillas gratis · listas para Vercel + Supabase
-              </p>
-              <h1 className="mt-5 text-4xl font-semibold tracking-[-0.035em] text-balance text-ink sm:text-6xl">
+              <h1 className="text-4xl font-semibold tracking-[-0.035em] text-balance text-ink sm:text-6xl">
                 <HighlightTitle />
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-500">{BRAND.tagline}</p>
