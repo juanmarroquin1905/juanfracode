@@ -55,7 +55,7 @@ export function DownloadButtons({ slug, name, hasLead, actions, autoOpen = null 
           <div>
             <p className="text-sm font-semibold text-accent">Plantilla gratis</p>
             <h2 className="mt-1 text-xl font-semibold tracking-tight">Descarga {name}</h2>
-            <p className="mt-1 text-sm text-slate-500">Déjame tus datos y te llevo a la plantilla. Solo te los pido una vez.</p>
+            <p className="mt-1 text-sm text-mut">Déjame tus datos y te llevo a la plantilla. Solo te los pido una vez.</p>
           </div>
           <div>
             <label className="label" htmlFor="lead-name">Nombre</label>
@@ -76,7 +76,7 @@ export function DownloadButtons({ slug, name, hasLead, actions, autoOpen = null 
             <input id="lead-social" name="social" placeholder="@tuusuario" className="input" />
           </div>
           <label className="flex items-start gap-2.5 text-sm text-slate-600">
-            <input type="checkbox" name="consent" className="mt-0.5 size-4 accent-[#6d4aff]" />
+            <input type="checkbox" name="consent" className="mt-0.5 size-4 accent-[#1d4ed8]" />
             Acepto recibir novedades y nuevas apps de {BRAND.name} por correo o WhatsApp.
           </label>
           {state?.error && <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{state.error}</p>}

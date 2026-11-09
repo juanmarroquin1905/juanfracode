@@ -25,12 +25,12 @@ export function Faq() {
   return (
     <div className="card divide-y divide-line overflow-hidden">
       {QUESTIONS.map((item) => (
-        <details key={item.q} className="group px-5 py-4 open:bg-slate-50">
+        <details key={item.q} className="group px-5 py-4 open:bg-soft/60">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink">
             {item.q}
             <span className="font-mono text-accent transition group-open:rotate-45">+</span>
           </summary>
-          <p className="mt-2 text-sm leading-relaxed text-slate-500">{item.a}</p>
+          <p className="mt-2 text-sm leading-relaxed text-mut">{item.a}</p>
         </details>
       ))}
     </div>

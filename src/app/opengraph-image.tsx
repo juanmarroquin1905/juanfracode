@@ -30,7 +30,7 @@ export default function OgImage() {
               width: 64,
               height: 64,
               borderRadius: 14,
-              background: "linear-gradient(135deg, #6d4aff, #2f6bff)",
+              background: "linear-gradient(135deg, #1d4ed8, #06b6d4)",
               color: "white",
               fontSize: 28,
             }}

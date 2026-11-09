@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Inter, Sora } from "next/font/google";
 import { BRAND } from "@/config/brand";
 import "./globals.css";
 
-const sans = Geist({ subsets: ["latin"] });
+const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
@@ -12,12 +13,12 @@ export const metadata: Metadata = {
   description: BRAND.tagline,
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#fafafc" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f3f7ff" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es">
-      <body className={`${sans.className} ${mono.variable} min-h-screen`}>{children}</body>
+    <html lang="es" className={`${sora.variable} ${inter.variable} ${mono.variable}`}>
+      <body className="glows min-h-screen font-sans">{children}</body>
     </html>
   );
 }

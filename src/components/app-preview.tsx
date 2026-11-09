@@ -1,23 +1,23 @@
 import type { Saas } from "@/lib/types";
 
-type Props = { saas: Pick<Saas, "name" | "emoji" | "color" | "cover_url" | "slug">; className?: string };
+type Props = { saas: Pick<Saas, "name" | "emoji" | "color" | "cover_url" | "slug">; className?: string; bare?: boolean };
 
 // Ventana de navegador con la captura de la app. Si aún no hay captura,
 // dibuja una interfaz de ejemplo con el color y el emoji de la app.
-export function AppPreview({ saas, className = "" }: Props) {
+export function AppPreview({ saas, className = "", bare = false }: Props) {
   return (
     <div
-      className={`overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_24px_48px_-20px_rgba(16,24,40,0.25)] ${className}`}
+      className={`overflow-hidden bg-white ${bare ? "" : "rounded-xl border border-line shadow-[0_24px_48px_-20px_rgba(30,64,175,0.25)]"} ${className}`}
     >
-      <div className="flex items-center gap-1.5 border-b border-slate-100 bg-slate-50 px-3 py-2">
-        <span className="size-2 rounded-full bg-slate-300" />
-        <span className="size-2 rounded-full bg-slate-300" />
-        <span className="size-2 rounded-full bg-slate-300" />
-        <span className="ml-2 truncate rounded-md border border-slate-200 bg-white px-2 py-0.5 font-mono text-[10px] text-slate-500">
+      <div className={`flex items-center gap-1.5 border-b border-line ${bare ? "bg-white/70 px-4 py-2.5" : "bg-white px-3 py-2"}`}>
+        <span className="size-2 rounded-full bg-[#dbe3f3]" />
+        <span className="size-2 rounded-full bg-[#dbe3f3]" />
+        <span className="size-2 rounded-full bg-[#dbe3f3]" />
+        <span className="ml-2 truncate rounded-md bg-soft px-2 py-0.5 font-ui text-[10px] text-mut">
           {saas.slug}.vercel.app
         </span>
       </div>
-      <div className="relative aspect-[16/10]">
+      <div className={`relative aspect-[16/10] ${bare ? "lg:aspect-[16/9]" : ""}`}>
         {saas.cover_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={saas.cover_url} alt={`Captura de ${saas.name}`} className="absolute inset-0 size-full object-cover object-top" />

@@ -24,7 +24,7 @@ export function HowTo({ compact = false }: { compact?: boolean }) {
         <li key={s.title} className="card p-5">
           <span className="brand-gradient grid size-8 place-items-center rounded-full text-sm font-semibold text-white">{i + 1}</span>
           <h3 className="mt-4 font-semibold text-ink">{s.title}</h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{s.text}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-mut">{s.text}</p>
         </li>
       ))}
     </ol>

@@ -45,7 +45,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
     <>
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 pt-8">
-        <Link href="/#saas" className="text-sm text-slate-500 hover:text-ink">
+        <Link href="/#top" className="text-sm text-mut hover:text-ink">
           ← Todas las apps
         </Link>
 
@@ -57,7 +57,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">{saas.name}</h1>
                       </div>
-                <p className="mt-1 text-sm text-slate-500">{saas.category}</p>
+                <p className="mt-1 text-sm text-mut">{saas.category}</p>
               </div>
             </div>
             <p className="mt-5 text-lg leading-relaxed text-slate-600">{saas.tagline}</p>
@@ -66,7 +66,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
                 <a href={saas.demo_url} target="_blank" rel="noreferrer" className="btn px-6 py-3 text-base">
                   ▶ Probar la app
                 </a>
-                <span className="text-sm text-slate-500">Entra y úsala por dentro, con datos de ejemplo.</span>
+                <span className="text-sm text-mut">Entra y úsala por dentro, con datos de ejemplo.</span>
               </div>
             )}
 
@@ -88,7 +88,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
             {saas.description && (
               <section className="mt-8">
                 <h2 className="text-lg font-bold text-ink">Qué hace</h2>
-                <p className="mt-2 leading-relaxed whitespace-pre-line text-slate-500">{saas.description}</p>
+                <p className="mt-2 leading-relaxed whitespace-pre-line text-mut">{saas.description}</p>
               </section>
             )}
 
@@ -130,12 +130,12 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
                   autoOpen={actions.find((a) => a === sp.descargar) ?? null}
                 />
                 {!hasTemplate && (
-                  <p className="rounded-lg border border-dashed border-line px-3 py-3 text-center text-sm text-slate-500">
+                  <p className="rounded-lg border border-dashed border-line px-3 py-3 text-center text-sm text-mut">
                     La plantilla de este SaaS estará disponible pronto.
                   </p>
                 )}
                 {saas.video_url && (
-                  <a href={saas.video_url} target="_blank" rel="noreferrer" className="text-center text-sm text-slate-500 hover:text-ink">
+                  <a href={saas.video_url} target="_blank" rel="noreferrer" className="text-center text-sm text-mut hover:text-ink">
                     ▶ Mira cómo lo construí
                   </a>
                 )}
@@ -155,7 +155,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
                 >
                   {stats.map((st) => (
                     <div key={st.label} className="bg-canvas px-3 py-3">
-                      <dt className="text-[11px] text-slate-500">{st.label}</dt>
+                      <dt className="text-[11px] text-mut">{st.label}</dt>
                       <dd className="text-xl font-semibold text-ink">{st.value.toLocaleString("es")}</dd>
                     </div>
                   ))}
@@ -164,7 +164,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
 
               {saas.stack.length > 0 && (
                 <div className="mt-5">
-                  <p className="text-xs font-semibold tracking-wide text-slate-500 uppercase">Stack</p>
+                  <p className="text-xs font-semibold tracking-wide text-mut uppercase">Stack</p>
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {saas.stack.map((s) => (
                       <span key={s} className="chip">

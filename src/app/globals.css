@@ -1,14 +1,21 @@
 @import "tailwindcss";
 
-/* Estilo de la vitrina: claro y limpio, acento violeta → azul eléctrico. */
+/* Estilo de la vitrina: cristal azul suave. Fondo casi blanco con un toque azul,
+   acento azul → celeste, tarjetas translúcidas y animaciones cortas. */
 @theme {
-  --color-canvas: #fafafc; /* fondo de la página */
-  --color-ink: #0b0b17; /* texto principal */
+  --color-canvas: #f3f7ff; /* fondo de la página */
+  --color-ink: #0c1a3b; /* texto principal */
+  --color-mut: #4b5f8c; /* texto secundario */
   --color-card: #ffffff;
-  --color-line: #e7e7ef;
-  --color-accent: #6d4aff;
-  --color-accent-2: #2f6bff;
+  --color-soft: #eef4ff; /* rellenos suaves */
+  --color-line: #e3eaf8;
+  --color-accent: #1d4ed8;
+  --color-accent-2: #06b6d4;
+  --font-sans: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-ui: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 body {
@@ -17,12 +24,39 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.grid-bg {
-  background-image:
-    linear-gradient(to right, rgb(15 23 42 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(15 23 42 / 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse at top, black 25%, transparent 70%);
+/* Dos brillos muy suaves detrás de todo */
+.glows::before,
+.glows::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+}
+.glows::before {
+  width: 460px;
+  height: 460px;
+  left: -180px;
+  top: -200px;
+  background: #3b82f6;
+  opacity: 0.18;
+}
+.glows::after {
+  width: 420px;
+  height: 420px;
+  right: -160px;
+  top: 320px;
+  background: #22d3ee;
+  opacity: 0.16;
+}
+
+.glass {
+  background: rgb(255 255 255 / 0.72);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 10px 40px -14px rgb(30 64 175 / 0.14);
 }
 
 .text-gradient {
@@ -32,24 +66,106 @@ body {
   @apply bg-linear-to-br from-accent to-accent-2;
 }
 .card {
-  @apply rounded-2xl border border-line bg-card shadow-[0_1px_2px_rgba(16,24,40,0.04),0_8px_24px_-12px_rgba(16,24,40,0.08)];
+  @apply rounded-2xl border border-line bg-white/75 backdrop-blur-md shadow-[0_10px_40px_-14px_rgba(30,64,175,0.14)];
 }
 
 .input {
-  @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-base text-ink shadow-[0_1px_2px_rgba(16,24,40,0.04)] outline-none transition placeholder:text-slate-400 focus:border-accent focus:ring-4 focus:ring-accent/15;
+  @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-base text-ink outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-slate-400 focus:border-accent focus:ring-4 focus:ring-accent/15;
 }
 .label {
   @apply mb-1.5 block text-sm font-semibold text-slate-700;
 }
 .hint {
-  @apply mt-1.5 text-xs leading-relaxed text-slate-500;
+  @apply mt-1.5 text-xs leading-relaxed text-mut;
 }
+
+/* Botones: responden al presionar (scale .97) y el hover solo en escritorio */
 .btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_rgba(109,74,255,0.7)] transition hover:brightness-110 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60;
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-[0_6px_20px_-8px_rgba(29,78,216,0.6)] disabled:pointer-events-none disabled:opacity-60;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease;
 }
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_1px_2px_rgba(16,24,40,0.05)] transition hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/80 px-5 py-2.5 text-sm font-semibold text-ink backdrop-blur-md;
+  transition:
+    transform 160ms var(--ease-out),
+    border-color 200ms ease;
 }
+.btn:active,
+.btn-ghost:active,
+.press:active {
+  transform: scale(0.97);
+}
+.arr {
+  display: inline-block;
+  transition: transform 200ms var(--ease-out);
+}
+.lift {
+  transition:
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background-color: #1e40af;
+  }
+  .btn-ghost:hover {
+    border-color: #c7d7f7;
+  }
+  .btn:hover .arr,
+  .group:hover .arr {
+    transform: translateX(3px);
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -14px rgb(30 64 175 / 0.22);
+  }
+}
+
 .chip {
-  @apply inline-flex items-center rounded-md border border-line bg-slate-50 px-2 py-0.5 font-mono text-[11px] text-slate-600;
+  @apply inline-flex items-center rounded-full bg-soft px-2.5 py-0.5 font-ui text-[11px] text-mut;
+}
+
+/* Entrada del inicio: sube un poco y se enfoca, escalonada */
+.enter {
+  animation: enter 700ms var(--ease-out) both;
+}
+.enter-1 {
+  animation-delay: 70ms;
+}
+.enter-2 {
+  animation-delay: 150ms;
+}
+.enter-3 {
+  animation-delay: 230ms;
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(4px);
+  }
+}
+
+/* Cambio de app en el dock: el texto se desenfoca y vuelve */
+.swap {
+  transition:
+    opacity 180ms ease,
+    filter 180ms ease,
+    transform 180ms var(--ease-out);
+}
+.swap[data-out="true"] {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
 }

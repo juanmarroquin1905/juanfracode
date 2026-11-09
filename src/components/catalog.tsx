@@ -25,8 +25,8 @@ export function Catalog({ items }: { items: Saas[] }) {
               key={c}
               type="button"
               onClick={() => setCategory(c)}
-              className={`shrink-0 rounded-full border px-3.5 py-1.5 text-sm font-medium transition ${
-                c === category ? "border-ink bg-ink text-white" : "border-line bg-white text-slate-600 hover:border-slate-300 hover:text-ink"
+              className={`press shrink-0 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-[background-color,color,border-color,transform] duration-200 ${
+                c === category ? "border-ink bg-ink text-white" : "border-line bg-white/80 text-mut hover:text-ink"
               }`}
             >
               {c}
@@ -44,7 +44,7 @@ export function Catalog({ items }: { items: Saas[] }) {
       </div>
 
       {shown.length === 0 ? (
-        <p className="mt-10 rounded-2xl border border-dashed border-slate-300 p-10 text-center text-slate-500">
+        <p className="mt-10 rounded-2xl border border-dashed border-line p-10 text-center text-mut">
           {items.length === 0 ? "Muy pronto las primeras apps. ¡Sígueme para enterarte cuando salgan!" : "No hay apps que coincidan con tu búsqueda."}
         </p>
       ) : (
