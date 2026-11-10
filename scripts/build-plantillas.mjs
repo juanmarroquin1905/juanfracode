@@ -12,6 +12,7 @@ const APPS = [
   { slug: "finanzas", folder: "mis-finanzas" },
   { slug: "gimnasio", folder: "mi-gimnasio" },
   { slug: "viajes", folder: "mis-viajes" },
+  { slug: "crm", folder: "mi-crm" },
 ];
 const SKIP = new Set(["node_modules", ".next", ".env.local", ".vercel", "next-env.d.ts"]);
 
