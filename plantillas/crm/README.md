@@ -1,24 +1,19 @@
 # Mi CRM
 
-CRM personal para **freelancers**: guarda a tus **clientes**, lleva cada **trato** por etapas en un
-**tablero** (de "Nuevo" a "Ganado") y agenda los **seguimientos** para que nadie se te enfríe.
+CRM **simple** para freelancers: anota a cada cliente, en qué etapa va
+(**Nuevo → Hablando → Propuesta → Cliente**) y cuál es el **próximo paso**. Así no se te olvida nadie.
 Hecho con Next.js, Supabase y Tailwind, con un estilo **neobrutalista** (bordes negros y colores pastel).
 Plantilla gratis de **Juanfra Code** · Licencia MIT.
 
 ## Qué trae
 
-- **Resumen**: cuánto tienes en juego, el pronóstico según la etapa, lo ganado este mes,
-  tu tasa de cierre, lo que toca hacer hoy, tu embudo y lo ganado mes a mes.
-- **Tablero de tratos** con 6 etapas: Nuevo, Contactado, Propuesta, Negociación, Ganado y Perdido.
-  Arrastra las tarjetas para moverlas (en el celular, usa las flechas ← →). Cada columna suma su valor.
-- **Contactos** con buscador, etiquetas, origen (Instagram, referido…) y exportar a Excel (CSV).
-- **Ficha de cada cliente**: botones de WhatsApp, llamar y correo; sus tratos; próximos pasos;
-  y un **historial** con tus notas, lo que ya hiciste y los tratos cerrados.
-- **Seguimientos** agrupados en atrasados, hoy, mañana, esta semana y más adelante.
-  Márcalos como hechos o pásalos para mañana con un toque.
-- Moneda a elegir (USD, EUR, MXN, COP, PEN…). Funciona en el celular.
+- Todo en **una sola pantalla**.
+- Tres números: cuántas personas están en proceso, cuánto dinero hay en juego y cuánto ganaste.
+- **Para hoy**: los clientes a los que tienes que escribir hoy (o ya se te pasó). Con botón de WhatsApp y "✓ Hecho".
+- **Tablero** con 4 etapas. Arrastra una tarjeta para moverla (en el celular, usa las flechas ← →).
+- Cada cliente: nombre, negocio, WhatsApp, correo, qué te quiere comprar, cuánto vale, próximo paso y notas.
+- Los que dijeron que no quedan guardados en **Perdidos** por si quieres volver a escribirles.
 - Tu cuenta con correo y contraseña: cada persona ve solo sus clientes.
-- No usa ningún servicio con clave aparte de Supabase.
 
 ## Pruébala en tu computadora (2 minutos)
 
@@ -50,24 +45,19 @@ Abre http://localhost:3000. Sin Supabase funciona en **modo local** (guarda en t
   *Authentication → Sign In / Providers → Allow new users to sign up* (apagado).
   Igual, cada cuenta ve solo sus propios datos.
 - En el plan gratis, Supabase pausa el proyecto si pasa 1 semana sin uso. Se reactiva desde su panel.
-- La moneda elegida se recuerda en cada navegador.
-- ¿Quieres otras etapas? Cámbialas en `src/crm/utils.ts` (lista `STAGES`) y en el `check` de
-  `crm_deals.stage` en `supabase/schema.sql`.
+- ¿Quieres otras etapas o tu moneda? Cámbialas en `src/crm/utils.ts` (lista `STAGES` y función `money`).
+  Si cambias las etapas, cámbialas también en el `check` de `stage` en `supabase/schema.sql`.
 
 ## Dónde está cada cosa
 
 | Archivo | Qué es |
 | --- | --- |
-| `src/crm/crm-app.tsx` | La app: menú, pestañas y ventanas |
-| `src/crm/dashboard.tsx` | El resumen con números y gráficos |
-| `src/crm/board.tsx` | El tablero de tratos (arrastrar y soltar) |
-| `src/crm/contacts.tsx` | La lista de contactos y la ficha de cada uno |
-| `src/crm/followups.tsx` | Los seguimientos |
-| `src/crm/dialogs.tsx` | Las ventanas para crear o editar |
+| `src/crm/crm-app.tsx` | La pantalla: números, "Para hoy" y el tablero |
+| `src/crm/client-dialog.tsx` | La ventana para agregar o editar un cliente |
 | `src/crm/crm.css` | El estilo: colores, bordes y sombras |
-| `src/crm/utils.ts` | Etapas, tipos de seguimiento, monedas y fechas |
+| `src/crm/utils.ts` | Etapas, dinero y fechas |
 | `src/lib/supabase-store.ts` | Cómo se guarda en Supabase |
 | `src/crm/local-store.ts` | Cómo se guarda en el navegador (modo local) |
-| `supabase/schema.sql` | Las tablas y la seguridad de la base de datos |
+| `supabase/schema.sql` | La tabla y la seguridad de la base de datos |
 
 ¿Te sirvió? Busca **Juanfra Code** en TikTok, Instagram y YouTube.

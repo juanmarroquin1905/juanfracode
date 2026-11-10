@@ -3,7 +3,7 @@ import { CrmDemo } from "./demo";
 
 export const metadata: Metadata = {
   title: "Mi CRM (demo)",
-  description: "CRM personal para freelancers: tus clientes, tratos por etapa en un tablero y seguimientos para no olvidar a nadie.",
+  description: "CRM simple para freelancers: tus clientes por etapa y el próximo paso con cada uno.",
 };
 
 export const viewport: Viewport = { themeColor: "#efeaff" };

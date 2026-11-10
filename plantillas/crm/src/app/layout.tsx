@@ -8,7 +8,7 @@ const body = DM_Sans({ subsets: ["latin"], variable: "--font-crm-body" });
 
 export const metadata: Metadata = {
   title: "Mi CRM",
-  description: "Tus clientes, tus tratos por etapa y tus seguimientos en un solo lugar.",
+  description: "Tus clientes, en qué etapa va cada uno y el próximo paso.",
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#efeaff" };

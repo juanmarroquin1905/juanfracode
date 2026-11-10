@@ -1,16 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import "./crm.css";
-import { Board } from "./board";
-import { ContactsView } from "./contacts";
-import { Dashboard } from "./dashboard";
-import { ContactDialog, DealDialog, TaskDialog } from "./dialogs";
-import { FollowUps } from "./followups";
+import { ClientDialog } from "./client-dialog";
 import type { CrmStore } from "./store";
-import type { Contact, CrmData, Deal, ListName, Rows, Task } from "./types";
-import { CrmContext, type Crm } from "./ui";
-import { CURRENCIES, loadCurrency, saveCurrency, today } from "./utils";
+import type { Client, Stage } from "./types";
+import { Avatar } from "./ui";
+import { BOARD, isActive, money, relDay, stageOf, today, waLink } from "./utils";
 
 type Props = {
   store: CrmStore;
@@ -18,64 +14,30 @@ type Props = {
   topBar?: ReactNode;
 };
 
-type Tab = "resumen" | "tratos" | "contactos" | "seguimientos";
-const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "resumen", label: "Resumen", icon: "✦" },
-  { id: "tratos", label: "Tratos", icon: "▦" },
-  { id: "contactos", label: "Contactos", icon: "☺" },
-  { id: "seguimientos", label: "Seguimientos", icon: "✓" },
-];
-
-const EMPTY: CrmData = { contacts: [], deals: [], tasks: [], notes: [] };
-
-/** Aplica un cambio a los datos en pantalla (igual que lo hace la base de datos). */
-function applySave<L extends ListName>(d: CrmData, list: L, row: Rows[L]): CrmData {
-  const rows = d[list] as Rows[L][];
-  const i = rows.findIndex((x) => x.id === row.id);
-  return { ...d, [list]: i === -1 ? [...rows, row] : rows.map((x) => (x.id === row.id ? row : x)) };
-}
-function applyRemove(d: CrmData, list: ListName, id: string): CrmData {
-  if (list === "contacts")
-    return {
-      contacts: d.contacts.filter((x) => x.id !== id),
-      deals: d.deals.filter((x) => x.contact_id !== id),
-      tasks: d.tasks.filter((x) => x.contact_id !== id),
-      notes: d.notes.filter((x) => x.contact_id !== id),
-    };
-  if (list === "deals")
-    return {
-      ...d,
-      deals: d.deals.filter((x) => x.id !== id),
-      tasks: d.tasks.map((x) => (x.deal_id === id ? { ...x, deal_id: null } : x)),
-      notes: d.notes.map((x) => (x.deal_id === id ? { ...x, deal_id: null } : x)),
-    };
-  return { ...d, [list]: (d[list] as { id: string }[]).filter((x) => x.id !== id) };
-}
-
+// Todo el CRM en una sola pantalla: números, lo que toca hoy y tus clientes por etapa.
 export function CrmApp({ store, topBar }: Props) {
-  const [data, setData] = useState<CrmData>(EMPTY);
+  const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<Tab>("resumen");
-  const [contactId, setContactId] = useState<string | null>(null);
-  const [currency, setCurrency] = useState("USD");
+  const [editing, setEditing] = useState<Client | null | undefined>(undefined);
+  const [q, setQ] = useState("");
+  const [mobileStage, setMobileStage] = useState<Stage>("nuevo");
+  const [showLost, setShowLost] = useState(false);
+  const [dragId, setDragId] = useState<string | null>(null);
+  const [overStage, setOverStage] = useState<Stage | null>(null);
   const [toast, setToast] = useState<string | null>(null);
-  const [editContact, setEditContact] = useState<Contact | null | undefined>(undefined);
-  const [editDeal, setEditDeal] = useState<Partial<Deal> | null>(null);
-  const [editTask, setEditTask] = useState<Partial<Task> | null>(null);
-  const [menu, setMenu] = useState(false);
-  // Los cambios se guardan en fila, uno detrás de otro (ej: primero el contacto y luego su trato).
+  // Los cambios se guardan en fila, uno detrás de otro.
   const queue = useRef<Promise<void>>(Promise.resolve());
 
   const say = useCallback((msg: string) => {
     setToast(msg);
-    setTimeout(() => setToast((t) => (t === msg ? null : t)), 2600);
+    setTimeout(() => setToast((t) => (t === msg ? null : t)), 2400);
   }, []);
 
   const load = useCallback(async () => {
     try {
-      setData(await store.load());
+      setClients(await store.list());
     } catch (e) {
-      say(`No se pudieron cargar tus datos: ${(e as Error).message}`);
+      say(`No se pudieron cargar tus clientes: ${(e as Error).message}`);
     } finally {
       setLoading(false);
     }
@@ -83,181 +45,317 @@ export function CrmApp({ store, topBar }: Props) {
 
   useEffect(() => {
     // Se espera un instante para no actualizar la pantalla mientras se dibuja.
-    const t = setTimeout(() => {
-      setCurrency(loadCurrency());
-      load();
-    }, 0);
+    const t = setTimeout(load, 0);
     return () => clearTimeout(t);
   }, [load]);
 
-  const run = useCallback(
-    (task: () => Promise<void>, ok?: string) => {
-      queue.current = queue.current.then(async () => {
-        try {
-          await task();
-          if (ok) say(ok);
-        } catch (e) {
-          say(`No se pudo guardar: ${(e as Error).message}`);
-          load();
-        }
-      });
-    },
-    [say, load],
-  );
+  function run(task: () => Promise<void>, ok?: string) {
+    queue.current = queue.current.then(async () => {
+      try {
+        await task();
+        if (ok) say(ok);
+      } catch (e) {
+        say(`No se pudo guardar: ${(e as Error).message}`);
+        load();
+      }
+    });
+  }
 
-  const crm: Crm = useMemo(() => {
-    const byId = new Map(data.contacts.map((c) => [c.id, c]));
-    return {
-      data,
-      currency,
-      save: (list, row, ok) => {
-        setData((d) => applySave(d, list, row));
-        run(() => store.save(list, row), ok);
-      },
-      remove: (list, id, ok) => {
-        setData((d) => applyRemove(d, list, id));
-        if (list === "contacts") setContactId((c) => (c === id ? null : c));
-        run(() => store.remove(list, id), ok);
-      },
-      openContact: (id) => {
-        setContactId(id);
-        setTab("contactos");
-        window.scrollTo({ top: 0 });
-      },
-      editContact: (c) => setEditContact(c),
-      editDeal: (d) => setEditDeal(d),
-      editTask: (t) => setEditTask(t),
-      toggleTask: (t) => {
-        const row = { ...t, done: !t.done };
-        setData((d) => applySave(d, "tasks", row));
-        run(() => store.save("tasks", row), row.done ? "¡Hecho! ✓" : undefined);
-      },
-      contactById: (id) => byId.get(id),
-    };
-  }, [data, currency, run, store]);
+  function save(c: Client, ok?: string) {
+    setClients((list) => (list.some((x) => x.id === c.id) ? list.map((x) => (x.id === c.id ? c : x)) : [...list, c]));
+    run(() => store.save(c), ok);
+  }
+  function remove(id: string) {
+    setClients((list) => list.filter((x) => x.id !== id));
+    setEditing(undefined);
+    run(() => store.remove(id), "Cliente borrado");
+  }
+  function move(c: Client, stage: Stage) {
+    if (c.stage === stage) return;
+    save({ ...c, stage }, stage === "cliente" ? "¡Nuevo cliente! 🎉" : `Movido a ${stageOf(stage).label}`);
+  }
+  const done = (c: Client) => save({ ...c, next_step: "", next_date: null }, "¡Hecho! ✓");
 
-  const late = data.tasks.filter((t) => !t.done && t.due_date <= today()).length;
-  const go = (t: Tab) => {
-    setTab(t);
-    setContactId(null);
-  };
+  const t = today();
+  const active = clients.filter(isActive);
+  const won = clients.filter((c) => c.stage === "cliente");
+  const lost = clients.filter((c) => c.stage === "perdido");
+  const todo = clients
+    .filter((c) => c.next_step && c.next_date && c.next_date <= t && c.stage !== "perdido")
+    .sort((a, b) => ((a.next_date ?? "") < (b.next_date ?? "") ? -1 : 1));
+  const text = q.trim().toLowerCase();
+  const match = (c: Client) => !text || `${c.name} ${c.company} ${c.service}`.toLowerCase().includes(text);
+  const column = (s: Stage) =>
+    clients
+      .filter((c) => c.stage === s && match(c))
+      // primero los que tienen un próximo paso más cercano
+      .sort((a, b) => (a.next_date ?? "9999").localeCompare(b.next_date ?? "9999"));
 
   return (
-    <CrmContext.Provider value={crm}>
-      <div className="crm">
-        {topBar}
-        <header className="sticky top-0 z-30 border-b-2 border-(--c-ink) bg-(--c-bg)/92 backdrop-blur">
-          <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5 sm:px-6">
-            <button type="button" onClick={() => go("resumen")} className="crm-press flex items-center gap-2">
-              <span className="grid size-9 -rotate-6 place-items-center rounded-lg border-2 border-(--c-ink) bg-(--c-pink) text-lg shadow-[2px_2px_0_var(--c-ink)]">🤝</span>
-              <span className="crm-display text-xl font-bold">Mi CRM</span>
+    <div className="crm">
+      {topBar}
+      <header className="sticky top-0 z-30 border-b-2 border-(--c-ink) bg-(--c-bg)/92 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5 sm:px-6">
+          <span className="grid size-9 -rotate-6 place-items-center rounded-lg border-2 border-(--c-ink) bg-(--c-pink) text-lg shadow-[2px_2px_0_var(--c-ink)]">🤝</span>
+          <span className="crm-display text-xl font-bold">Mi CRM</span>
+          <button type="button" onClick={() => setEditing(null)} className="crm-btn ml-auto">
+            <span className="text-lg leading-none">+</span> Nuevo cliente
+          </button>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-6xl px-4 pt-6 pb-16 sm:px-6 sm:pt-8">
+        {loading ? (
+          <p className="py-20 text-center font-semibold text-(--c-mut)">Cargando…</p>
+        ) : !clients.length ? (
+          <div className="crm-fade mx-auto max-w-md pt-10 text-center">
+            <div className="text-4xl">🤝</div>
+            <h1 className="crm-display mt-3 text-2xl font-bold">Agrega tu primer cliente</h1>
+            <p className="mt-2 text-(--c-mut)">Anota a quien te pide precio, en qué va y cuál es el próximo paso. Así no se te olvida nadie.</p>
+            <button type="button" onClick={() => setEditing(null)} className="crm-btn mt-5">
+              + Nuevo cliente
             </button>
-            <nav className="crm-scroll-x ml-2 hidden gap-1 overflow-x-auto md:flex" role="tablist">
-              {TABS.map((t) => (
-                <button key={t.id} type="button" role="tab" aria-selected={tab === t.id} onClick={() => go(t.id)} className="crm-tab">
-                  {t.label}
-                  {t.id === "seguimientos" && late > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-(--c-red) px-1 text-[11px] text-white">{late}</span>}
+          </div>
+        ) : (
+          <div className="crm-fade space-y-7">
+            {/* Tres números */}
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
+              <Stat color="#a8dcff" label="En proceso" value={String(active.length)} hint={active.length === 1 ? "persona" : "personas"} />
+              <Stat color="var(--c-yellow)" label="En juego" value={money(active.reduce((s, c) => s + c.value, 0))} hint="si todos dicen que sí" />
+              <Stat color="var(--c-mint)" label="Ganado" value={money(won.reduce((s, c) => s + c.value, 0))} hint={`${won.length} cliente${won.length === 1 ? "" : "s"}`} />
+            </div>
+
+            {/* Para hoy */}
+            {todo.length > 0 && (
+              <section>
+                <h2 className="crm-display mb-3 text-xl font-bold">
+                  Para hoy <span className="text-base text-(--c-mut)">({todo.length})</span>
+                </h2>
+                <div className="crm-card divide-y-2 divide-(--c-ink)/10 overflow-hidden">
+                  {todo.map((c) => {
+                    const late = (c.next_date ?? "") < t;
+                    return (
+                      <div key={c.id} className="crm-row flex items-center gap-3 px-3 py-2.5 sm:px-4">
+                        <button type="button" onClick={() => setEditing(c)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+                          <Avatar client={c} size={36} />
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate font-bold">{c.next_step}</span>
+                            <span className="block truncate text-xs text-(--c-mut)">
+                              {c.name}
+                              {c.company ? ` · ${c.company}` : ""} · <span className={late ? "font-bold text-(--c-red)" : ""}>{relDay(c.next_date!)}</span>
+                            </span>
+                          </span>
+                        </button>
+                        {c.phone && (
+                          <a href={waLink(c.phone)} target="_blank" rel="noreferrer" aria-label={`WhatsApp de ${c.name}`} className="crm-press grid size-9 shrink-0 place-items-center rounded-lg border-2 border-(--c-ink) bg-(--c-mint)">
+                            💬
+                          </a>
+                        )}
+                        <button type="button" onClick={() => done(c)} aria-label="Hecho" className="crm-btn crm-btn-sm crm-btn-white shrink-0">
+                          ✓<span className="hidden sm:inline"> Hecho</span>
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            {/* Clientes por etapa */}
+            <section>
+              <div className="mb-3 flex flex-wrap items-center gap-3">
+                <h2 className="crm-display text-xl font-bold">Mis clientes</h2>
+                <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar…" aria-label="Buscar cliente" className="crm-input ml-auto h-9! w-full sm:w-56" />
+              </div>
+
+              {/* En el celular se ve una etapa a la vez */}
+              <div className="crm-scroll-x -mx-4 mb-3 flex gap-1.5 overflow-x-auto px-4 md:hidden">
+                {BOARD.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    aria-pressed={mobileStage === s.id}
+                    onClick={() => setMobileStage(s.id)}
+                    className="crm-chip"
+                    style={mobileStage === s.id ? { background: s.color, color: "var(--c-ink)", boxShadow: "2px 2px 0 var(--c-ink)" } : undefined}
+                  >
+                    {s.label} <span className="opacity-60">{column(s.id).length}</span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-4">
+                {BOARD.map((s, i) => {
+                  const list = column(s.id);
+                  return (
+                    <div
+                      key={s.id}
+                      className={`crm-col ${mobileStage === s.id ? "" : "hidden md:flex"}`}
+                      data-over={overStage === s.id ? "true" : undefined}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = "move";
+                        if (overStage !== s.id) setOverStage(s.id);
+                      }}
+                      onDragLeave={(e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget as Node)) setOverStage(null);
+                      }}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        const id = dragId ?? e.dataTransfer.getData("text/plain");
+                        const c = clients.find((x) => x.id === id);
+                        if (c) move(c, s.id);
+                        setDragId(null);
+                        setOverStage(null);
+                      }}
+                    >
+                      <div className="flex items-center gap-2 border-b-2 border-dashed border-(--c-ink)/20 px-3 py-2.5">
+                        <span className="size-3 rounded-full border-2 border-(--c-ink)" style={{ background: s.color }} />
+                        <h3 className="crm-display font-bold">{s.label}</h3>
+                        <span className="text-sm font-semibold text-(--c-mut)">{list.length}</span>
+                        <span className="crm-num ml-auto text-sm font-bold">{money(list.reduce((a, c) => a + c.value, 0))}</span>
+                      </div>
+                      <div className="flex flex-1 flex-col gap-2.5 p-2.5">
+                        {list.map((c) => (
+                          <ClientCard
+                            key={c.id}
+                            client={c}
+                            dragging={dragId === c.id}
+                            onOpen={() => setEditing(c)}
+                            onDragStart={() => setDragId(c.id)}
+                            onDragEnd={() => {
+                              setDragId(null);
+                              setOverStage(null);
+                            }}
+                            onPrev={i > 0 ? () => move(c, BOARD[i - 1].id) : undefined}
+                            onNext={i < BOARD.length - 1 ? () => move(c, BOARD[i + 1].id) : undefined}
+                          />
+                        ))}
+                        {!list.length && <p className="px-2 py-6 text-center text-xs text-(--c-mut)">{s.hint}</p>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="mt-3 hidden text-xs text-(--c-mut) md:block">Arrastra una tarjeta para cambiarla de etapa, o tócala para ver y editar todo.</p>
+            </section>
+
+            {lost.length > 0 && (
+              <section>
+                <button type="button" onClick={() => setShowLost((v) => !v)} aria-pressed={showLost} className="crm-chip">
+                  {showLost ? "Ocultar" : "Ver"} perdidos ({lost.length})
                 </button>
-              ))}
-            </nav>
-            <div className="relative ml-auto">
-              <button type="button" onClick={() => setMenu((m) => !m)} aria-expanded={menu} className="crm-btn">
-                <span className="text-lg leading-none">+</span> Nuevo
-              </button>
-              {menu && (
-                <>
-                  <button type="button" aria-label="Cerrar menú" className="fixed inset-0 z-40 cursor-default" onClick={() => setMenu(false)} />
-                  <div className="crm-card crm-fade absolute right-0 z-50 mt-2 w-52 overflow-hidden p-1.5">
-                    {[
-                      { label: "Contacto", icon: "☺", fn: () => setEditContact(null) },
-                      { label: "Trato", icon: "▦", fn: () => setEditDeal({}) },
-                      { label: "Seguimiento", icon: "✓", fn: () => setEditTask(contactId ? { contact_id: contactId } : {}) },
-                    ].map((o) => (
-                      <button
-                        key={o.label}
-                        type="button"
-                        onClick={() => {
-                          setMenu(false);
-                          o.fn();
-                        }}
-                        className="crm-row flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left font-semibold"
-                      >
-                        <span className="grid size-7 place-items-center rounded-md border-2 border-(--c-ink) bg-(--c-yellow) text-sm">{o.icon}</span>
-                        {o.label}
-                      </button>
+                {showLost && (
+                  <div className="crm-fade mt-3 grid gap-2.5 sm:grid-cols-2 md:grid-cols-4">
+                    {lost.map((c) => (
+                      <ClientCard key={c.id} client={c} onOpen={() => setEditing(c)} onNext={() => move(c, "hablando")} nextLabel="Reabrir" />
                     ))}
                   </div>
-                </>
-              )}
-            </div>
-          </div>
-        </header>
-
-        <main className="mx-auto max-w-6xl px-4 pt-5 pb-28 sm:px-6 sm:pt-7 md:pb-16">
-          {loading ? (
-            <p className="py-20 text-center font-semibold text-(--c-mut)">Cargando…</p>
-          ) : tab === "resumen" ? (
-            <Dashboard onGo={go} />
-          ) : tab === "tratos" ? (
-            <Board />
-          ) : tab === "contactos" ? (
-            <ContactsView openId={contactId} onBack={() => setContactId(null)} />
-          ) : (
-            <FollowUps />
-          )}
-
-          {!loading && tab === "resumen" && (
-            <div className="mt-10 flex items-center justify-center gap-2 text-sm text-(--c-mut)">
-              <label htmlFor="crm-cur">Moneda:</label>
-              <select
-                id="crm-cur"
-                value={currency}
-                onChange={(e) => {
-                  setCurrency(e.target.value);
-                  saveCurrency(e.target.value);
-                }}
-                className="crm-input h-8! w-auto! px-2! text-sm!"
-              >
-                {CURRENCIES.map((c) => (
-                  <option key={c}>{c}</option>
-                ))}
-              </select>
-            </div>
-          )}
-        </main>
-
-        {/* Pestañas abajo en el celular */}
-        <nav className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-(--c-ink) bg-white pb-[env(safe-area-inset-bottom)] md:hidden" role="tablist">
-          <div className="grid grid-cols-4">
-            {TABS.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                role="tab"
-                aria-selected={tab === t.id}
-                onClick={() => go(t.id)}
-                className={`relative flex flex-col items-center gap-0.5 py-2 text-[11px] font-bold ${tab === t.id ? "text-(--c-ink)" : "text-(--c-mut)"}`}
-              >
-                <span className={`grid h-7 w-11 place-items-center rounded-full text-base ${tab === t.id ? "border-2 border-(--c-ink) bg-(--c-yellow)" : ""}`}>{t.icon}</span>
-                {t.label}
-                {t.id === "seguimientos" && late > 0 && (
-                  <span className="absolute top-1 right-[calc(50%-24px)] grid h-4 min-w-4 place-items-center rounded-full bg-(--c-red) px-1 text-[10px] text-white">{late}</span>
                 )}
-              </button>
-            ))}
-          </div>
-        </nav>
-
-        {editContact !== undefined && <ContactDialog contact={editContact} onClose={() => setEditContact(undefined)} />}
-        {editDeal && <DealDialog deal={editDeal} onClose={() => setEditDeal(null)} />}
-        {editTask && <TaskDialog task={editTask} onClose={() => setEditTask(null)} />}
-
-        {toast && (
-          <div role="status" className="crm-pop fixed bottom-24 left-1/2 z-[60] -translate-x-1/2 rounded-xl border-2 border-(--c-ink) bg-(--c-yellow) px-4 py-2 text-sm font-bold shadow-[3px_3px_0_var(--c-ink)] md:bottom-6">
-            {toast}
+              </section>
+            )}
           </div>
         )}
-      </div>
-    </CrmContext.Provider>
+      </main>
+
+      {editing !== undefined && (
+        <ClientDialog
+          client={editing}
+          onClose={() => setEditing(undefined)}
+          onDelete={remove}
+          onSave={(c) => {
+            const isNew = !clients.some((x) => x.id === c.id);
+            save(c, isNew ? "Cliente agregado" : "Guardado");
+            setEditing(undefined);
+            if (c.stage !== "perdido") setMobileStage(c.stage);
+          }}
+        />
+      )}
+
+      {toast && (
+        <div role="status" className="crm-pop fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-xl border-2 border-(--c-ink) bg-(--c-yellow) px-4 py-2 text-sm font-bold whitespace-nowrap shadow-[3px_3px_0_var(--c-ink)]">
+          {toast}
+        </div>
+      )}
+    </div>
   );
 }
+
+function Stat({ label, value, hint, color }: { label: string; value: string; hint: string; color: string }) {
+  return (
+    <div className="crm-card relative overflow-hidden p-3 sm:p-4">
+      <span className="absolute inset-x-0 top-0 h-2 border-b-2 border-(--c-ink)" style={{ background: color }} />
+      <p className="mt-1 text-[11px] font-bold tracking-wider text-(--c-mut) uppercase sm:text-xs">{label}</p>
+      <p className="crm-num mt-1 truncate text-xl font-bold sm:text-3xl">{value}</p>
+      <p className="mt-0.5 truncate text-[11px] text-(--c-mut) sm:text-xs">{hint}</p>
+    </div>
+  );
+}
+
+function ClientCard({
+  client: c,
+  dragging,
+  onOpen,
+  onDragStart,
+  onDragEnd,
+  onPrev,
+  onNext,
+  nextLabel,
+}: {
+  client: Client;
+  dragging?: boolean;
+  onOpen: () => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+  onPrev?: () => void;
+  onNext?: () => void;
+  nextLabel?: string;
+}) {
+  const t = today();
+  const late = c.next_date && c.next_date < t && c.stage !== "perdido";
+  return (
+    <article
+      draggable={!!onDragStart}
+      data-dragging={dragging ? "true" : undefined}
+      onDragStart={(e) => {
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", c.id);
+        onDragStart?.();
+      }}
+      onDragEnd={onDragEnd}
+      className="crm-deal"
+    >
+      <button type="button" onClick={onOpen} className="block w-full p-3 text-left">
+        <div className="flex items-center gap-2.5">
+          <Avatar client={c} size={30} />
+          <div className="min-w-0 flex-1">
+            <p className="truncate leading-tight font-bold">{c.name}</p>
+            {c.company && <p className="truncate text-xs text-(--c-mut)">{c.company}</p>}
+          </div>
+        </div>
+        {(c.service || c.value > 0) && (
+          <div className="mt-2.5 flex items-baseline gap-2">
+            <span className="min-w-0 flex-1 truncate text-sm">{c.service}</span>
+            {c.value > 0 && <span className="crm-num shrink-0 font-bold">{money(c.value)}</span>}
+          </div>
+        )}
+        {c.next_step && c.next_date && (
+          <p className={`mt-2 truncate border-t-2 border-dashed border-(--c-ink)/15 pt-2 text-xs ${late ? "font-bold text-(--c-red)" : "text-(--c-mut)"}`}>
+            → {c.next_step} · {relDay(c.next_date)}
+          </p>
+        )}
+      </button>
+      {(onPrev || onNext) && (
+        <div className="flex border-t-2 border-(--c-ink)/10 text-xs font-bold text-(--c-mut)">
+          <button type="button" disabled={!onPrev} onClick={onPrev} aria-label="Etapa anterior" className="crm-press flex-1 py-1.5 disabled:opacity-25">
+            ←
+          </button>
+          <button type="button" disabled={!onNext} onClick={onNext} aria-label={nextLabel ?? "Etapa siguiente"} className="crm-press flex-1 border-l-2 border-(--c-ink)/10 py-1.5 disabled:opacity-25">
+            {nextLabel ?? "→"}
+          </button>
+        </div>
+      )}
+    </article>
+  );
+}
+
