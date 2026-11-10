@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Los colores y estilos de la app están en src/gimnasio/gym.css */
+html,
+body {
+  background: #0d0f12;
+}
