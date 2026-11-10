@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type { Saas } from "@/lib/types";
-import { AppPreview, addressOf } from "./app-preview";
+import { AppPreview } from "./app-preview";
 
 type DockApp = Pick<
   Saas,
@@ -50,7 +50,6 @@ export function AppDock({ apps }: { apps: DockApp[] }) {
   const [idx, setIdx] = useState(0);
   const [shown, setShown] = useState(0); // lo que se ve mientras termina la transición
   const [out, setOut] = useState(false);
-  const [live, setLive] = useState<string | null>(null); // app cuya demo se abrió dentro de la ventana
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const app = apps[shown];
@@ -87,26 +86,11 @@ export function AppDock({ apps }: { apps: DockApp[] }) {
         <div className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.85fr)] lg:items-center lg:gap-8">
           {/* Ventana con la app */}
           <div
-            className={`glass enter enter-2 overflow-hidden rounded-[20px] ${app ? "" : "mx-auto w-full max-w-3xl lg:col-span-2"}`}
+            className={`glass enter enter-2 overflow-hidden rounded-[20px] ${app ? "zoom" : "mx-auto w-full max-w-3xl lg:col-span-2"}`}
           >
             {app ? (
               <div className="swap" data-out={out}>
-                {live === app.id && app.demo_url ? (
-                  <LiveDemo app={app} onClose={() => setLive(null)} />
-                ) : (
-                  <div className="relative">
-                    <AppPreview saas={app} bare />
-                    {app.demo_url && (
-                      <button
-                        type="button"
-                        onClick={() => setLive(app.id)}
-                        className="btn absolute right-4 bottom-4 hidden sm:inline-flex"
-                      >
-                        ▶ Probar aquí
-                      </button>
-                    )}
-                  </div>
-                )}
+                <AppPreview saas={app} bare />
               </div>
             ) : (
               <EmptyWindow />
@@ -199,42 +183,6 @@ export function AppDock({ apps }: { apps: DockApp[] }) {
         </div>
       </div>
     </>
-  );
-}
-
-function LiveDemo({ app, onClose }: { app: DockApp; onClose: () => void }) {
-  return (
-    <div>
-      <div className="flex items-center gap-2 border-b border-line bg-white/70 px-4 py-2.5 font-ui text-xs text-mut">
-        <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
-        <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
-        <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
-        <span className="ml-2 truncate rounded-md bg-soft px-2.5 py-1">
-          {addressOf(app)}
-        </span>
-        <a
-          href={app.demo_url!}
-          target="_blank"
-          rel="noreferrer"
-          className="ml-auto shrink-0 hover:text-ink"
-        >
-          Abrir aparte ↗
-        </a>
-        <button
-          type="button"
-          onClick={onClose}
-          className="press shrink-0 rounded-md px-2 py-1 hover:text-ink"
-        >
-          Cerrar
-        </button>
-      </div>
-      <iframe
-        src={app.demo_url!}
-        title={`Demo de ${app.name}`}
-        className="block aspect-[16/10] w-full bg-white lg:aspect-[16/9]"
-        loading="lazy"
-      />
-    </div>
   );
 }
 

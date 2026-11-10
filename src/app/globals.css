@@ -101,6 +101,12 @@ body {
   display: inline-block;
   transition: transform 200ms var(--ease-out);
 }
+/* La ventana de la app crece un poco al pasar el mouse y vuelve al salir */
+.zoom {
+  transition:
+    transform 300ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
+}
 .lift {
   transition:
     transform 200ms var(--ease-out),
@@ -116,6 +122,10 @@ body {
   .btn:hover .arr,
   .group:hover .arr {
     transform: translateX(3px);
+  }
+  .zoom:hover {
+    transform: scale(1.03);
+    box-shadow: 0 24px 60px -18px rgb(30 64 175 / 0.28);
   }
   .lift:hover {
     transform: translateY(-2px);
