@@ -20,10 +20,10 @@ export function CrmDemo() {
       key={key}
       store={store}
       topBar={
-        <div className="border-b-2 border-(--c-ink) bg-(--c-ink) text-white">
+        <div className="bg-(--c-ink) text-white">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2 text-xs sm:px-6">
-            <span className="rounded-md bg-(--c-yellow) px-2 py-0.5 font-bold tracking-wider text-(--c-ink) uppercase">Demo</span>
-            <span className="text-white/80">Clientes de ejemplo. Lo que cambies se guarda solo en este navegador.</span>
+            <span className="rounded-full bg-(--c-yellow) px-2.5 py-0.5 font-bold text-(--c-ink)">Demo</span>
+            <span className="text-white/80">Son clientes de ejemplo. Juega con confianza: lo que cambies se guarda solo en tu navegador.</span>
             <button type="button" onClick={reset} className="text-white/80 underline-offset-2 hover:text-white hover:underline">
               Reiniciar
             </button>

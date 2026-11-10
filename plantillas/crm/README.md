@@ -2,14 +2,14 @@
 
 CRM **simple** para freelancers: anota a cada cliente, en qué etapa va
 (**Nuevo → Hablando → Propuesta → Cliente**) y cuál es el **próximo paso**. Así no se te olvida nadie.
-Hecho con Next.js, Supabase y Tailwind, con un estilo **neobrutalista** (bordes negros y colores pastel).
+Hecho con Next.js, Supabase y Tailwind, con un estilo **suave y amigable** (colores pastel y letra redondeada).
 Plantilla gratis de **Juanfra Code** · Licencia MIT.
 
 ## Qué trae
 
-- Todo en **una sola pantalla**.
+- Todo en **una sola pantalla**, con una guía de 3 pasos para empezar.
 - Tres números: cuántas personas están en proceso, cuánto dinero hay en juego y cuánto ganaste.
-- **Para hoy**: los clientes a los que tienes que escribir hoy (o ya se te pasó). Con botón de WhatsApp y "✓ Hecho".
+- **Para hoy**: los clientes a los que tienes que escribir hoy (o ya se te pasó). Con botón de WhatsApp y "✓ Listo".
 - **Tablero** con 4 etapas. Arrastra una tarjeta para moverla (en el celular, usa las flechas ← →).
 - Cada cliente: nombre, negocio, WhatsApp, correo, qué te quiere comprar, cuánto vale, próximo paso y notas.
 - Los que dijeron que no quedan guardados en **Perdidos** por si quieres volver a escribirles.
@@ -54,7 +54,7 @@ Abre http://localhost:3000. Sin Supabase funciona en **modo local** (guarda en t
 | --- | --- |
 | `src/crm/crm-app.tsx` | La pantalla: números, "Para hoy" y el tablero |
 | `src/crm/client-dialog.tsx` | La ventana para agregar o editar un cliente |
-| `src/crm/crm.css` | El estilo: colores, bordes y sombras |
+| `src/crm/crm.css` | El estilo: colores, esquinas y sombras |
 | `src/crm/utils.ts` | Etapas, dinero y fechas |
 | `src/lib/supabase-store.ts` | Cómo se guarda en Supabase |
 | `src/crm/local-store.ts` | Cómo se guarda en el navegador (modo local) |

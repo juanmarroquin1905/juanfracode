@@ -14,9 +14,9 @@ export function Modal({ title, onClose, children }: { title: string; onClose: ()
   }, []);
   return (
     <dialog ref={ref} onClose={onClose} onClick={(e) => e.target === ref.current && onClose()} className="crm crm-dialog" style={{ minHeight: 0, backgroundImage: "none" }}>
-      <div className="flex items-center border-b-2 border-(--c-ink) bg-(--c-yellow) px-5 py-3">
-        <h2 className="crm-display text-lg font-bold">{title}</h2>
-        <button type="button" onClick={onClose} aria-label="Cerrar" className="crm-press ml-auto grid size-8 place-items-center rounded-full text-lg font-bold hover:bg-black/10">
+      <div className="flex items-center border-b border-(--c-line) px-5 py-4">
+        <h2 className="crm-display text-xl">{title}</h2>
+        <button type="button" onClick={onClose} aria-label="Cerrar" className="crm-press ml-auto grid size-9 place-items-center rounded-full bg-(--c-bg) text-(--c-mut) hover:text-(--c-ink)">
           ✕
         </button>
       </div>

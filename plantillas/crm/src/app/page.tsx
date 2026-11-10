@@ -20,7 +20,7 @@ function LocalMode() {
     <CrmApp
       store={store}
       topBar={
-        <div className="border-b-2 border-(--c-ink) bg-(--c-yellow) px-4 py-2 text-center text-xs font-semibold">
+        <div className="bg-(--c-yellow) px-4 py-2 text-center text-sm font-semibold">
           Modo local: tus datos se guardan solo en este navegador. Conecta Supabase para guardarlos en la nube (mira el README).
         </div>
       }
@@ -47,7 +47,7 @@ function CloudMode() {
       key={session.user.id}
       store={store}
       topBar={
-        <div className="border-b-2 border-(--c-ink) bg-(--c-ink) text-xs text-white">
+        <div className="bg-(--c-ink) text-sm text-white">
           <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2 sm:px-6">
             <span className="truncate text-white/80">{session.user.email}</span>
             <button type="button" onClick={() => db.auth.signOut()} className="ml-auto font-bold text-(--c-yellow)">
