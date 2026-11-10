@@ -29,12 +29,12 @@ export function Login({ db }: { db: SupabaseClient }) {
 
   return (
     <main className="crm grid min-h-screen place-items-center px-4">
-      <form onSubmit={submit} className="crm-card w-full max-w-sm space-y-4 p-6">
+      <form onSubmit={submit} className="crm-card w-full max-w-sm space-y-4 p-7">
         <div className="flex items-center gap-3">
-          <span className="grid size-11 -rotate-6 place-items-center rounded-xl border-2 border-(--c-ink) bg-(--c-pink) text-xl shadow-[2px_2px_0_var(--c-ink)]">🤝</span>
+          <span className="grid size-12 place-items-center rounded-2xl bg-(--c-pink) text-2xl">🤝</span>
           <div>
-            <h1 className="crm-display text-2xl font-bold">Mi CRM</h1>
-            <p className="text-xs text-(--c-mut)">{mode === "entrar" ? "Entra a tu cuenta" : "Crea tu cuenta"}</p>
+            <h1 className="crm-display text-2xl">Mi CRM</h1>
+            <p className="text-sm text-(--c-mut)">{mode === "entrar" ? "¡Hola de nuevo! Entra a tu cuenta" : "Crea tu cuenta gratis"}</p>
           </div>
         </div>
         <div>

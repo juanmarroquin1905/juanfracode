@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* El estilo de la app (neobrutalista con pastel) está en src/crm/crm.css */
+/* El estilo de la app (suave y amigable) está en src/crm/crm.css */
 body {
-  background: #efeaff;
+  background: #f4f1ff;
 }

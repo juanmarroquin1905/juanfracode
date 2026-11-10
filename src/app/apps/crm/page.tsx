@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "CRM simple para freelancers: tus clientes por etapa y el próximo paso con cada uno.",
 };
 
-export const viewport: Viewport = { themeColor: "#efeaff" };
+export const viewport: Viewport = { themeColor: "#f4f1ff" };
 
 // Demo del CRM. No usa base de datos: guarda en el navegador.
 export default function Page() {

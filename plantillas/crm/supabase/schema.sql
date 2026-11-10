@@ -15,7 +15,7 @@ create table if not exists public.crm_clients (
   next_step text not null default '' check (char_length(next_step) <= 100),
   next_date date,
   notes text not null default '' check (char_length(notes) <= 600),
-  color text not null default '#a8dcff',
+  color text not null default '#cdeafe',
   created_at timestamptz not null default now()
 );
 

@@ -46,18 +46,18 @@ export function money(n: number) {
 }
 
 /** Las etapas, en orden. "Perdido" no sale en el tablero: queda guardado abajo. */
-export const STAGES: { id: Stage; label: string; color: string; hint: string }[] = [
-  { id: "nuevo", label: "Nuevo", color: "#a8dcff", hint: "Te escribió o lo encontraste" },
-  { id: "hablando", label: "Hablando", color: "#ffe066", hint: "Ya están en conversación" },
-  { id: "propuesta", label: "Propuesta", color: "#ffb37a", hint: "Le mandaste precio" },
-  { id: "cliente", label: "Cliente", color: "#8be3b8", hint: "¡Dijo que sí!" },
-  { id: "perdido", label: "Perdido", color: "#d6d1e0", hint: "No se dio" },
+export const STAGES: { id: Stage; label: string; emoji: string; color: string; hint: string }[] = [
+  { id: "nuevo", label: "Nuevo", emoji: "🌱", color: "#cdeafe", hint: "Te escribió o lo encontraste. ¡Salúdalo!" },
+  { id: "hablando", label: "Hablando", emoji: "💬", color: "#fff1b8", hint: "Ya están conversando sobre lo que necesita." },
+  { id: "propuesta", label: "Propuesta", emoji: "📝", color: "#ffdcc2", hint: "Le mandaste tu precio. Falta que diga que sí." },
+  { id: "cliente", label: "Cliente", emoji: "🎉", color: "#c9f2dd", hint: "¡Dijo que sí! Aquí van tus clientes." },
+  { id: "perdido", label: "Perdido", emoji: "💤", color: "#e7e3ef", hint: "No se dio esta vez." },
 ];
 export const BOARD = STAGES.filter((s) => s.id !== "perdido");
 export const stageOf = (id: Stage) => STAGES.find((s) => s.id === id) ?? STAGES[0];
 export const isActive = (c: Pick<Client, "stage">) => c.stage === "nuevo" || c.stage === "hablando" || c.stage === "propuesta";
 
-export const COLORS = ["#a8dcff", "#ffe066", "#ffb37a", "#ff9ec0", "#8be3b8", "#c9b5ff"];
+export const COLORS = ["#cdeafe", "#fff1b8", "#ffdcc2", "#ffd3e2", "#c9f2dd", "#e2d9ff"];
 export const initials = (name: string) =>
   name
     .trim()
