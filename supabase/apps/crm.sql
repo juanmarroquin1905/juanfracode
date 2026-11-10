@@ -6,8 +6,8 @@ insert into public.saas (
 ) values (
   'crm',
   'Mi CRM',
-  'Tus clientes, tus tratos por etapa y tus seguimientos en un solo lugar.',
-  'CRM personal para freelancers: guarda a tus clientes, mueve cada trato por etapas en un tablero (de Nuevo a Ganado), agenda seguimientos por WhatsApp, llamada o correo para no olvidar a nadie, y mira cuánto tienes en juego y cuánto ganaste cada mes. La descarga trae el código y la base de datos lista para tu propio Supabase.',
+  'Tus clientes, en qué etapa va cada uno y el próximo paso. Simple.',
+  'CRM simple para freelancers: anota a cada cliente, muévelo por etapas (Nuevo, Hablando, Propuesta, Cliente) y ponle un próximo paso con fecha para no olvidar a nadie. Todo en una sola pantalla. La descarga trae el código y la base de datos lista para tu propio Supabase.',
   'Negocios',
   'en_vivo',
   '🤝',
@@ -19,10 +19,10 @@ insert into public.saas (
   array['Next.js', 'Supabase', 'Tailwind', 'Vercel'],
   array['NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY'],
   array[
-    'Tablero de tratos con arrastrar y soltar',
-    'Seguimientos con atrasados y para hoy',
-    'Ficha del cliente con WhatsApp e historial',
-    'Resumen con embudo y ganado por mes',
+    'Todo en una sola pantalla',
+    'Tablero con 4 etapas',
+    'Próximo paso con fecha y lista de hoy',
+    'Botón directo a WhatsApp',
     'Cada persona ve solo sus clientes'
   ],
   true,

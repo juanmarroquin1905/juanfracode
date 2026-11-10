@@ -1,20 +1,19 @@
-import { sampleData } from "./seed";
+import { sampleClients } from "./seed";
 import type { CrmStore } from "./store";
-import type { CrmData, ListName } from "./types";
+import type { Client } from "./types";
 
 // Guarda todo en el navegador (localStorage). Lo usa la demo de la web y la
 // plantilla mientras no tenga Supabase conectado.
-const empty = (): CrmData => ({ contacts: [], deals: [], tasks: [], notes: [] });
-
 export function createLocalStore(key = "crm-demo", withSamples = true): CrmStore {
-  let mem: CrmData | null = null;
+  let mem: Client[] | null = null;
 
-  const fresh = () => (withSamples ? sampleData() : empty());
-  const read = (): CrmData => {
+  const fresh = () => (withSamples ? sampleClients() : []);
+  const read = (): Client[] => {
     if (mem) return mem;
     try {
       const raw = localStorage.getItem(key);
-      if (raw) return (mem = { ...empty(), ...(JSON.parse(raw) as CrmData) });
+      const parsed = raw ? JSON.parse(raw) : null;
+      if (Array.isArray(parsed)) return (mem = parsed as Client[]);
     } catch {}
     mem = fresh();
     write();
@@ -27,35 +26,18 @@ export function createLocalStore(key = "crm-demo", withSamples = true): CrmStore
   };
 
   return {
-    async load() {
-      const d = read();
-      return { contacts: [...d.contacts], deals: [...d.deals], tasks: [...d.tasks], notes: [...d.notes] };
+    async list() {
+      return [...read()];
     },
-    async save(list, row) {
-      const rows = read()[list] as { id: string }[];
-      const i = rows.findIndex((x) => x.id === row.id);
-      if (i === -1) rows.push(row);
-      else rows[i] = row;
+    async save(c) {
+      const list = read();
+      const i = list.findIndex((x) => x.id === c.id);
+      if (i === -1) list.push(c);
+      else list[i] = c;
       write();
     },
-    async remove(list: ListName, id) {
-      const d = read();
-      if (list === "contacts") {
-        // Igual que en Supabase: se va todo lo del contacto.
-        d.contacts = d.contacts.filter((x) => x.id !== id);
-        d.deals = d.deals.filter((x) => x.contact_id !== id);
-        d.tasks = d.tasks.filter((x) => x.contact_id !== id);
-        d.notes = d.notes.filter((x) => x.contact_id !== id);
-      } else if (list === "deals") {
-        d.deals = d.deals.filter((x) => x.id !== id);
-        // Los seguimientos y notas se quedan en el contacto, sin trato.
-        d.tasks = d.tasks.map((x) => (x.deal_id === id ? { ...x, deal_id: null } : x));
-        d.notes = d.notes.map((x) => (x.deal_id === id ? { ...x, deal_id: null } : x));
-      } else if (list === "tasks") {
-        d.tasks = d.tasks.filter((x) => x.id !== id);
-      } else {
-        d.notes = d.notes.filter((x) => x.id !== id);
-      }
+    async remove(id) {
+      mem = read().filter((x) => x.id !== id);
       write();
     },
     async reset() {
