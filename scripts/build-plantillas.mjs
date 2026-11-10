@@ -1,13 +1,17 @@
 // Arma los .zip descargables de cada app (public/descargas/<app>.zip).
 // Cada zip = la carpeta plantillas/<app> (proyecto Next.js listo, con su SQL)
-// + el código de la app que vive en src/apps/<app> (el mismo de la demo).
+// + el código de la app que vive en src/apps/<app> (el mismo de la demo),
+// que en el zip queda en src/<app>.
 // Se ejecuta solo antes de cada build (npm run build).
 import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import zlib from "node:zlib";
 
 const ROOT = new URL("..", import.meta.url).pathname;
-const APPS = [{ slug: "finanzas", folder: "mis-finanzas" }];
+const APPS = [
+  { slug: "finanzas", folder: "mis-finanzas" },
+  { slug: "gimnasio", folder: "mi-gimnasio" },
+];
 const SKIP = new Set(["node_modules", ".next", ".env.local", ".vercel", "next-env.d.ts"]);
 
 function walk(dir) {
@@ -87,7 +91,7 @@ for (const { slug, folder } of APPS) {
   const shared = join(ROOT, "src/apps", slug);
   const entries = [
     ...walk(tpl).map((p) => ({ name: `${folder}/${relative(tpl, p)}`, data: readFileSync(p) })),
-    ...walk(shared).map((p) => ({ name: `${folder}/src/finanzas/${relative(shared, p)}`, data: readFileSync(p) })),
+    ...walk(shared).map((p) => ({ name: `${folder}/src/${slug}/${relative(shared, p)}`, data: readFileSync(p) })),
   ].sort((a, b) => a.name.localeCompare(b.name));
   const out = join(ROOT, "public/descargas", `${slug}.zip`);
   writeFileSync(out, zip(entries));
