@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* El estilo de la app (pasaporte y postal) está en src/viajes/viajes.css */
+body {
+  background: #f6f0e3;
+}

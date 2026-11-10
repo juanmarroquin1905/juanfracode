@@ -7,7 +7,10 @@ import { join, relative } from "node:path";
 import zlib from "node:zlib";
 
 const ROOT = new URL("..", import.meta.url).pathname;
-const APPS = [{ slug: "finanzas", folder: "mis-finanzas" }];
+const APPS = [
+  { slug: "finanzas", folder: "mis-finanzas" },
+  { slug: "viajes", folder: "mis-viajes" },
+];
 const SKIP = new Set(["node_modules", ".next", ".env.local", ".vercel", "next-env.d.ts"]);
 
 function walk(dir) {
@@ -87,7 +90,7 @@ for (const { slug, folder } of APPS) {
   const shared = join(ROOT, "src/apps", slug);
   const entries = [
     ...walk(tpl).map((p) => ({ name: `${folder}/${relative(tpl, p)}`, data: readFileSync(p) })),
-    ...walk(shared).map((p) => ({ name: `${folder}/src/finanzas/${relative(shared, p)}`, data: readFileSync(p) })),
+    ...walk(shared).map((p) => ({ name: `${folder}/src/${slug}/${relative(shared, p)}`, data: readFileSync(p) })),
   ].sort((a, b) => a.name.localeCompare(b.name));
   const out = join(ROOT, "public/descargas", `${slug}.zip`);
   writeFileSync(out, zip(entries));
