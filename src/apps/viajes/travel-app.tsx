@@ -110,7 +110,7 @@ function TripList({ trips, loading, onOpen, onNew }: { trips: Trip[]; loading: b
           Mis viajes<span className="text-(--vj-gold)">.</span>
         </h1>
         <p className="mt-2 max-w-md text-sm leading-relaxed text-[#f3e6c4]/80">
-          Destino, hotel, presupuesto, gastos, itinerario con mapa y la lista de qué llevar. Todo en un solo lugar.
+          Destino, hotel, presupuesto, gastos, itinerario día por día y la lista de qué llevar. Todo en un solo lugar.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
           <button type="button" onClick={onNew} className="vj-btn vj-btn-red">

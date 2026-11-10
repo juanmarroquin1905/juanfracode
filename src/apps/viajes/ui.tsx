@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { searchPlace, type Place } from "./utils";
 
 // Piezas pequeñas que usan varias pantallas: ventana, campo y buscador de lugares.
 
@@ -56,83 +55,6 @@ export function DialogFooter({ onDelete, onClose, saveLabel = "Guardar" }: { onD
       <button type="submit" className="vj-btn">
         {saveLabel}
       </button>
-    </div>
-  );
-}
-
-/** Ubicar un lugar en el mapa buscándolo por nombre (OpenStreetMap). */
-export function PlacePicker({
-  query,
-  near,
-  lat,
-  lng,
-  onPick,
-  onClear,
-}: {
-  query: string;
-  near: string;
-  lat: number | null;
-  lng: number | null;
-  onPick: (p: Place) => void;
-  onClear: () => void;
-}) {
-  const [busy, setBusy] = useState(false);
-  const [results, setResults] = useState<Place[] | null>(null);
-  const [err, setErr] = useState("");
-
-  async function find() {
-    if (!query.trim()) {
-      setErr("Primero escribe el nombre del lugar.");
-      return;
-    }
-    setBusy(true);
-    setErr("");
-    try {
-      const r = await searchPlace(query.trim(), near);
-      setResults(r);
-      if (!r.length) setErr("No lo encontré. Prueba con otro nombre o agrega la ciudad.");
-    } catch {
-      setErr("No se pudo buscar ahora. Revisa tu internet.");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  if (lat != null && lng != null)
-    return (
-      <div className="mt-2 flex items-center gap-2 text-sm">
-        <span className="text-(--vj-teal)">📍 Ubicado en el mapa</span>
-        <button type="button" onClick={onClear} className="text-(--vj-mut) underline underline-offset-2">
-          Quitar
-        </button>
-      </div>
-    );
-
-  return (
-    <div className="mt-2">
-      <button type="button" onClick={find} disabled={busy} className="vj-chip vj-press">
-        {busy ? "Buscando…" : "📍 Buscar en el mapa"}
-      </button>
-      {err && <p className="mt-1.5 text-xs text-(--vj-red)">{err}</p>}
-      {results && results.length > 0 && (
-        <ul className="mt-2 overflow-hidden rounded-lg border border-(--vj-line) bg-[#fffdf8]">
-          {results.map((p, i) => (
-            <li key={i} className="border-t border-(--vj-line) first:border-t-0">
-              <button
-                type="button"
-                onClick={() => {
-                  onPick(p);
-                  setResults(null);
-                }}
-                className="vj-row w-full px-3 py-2 text-left"
-              >
-                <span className="block text-sm font-semibold">{p.name}</span>
-                <span className="block truncate text-xs text-(--vj-mut)">{p.detail}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 }

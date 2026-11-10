@@ -6,8 +6,8 @@ insert into public.saas (
 ) values (
   'viajes',
   'Mis viajes',
-  'Planifica tu viaje: destino, hotel, presupuesto, gastos e itinerario con mapa.',
-  'Planificador de viajes con estilo de pasaporte: crea tus viajes, guarda tu hotel con fechas y código de reserva, arma el itinerario día por día con mapa, anota los gastos y mira cuánto te queda del presupuesto, y marca la lista de qué llevar. La descarga trae el código y la base de datos lista para tu propio Supabase.',
+  'Planifica tu viaje: destino, hotel, presupuesto, gastos e itinerario día por día.',
+  'Planificador de viajes con estilo de pasaporte: crea tus viajes, guarda tu hotel con fechas y código de reserva, arma el itinerario día por día, anota los gastos y mira cuánto te queda del presupuesto, y marca la lista de qué llevar. La descarga trae el código y la base de datos lista para tu propio Supabase.',
   'Viajes',
   'en_vivo',
   '✈️',
@@ -19,7 +19,7 @@ insert into public.saas (
   array['Next.js', 'Supabase', 'Tailwind', 'Vercel'],
   array['NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY'],
   array[
-    'Itinerario día por día con mapa',
+    'Itinerario día por día',
     'Presupuesto vs. gastado por categoría',
     'Hoteles con fechas, precio y código de reserva',
     'Lista de qué llevar con lista sugerida',

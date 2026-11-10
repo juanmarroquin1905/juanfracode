@@ -43,7 +43,7 @@ export type Expense = {
   date: string; // AAAA-MM-DD
 };
 
-/** Una parada del itinerario. lat/lng son opcionales (para el mapa). */
+/** Una parada del itinerario. lat/lng son opcionales (afinan el enlace a Google Maps). */
 export type Activity = {
   id: string;
   trip_id: string;

@@ -9,7 +9,7 @@ const sans = Karla({ subsets: ["latin"], variable: "--font-vj-sans" });
 
 export const metadata: Metadata = {
   title: "Mis viajes",
-  description: "Planifica tus viajes: destino, hotel, presupuesto, gastos, itinerario con mapa y qué llevar.",
+  description: "Planifica tus viajes: destino, hotel, presupuesto, gastos, itinerario por día y qué llevar.",
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f6f0e3" };

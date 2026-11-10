@@ -129,26 +129,3 @@ export const mapsLink = (q: { lat: number | null; lng: number | null; text: stri
   q.lat != null && q.lng != null
     ? `https://www.google.com/maps/search/?api=1&query=${q.lat},${q.lng}`
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q.text)}`;
-
-export type Place = { name: string; detail: string; lat: number; lng: number };
-/** Busca un lugar en OpenStreetMap (gratis, sin clave). Primero cerca del destino. */
-export async function searchPlace(q: string, near: string): Promise<Place[]> {
-  const ask = async (text: string) => {
-    const r = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&accept-language=es&q=${encodeURIComponent(text)}`,
-    );
-    if (!r.ok) throw new Error("No se pudo buscar");
-    const rows = (await r.json()) as { name?: string; display_name: string; lat: string; lon: string }[];
-    return rows.map((x) => {
-      const parts = x.display_name.split(", ");
-      return {
-        name: x.name || parts[0],
-        detail: parts.slice(x.name ? 1 : 1, 4).join(", "),
-        lat: Number(x.lat),
-        lng: Number(x.lon),
-      };
-    });
-  };
-  const nearby = near && !q.toLowerCase().includes(near.toLowerCase()) ? await ask(`${q}, ${near}`) : [];
-  return nearby.length ? nearby : ask(q);
-}

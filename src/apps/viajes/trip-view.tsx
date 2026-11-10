@@ -3,9 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { suggestedPacking } from "./seed";
 import type { TripStore } from "./store";
-import { TripMap, type MapPoint } from "./trip-map";
 import type { Activity, Expense, ExpenseCategory, ListName, PackGroup, PackItem, Rows, Stay, Trip, TripData } from "./types";
-import { DialogFooter, Field, Modal, PlacePicker } from "./ui";
+import { DialogFooter, Field, Modal } from "./ui";
 import {
   daysBetween,
   EXPENSE_CATS,
@@ -33,7 +32,6 @@ const TABS: [Tab, string][] = [
   ["equipaje", "Qué llevar"],
 ];
 const DAY_COLORS = ["#c4472f", "#2f5d8a", "#2e7d6b", "#d0832b", "#8a5a9e", "#b5527a", "#1d2b4f"];
-const STAY_COLOR = "#1d2b4f";
 
 type Props = {
   trip: Trip;
@@ -140,7 +138,6 @@ export function TripView({ trip, store, say, onBack, onEditTrip }: Props) {
           {tab === "resumen" && <Summary trip={trip} data={data} days={days} onTab={setTab} onEditAct={setEditAct} onEditTrip={onEditTrip} />}
           {tab === "itinerario" && (
             <Itinerary
-              trip={trip}
               data={data}
               days={days}
               onNew={(d) => setEditAct(newAct(d))}
@@ -187,7 +184,6 @@ export function TripView({ trip, store, say, onBack, onEditTrip }: Props) {
       {editAct && (
         <ActivityDialog
           act={editAct}
-          trip={trip}
           days={days}
           onClose={() => setEditAct(null)}
           onSave={(a) => {
@@ -218,7 +214,6 @@ export function TripView({ trip, store, say, onBack, onEditTrip }: Props) {
       {editStay && (
         <StayDialog
           stay={editStay}
-          trip={trip}
           onClose={() => setEditStay(null)}
           onSave={(s) => {
             save("stays", s, "Alojamiento guardado");
@@ -346,19 +341,6 @@ function Info({ k, v }: { k: string; v: string }) {
 
 /* ---------------- Resumen ---------------- */
 
-function actPoints(acts: Activity[], days: string[]): MapPoint[] {
-  const out: MapPoint[] = [];
-  const byDay = new Map<string, Activity[]>();
-  for (const a of [...acts].sort(byTime)) byDay.set(a.date, [...(byDay.get(a.date) ?? []), a]);
-  for (const [date, list] of byDay) {
-    const di = days.indexOf(date);
-    list.forEach((a, i) => {
-      if (a.lat == null || a.lng == null) return;
-      out.push({ id: a.id, lat: a.lat, lng: a.lng, label: String(i + 1), title: `${di >= 0 ? `Día ${di + 1} · ` : ""}${a.time ? `${a.time} · ` : ""}${a.title}`, color: DAY_COLORS[Math.max(0, di) % DAY_COLORS.length] });
-    });
-  }
-  return out;
-}
 const byTime = (a: Activity, b: Activity) => (a.date + (a.time || "99") < b.date + (b.time || "99") ? -1 : 1);
 
 function Summary({
@@ -376,11 +358,6 @@ function Summary({
   onEditAct: (a: Activity) => void;
   onEditTrip: () => void;
 }) {
-  const points = useMemo(() => {
-    const p = actPoints(data.activities, days);
-    for (const s of data.stays) if (s.lat != null && s.lng != null) p.push({ id: s.id, lat: s.lat, lng: s.lng, label: "🛏", title: `Alojamiento · ${s.name}`, color: STAY_COLOR });
-    return p;
-  }, [data, days]);
   const now = today();
   const sorted = [...data.activities].sort(byTime);
   const upcoming = (now > trip.end_date ? sorted : sorted.filter((a) => a.date >= now && !a.done)).slice(0, 4);
@@ -391,24 +368,48 @@ function Summary({
 
   return (
     <div className="grid gap-5 lg:grid-cols-[1.35fr_1fr] lg:items-start">
-      <div className="vj-card p-3">
-        <div className="flex items-center px-2 pt-1 pb-3">
-          <h3 className="vj-serif text-lg font-semibold">Mapa del viaje</h3>
+      <div className="vj-card overflow-hidden">
+        <div className="flex items-center border-b border-dashed border-(--vj-line) px-5 py-3.5">
+          <h3 className="vj-serif text-lg font-semibold">Tu viaje día por día</h3>
           <button type="button" onClick={() => onTab("itinerario")} className="ml-auto text-sm font-semibold text-(--vj-red)">
-            Ver por día →
+            Ver itinerario →
           </button>
         </div>
-        <TripMap points={points} height={340} />
-        <div className="flex flex-wrap gap-x-3 gap-y-1 px-2 pt-3 text-xs text-(--vj-mut)">
-          {days.map((d, i) => (
-            <span key={d} className="inline-flex items-center gap-1.5">
-              <i className="size-2.5 rounded-full" style={{ background: DAY_COLORS[i % DAY_COLORS.length] }} /> Día {i + 1}
-            </span>
-          ))}
-          <span className="inline-flex items-center gap-1.5">
-            <i className="size-2.5 rounded-full" style={{ background: STAY_COLOR }} /> Alojamiento
-          </span>
-        </div>
+        <ol>
+          {days.map((d, i) => {
+            const list = sorted.filter((a) => a.date === d);
+            const color = DAY_COLORS[i % DAY_COLORS.length];
+            const sleep = data.stays.find((st) => st.check_in <= d && d < st.check_out);
+            return (
+              <li key={d} className="flex gap-4 border-t border-(--vj-line) px-5 py-3.5 first:border-t-0">
+                <div className="vj-mono w-14 shrink-0 text-center leading-tight">
+                  <span className="block text-[10px] font-bold tracking-widest uppercase" style={{ color }}>
+                    Día {i + 1}
+                  </span>
+                  <span className="block text-sm font-bold">{shortDate(d)}</span>
+                  <span className="block text-[11px] text-(--vj-mut)">{weekDay(d)}</span>
+                </div>
+                <div className="min-w-0 flex-1 border-l-2 pl-4" style={{ borderColor: `${color}55` }}>
+                  {list.length === 0 ? (
+                    <p className="text-sm text-(--vj-mut)">Día libre</p>
+                  ) : (
+                    <ul className="space-y-0.5">
+                      {list.map((a) => (
+                        <li key={a.id}>
+                          <button type="button" onClick={() => onEditAct(a)} className={`w-full truncate text-left text-sm ${a.done ? "text-(--vj-mut) line-through" : ""}`}>
+                            {a.time && <span className="vj-mono mr-2 text-xs text-(--vj-mut)">{a.time}</span>}
+                            {a.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {sleep && <p className="mt-1.5 truncate text-xs text-(--vj-mut)">🛏 Duermes en {sleep.name}</p>}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
       </div>
 
       <div className="space-y-5">
@@ -486,14 +487,12 @@ function Summary({
 /* ---------------- Itinerario ---------------- */
 
 function Itinerary({
-  trip,
   data,
   days,
   onNew,
   onEdit,
   onToggle,
 }: {
-  trip: Trip;
   data: TripData;
   days: string[];
   onNew: (date: string) => void;
@@ -505,7 +504,6 @@ function Itinerary({
     return days.includes(t) ? t : null;
   });
   const acts = useMemo(() => [...data.activities].sort(byTime), [data.activities]);
-  const points = useMemo(() => actPoints(day ? acts.filter((a) => a.date === day) : acts, days), [acts, day, days]);
   const outside = acts.filter((a) => !days.includes(a.date));
   const shown = day ? [day] : days;
 
@@ -523,14 +521,7 @@ function Itinerary({
         ))}
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-[1fr_1.1fr] lg:items-start">
-        <div className="vj-card p-3 lg:sticky lg:top-4">
-          <TripMap key={day ?? "todo"} points={points} route={day !== null} height={360} />
-          <p className="px-2 pt-2.5 text-xs text-(--vj-mut)">
-            {day ? "La línea punteada sigue el orden del día." : "Cada color es un día. Toca un número para ver qué es."}
-          </p>
-        </div>
-
+      <div className="mx-auto max-w-3xl">
         <div className="space-y-5">
           {shown.map((d) => {
             const i = days.indexOf(d);
@@ -576,7 +567,7 @@ function Itinerary({
             </section>
           )}
           {data.activities.length === 0 && (
-            <p className="text-center text-sm text-(--vj-mut)">Tip: escribe el lugar y toca “Buscar en el mapa” para verlo en el mapa de {trip.destination}.</p>
+            <p className="text-center text-sm text-(--vj-mut)">Tip: pon el lugar de cada actividad y tendrás un botón para abrirlo en Google Maps.</p>
           )}
         </div>
       </div>
@@ -587,7 +578,7 @@ function Itinerary({
 function ActRow({ a, n, color, onEdit, onToggle, showDate }: { a: Activity; n: number; color: string; onEdit: () => void; onToggle: () => void; showDate?: boolean }) {
   return (
     <li className="vj-row flex items-start gap-3 border-t border-(--vj-line) px-4 py-3 first:border-t-0">
-      <span className="vj-mono mt-0.5 grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-bold text-[#fffdf7]" style={{ background: a.lat != null ? color : "#b8ab90" }}>
+      <span className="vj-mono mt-0.5 grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-bold text-[#fffdf7]" style={{ background: color }}>
         {n}
       </span>
       <button type="button" onClick={onEdit} className="min-w-0 flex-1 text-left">
@@ -708,7 +699,6 @@ function Expenses({ trip, data, days, onNew, onEdit }: { trip: Trip; data: TripD
 
 function Stays({ trip, data, onNew, onEdit }: { trip: Trip; data: TripData; onNew: () => void; onEdit: (s: Stay) => void }) {
   const stays = [...data.stays].sort((a, b) => (a.check_in < b.check_in ? -1 : 1));
-  const points: MapPoint[] = stays.flatMap((s, i) => (s.lat != null && s.lng != null ? [{ id: s.id, lat: s.lat, lng: s.lng, label: String(i + 1), title: s.name, color: STAY_COLOR }] : []));
   const total = stays.reduce((s, x) => s + x.price, 0);
   const nights = stays.reduce((s, x) => s + Math.max(0, daysBetween(x.check_in, x.check_out)), 0);
   const tripNights = Math.max(0, daysBetween(trip.start_date, trip.end_date));
@@ -736,8 +726,8 @@ function Stays({ trip, data, onNew, onEdit }: { trip: Trip; data: TripData; onNe
           </button>
         </div>
       ) : (
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] lg:items-start">
-          <div className="space-y-4">
+        <div>
+          <div className="grid gap-4 lg:grid-cols-2">
             {stays.map((s, i) => {
               const n = Math.max(0, daysBetween(s.check_in, s.check_out));
               return (
@@ -784,11 +774,6 @@ function Stays({ trip, data, onNew, onEdit }: { trip: Trip; data: TripData; onNe
               );
             })}
           </div>
-          {points.length > 0 && (
-            <div className="vj-card p-3 lg:sticky lg:top-4">
-              <TripMap points={points} height={320} />
-            </div>
-          )}
         </div>
       )}
     </div>
@@ -911,14 +896,12 @@ function Packing({
 
 function ActivityDialog({
   act,
-  trip,
   days,
   onClose,
   onSave,
   onDelete,
 }: {
   act: Activity;
-  trip: Trip;
   days: string[];
   onClose: () => void;
   onSave: (a: Activity) => void;
@@ -964,14 +947,6 @@ function ActivityDialog({
               onChange={(e) => setF((x) => ({ ...x, place: e.target.value }))}
               placeholder="Ej: Plaza de Armas"
               maxLength={120}
-            />
-            <PlacePicker
-              query={f.place || f.title}
-              near={trip.destination}
-              lat={f.lat}
-              lng={f.lng}
-              onPick={(p) => setF((x) => ({ ...x, lat: p.lat, lng: p.lng, place: x.place || p.name }))}
-              onClear={() => setF((x) => ({ ...x, lat: null, lng: null }))}
             />
           </Field>
           <Field label="Notas" htmlFor="a-notes">
@@ -1035,7 +1010,7 @@ function ExpenseDialog({ exp, trip, onClose, onSave, onDelete }: { exp: Expense;
   );
 }
 
-function StayDialog({ stay, trip, onClose, onSave, onDelete }: { stay: Stay; trip: Trip; onClose: () => void; onSave: (s: Stay) => void; onDelete: (id: string) => void }) {
+function StayDialog({ stay, onClose, onSave, onDelete }: { stay: Stay; onClose: () => void; onSave: (s: Stay) => void; onDelete: (id: string) => void }) {
   const [f, setF] = useState(stay);
   const [price, setPrice] = useState(stay.price ? String(stay.price) : "");
   const [err, setErr] = useState("");
@@ -1060,14 +1035,6 @@ function StayDialog({ stay, trip, onClose, onSave, onDelete }: { stay: Stay; tri
           </Field>
           <Field label="Dirección" htmlFor="s-addr">
             <input id="s-addr" className="vj-input" value={f.address} onChange={(e) => set("address", e.target.value)} placeholder="Calle, barrio o zona" maxLength={140} />
-            <PlacePicker
-              query={f.address || f.name}
-              near={trip.destination}
-              lat={f.lat}
-              lng={f.lng}
-              onPick={(p) => setF((x) => ({ ...x, lat: p.lat, lng: p.lng, address: x.address || `${p.name}, ${p.detail}` }))}
-              onClear={() => setF((x) => ({ ...x, lat: null, lng: null }))}
-            />
           </Field>
           <div className="grid grid-cols-2 gap-3">
             <Field label="Entrada" htmlFor="s-in">

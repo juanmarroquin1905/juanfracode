@@ -1,7 +1,7 @@
 # Mis viajes
 
 Planificador de viajes con estilo de **pasaporte y postal**: pon el **destino**, tu **hotel**,
-el **presupuesto**, anota los **gastos**, arma el **itinerario día por día con mapa** y marca
+el **presupuesto**, anota los **gastos**, arma el **itinerario día por día** y marca
 la **lista de qué llevar**. Hecho con Next.js, Supabase y Tailwind.
 Plantilla gratis de **Juanfra Code** · Licencia MIT.
 
@@ -10,8 +10,7 @@ Plantilla gratis de **Juanfra Code** · Licencia MIT.
 - Tus viajes como postales: los que vienen (con cuenta regresiva) y los que ya hiciste (con sello de “Visitado”).
 - Boleto de cada viaje con fechas, días, viajeros y **barra de gastado vs. presupuesto** por categoría.
 - **Itinerario** por día con hora, lugar y notas. Marca lo que ya hiciste.
-- **Mapa** con los lugares numerados por día y la ruta de cada día (OpenStreetMap, gratis y sin clave).
-  Escribe el lugar y toca **Buscar en el mapa** para ubicarlo.
+- Cada lugar del itinerario y cada hotel tiene su botón para abrirlo en **Google Maps** (sin claves ni API).
 - **Alojamiento**: hotel, dirección, entrada y salida, noches, precio, si ya pagaste y código de reserva.
 - **Gastos** por categoría (transporte, comida, actividades, compras, otros), por persona y por día.
 - **Qué llevar**: lista por grupos con porcentaje de avance y una lista sugerida para empezar.
@@ -48,8 +47,6 @@ Abre http://localhost:3000. Sin Supabase funciona en **modo local** (guarda en t
   *Authentication → Sign In / Providers → Allow new users to sign up* (apagado).
   Igual, cada cuenta ve solo sus propios datos.
 - En el plan gratis, Supabase pausa el proyecto si pasa 1 semana sin uso. Se reactiva desde su panel.
-- El mapa usa OpenStreetMap y CARTO, y el buscador de lugares usa Nominatim. Son gratis para uso
-  personal; si tu app crece mucho, revisa sus reglas de uso.
 
 ## Dónde está cada cosa
 
@@ -57,7 +54,6 @@ Abre http://localhost:3000. Sin Supabase funciona en **modo local** (guarda en t
 | --- | --- |
 | `src/viajes/travel-app.tsx` | Portada con tus viajes y la ventana para crear o editar un viaje |
 | `src/viajes/trip-view.tsx` | Un viaje: boleto, resumen, itinerario, gastos, alojamiento y qué llevar |
-| `src/viajes/trip-map.tsx` | El mapa (sin librerías) |
 | `src/viajes/viajes.css` | El estilo pasaporte: colores, sellos, boletos y postales |
 | `src/viajes/seed.ts` | La lista sugerida de qué llevar |
 | `src/lib/supabase-store.ts` | Cómo se guarda en Supabase |
