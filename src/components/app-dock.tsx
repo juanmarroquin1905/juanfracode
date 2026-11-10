@@ -37,6 +37,10 @@ const WORDS: Record<string, string> = {
   estudios: "tus estudios",
   viajes: "tus viajes",
   hogar: "tu casa",
+  negocios: "tu negocio",
+  negocio: "tu negocio",
+  trabajo: "tu trabajo",
+  clientes: "tus clientes",
 };
 const DEFAULT_WORD = "tu día a día";
 const wordFor = (category?: string) =>

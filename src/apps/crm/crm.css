@@ -1,0 +1,369 @@
+/* Estilo propio de "Mi CRM": neobrutalista con pastel.
+   Fondo lavanda, tarjetas blancas con borde negro grueso y sombra dura,
+   etiquetas de colores tipo sticker y letra Space Grotesk.
+   Todo vive dentro de .crm para no mezclarse con otros estilos. */
+/* En la capa "components" para que las clases de Tailwind puedan ajustarlas. */
+@layer theme, base, components, utilities;
+
+@layer components {
+  .crm {
+    --c-bg: #efeaff;
+    --c-bg-2: #e4dcff;
+    --c-card: #ffffff;
+    --c-ink: #16121f;
+    --c-mut: #5f5873;
+    --c-violet: #7048e8;
+    --c-yellow: #ffe066;
+    --c-mint: #8be3b8;
+    --c-pink: #ff9ec0;
+    --c-red: #e8453c;
+    --c-ease: cubic-bezier(0.23, 1, 0.32, 1);
+    min-height: 100vh;
+    color: var(--c-ink);
+    font-family: var(--font-crm-body), ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--c-bg);
+    /* cuadrícula muy suave, como hoja de cuaderno */
+    background-image:
+      linear-gradient(rgb(22 18 31 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(22 18 31 / 0.045) 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .crm-display {
+    font-family: var(--font-crm-display), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+  .crm-num {
+    font-family: var(--font-crm-display), ui-sans-serif, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Tarjeta con borde y sombra dura */
+  .crm-card {
+    background: var(--c-card);
+    border: 2px solid var(--c-ink);
+    border-radius: 14px;
+    box-shadow: 4px 4px 0 var(--c-ink);
+  }
+  .crm-card-flat {
+    background: var(--c-card);
+    border: 2px solid var(--c-ink);
+    border-radius: 12px;
+  }
+
+  /* Botones */
+  .crm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 16px;
+    border: 2px solid var(--c-ink);
+    border-radius: 10px;
+    background: var(--c-violet);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 3px 3px 0 var(--c-ink);
+    transition: transform 120ms var(--c-ease), box-shadow 120ms var(--c-ease), background-color 150ms ease;
+    white-space: nowrap;
+  }
+  .crm-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--c-ink);
+  }
+  .crm-btn:disabled {
+    opacity: 0.6;
+  }
+  .crm-btn-yellow {
+    background: var(--c-yellow);
+    color: var(--c-ink);
+  }
+  .crm-btn-white {
+    background: #fff;
+    color: var(--c-ink);
+  }
+  .crm-btn-sm {
+    height: 32px;
+    padding: 0 11px;
+    font-size: 13px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 0 var(--c-ink);
+  }
+  .crm-btn-sm:active {
+    transform: translate(2px, 2px);
+  }
+  .crm-press {
+    transition: transform 140ms var(--c-ease);
+  }
+  .crm-press:active {
+    transform: scale(0.96);
+  }
+
+  /* Campos */
+  .crm-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--c-mut);
+  }
+  .crm-input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 2px solid var(--c-ink);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--c-ink);
+    font-size: 15px;
+    outline: none;
+    transition: box-shadow 150ms ease;
+  }
+  textarea.crm-input {
+    height: auto;
+    padding: 9px 12px;
+    resize: vertical;
+  }
+  .crm-input:focus {
+    box-shadow: 3px 3px 0 var(--c-violet);
+  }
+
+  /* Sticker / etiqueta */
+  .crm-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 22px;
+    padding: 0 8px;
+    border: 1.5px solid var(--c-ink);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .crm-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 32px;
+    padding: 0 12px;
+    border: 2px solid var(--c-ink);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 150ms ease, transform 140ms var(--c-ease), box-shadow 140ms var(--c-ease);
+  }
+  .crm-chip[aria-pressed="true"] {
+    background: var(--c-ink);
+    color: #fff;
+  }
+  .crm-chip:active {
+    transform: scale(0.96);
+  }
+
+  /* Pestañas de arriba */
+  .crm-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 14px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--c-mut);
+    white-space: nowrap;
+    transition: color 150ms ease, background-color 150ms ease;
+  }
+  .crm-tab[aria-selected="true"] {
+    background: var(--c-yellow);
+    border-color: var(--c-ink);
+    color: var(--c-ink);
+    box-shadow: 2px 2px 0 var(--c-ink);
+  }
+
+  /* Avatar con iniciales */
+  .crm-avatar {
+    display: grid;
+    place-items: center;
+    flex: none;
+    border: 2px solid var(--c-ink);
+    border-radius: 999px;
+    font-family: var(--font-crm-display), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+
+  /* Casilla para marcar un seguimiento */
+  .crm-check {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    flex: none;
+    border: 2px solid var(--c-ink);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--c-ink);
+    font-size: 14px;
+    font-weight: 800;
+    transition: background-color 150ms ease, transform 140ms var(--c-ease);
+  }
+  .crm-check[aria-checked="true"] {
+    background: var(--c-mint);
+  }
+  .crm-check:active {
+    transform: scale(0.85);
+  }
+
+  /* Tablero de tratos */
+  .crm-board {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(250px, 1fr);
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 14px;
+    scroll-snap-type: x proximity;
+  }
+  .crm-col {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    border: 2px dashed rgb(22 18 31 / 0.25);
+    border-radius: 14px;
+    background: rgb(255 255 255 / 0.35);
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+  .crm-col[data-over="true"] {
+    border-color: var(--c-violet);
+    background: rgb(112 72 232 / 0.1);
+  }
+  .crm-deal {
+    cursor: grab;
+    background: #fff;
+    border: 2px solid var(--c-ink);
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 var(--c-ink);
+    transition: transform 160ms var(--c-ease), box-shadow 160ms var(--c-ease), opacity 150ms ease;
+  }
+  .crm-deal:active {
+    cursor: grabbing;
+  }
+  .crm-deal[data-dragging="true"] {
+    opacity: 0.4;
+  }
+  .crm-drop-line {
+    height: 4px;
+    border-radius: 4px;
+    background: var(--c-violet);
+  }
+
+  /* Barras de los gráficos */
+  .crm-bar {
+    border: 2px solid var(--c-ink);
+    border-radius: 6px;
+    transition: height 500ms var(--c-ease), width 500ms var(--c-ease);
+  }
+
+  .crm-row {
+    transition: background-color 150ms ease;
+  }
+
+  .crm-fade {
+    animation: crm-fade 300ms var(--c-ease) both;
+  }
+  @keyframes crm-fade {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .crm-pop {
+    animation: crm-pop 420ms var(--c-ease) both;
+  }
+  @keyframes crm-pop {
+    0% {
+      transform: scale(0.6) rotate(-8deg);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.08) rotate(3deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) rotate(-2deg);
+    }
+  }
+
+  .crm-dialog {
+    margin: auto;
+    width: min(500px, calc(100% - 20px));
+    max-height: calc(100dvh - 24px);
+    padding: 0;
+    border: 2px solid var(--c-ink);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--c-ink);
+    box-shadow: 6px 6px 0 var(--c-ink);
+  }
+  .crm-dialog::backdrop {
+    background: rgb(22 18 31 / 0.45);
+  }
+  .crm-dialog[open] {
+    animation: crm-fade 240ms var(--c-ease) both;
+  }
+
+  .crm-scroll-x {
+    scrollbar-width: none;
+  }
+  .crm-scroll-x::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .crm-btn:hover {
+      background-color: #5f39d6;
+    }
+    .crm-btn-yellow:hover {
+      background-color: #ffd633;
+    }
+    .crm-btn-white:hover,
+    .crm-chip:not([aria-pressed="true"]):hover {
+      background-color: var(--c-bg);
+    }
+    .crm-tab:not([aria-selected="true"]):hover {
+      color: var(--c-ink);
+    }
+    .crm-deal:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--c-ink);
+    }
+    .crm-row:hover {
+      background: rgb(112 72 232 / 0.06);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .crm *,
+    .crm *::before,
+    .crm *::after {
+      animation: none !important;
+      transition-duration: 0ms !important;
+    }
+  }
+}
