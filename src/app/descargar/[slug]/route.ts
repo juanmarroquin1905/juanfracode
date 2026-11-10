@@ -19,5 +19,6 @@ export async function GET(request: NextRequest, { params }: RouteContext<"/desca
   if (!target) return NextResponse.redirect(new URL(`/saas/${slug}`, request.url));
 
   await track(slug, "download");
-  return NextResponse.redirect(target);
+  // Acepta enlaces completos o rutas de esta misma web (ej: /descargas/finanzas.zip).
+  return NextResponse.redirect(new URL(target, request.url));
 }

@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/* Estilo de Juanfra Code: cristal azul suave. Fondo casi blanco con un toque azul,
+   acento azul → celeste, tarjetas translúcidas y animaciones cortas. */
+@theme {
+  --color-canvas: #f3f7ff; /* fondo de la página */
+  --color-ink: #0c1a3b; /* texto principal */
+  --color-mut: #4b5f8c; /* texto secundario */
+  --color-card: #ffffff;
+  --color-soft: #eef4ff; /* rellenos suaves */
+  --color-line: #e3eaf8;
+  --color-accent: #1d4ed8;
+  --color-accent-2: #06b6d4;
+  --font-sans: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-ui: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dos brillos muy suaves detrás de todo */
+.glows::before,
+.glows::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+}
+.glows::before {
+  width: 460px;
+  height: 460px;
+  left: -180px;
+  top: -200px;
+  background: #3b82f6;
+  opacity: 0.18;
+}
+.glows::after {
+  width: 420px;
+  height: 420px;
+  right: -160px;
+  top: 320px;
+  background: #22d3ee;
+  opacity: 0.16;
+}
+
+.glass {
+  background: rgb(255 255 255 / 0.72);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 10px 40px -14px rgb(30 64 175 / 0.14);
+}
+
+.text-gradient {
+  @apply bg-linear-to-r from-accent to-accent-2 bg-clip-text text-transparent;
+}
+.brand-gradient {
+  @apply bg-linear-to-br from-accent to-accent-2;
+}
+.card {
+  @apply rounded-2xl border border-line bg-white/75 backdrop-blur-md shadow-[0_10px_40px_-14px_rgba(30,64,175,0.14)];
+}
+
+.input {
+  @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-base text-ink outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-slate-400 focus:border-accent focus:ring-4 focus:ring-accent/15;
+}
+.label {
+  @apply mb-1.5 block text-sm font-semibold text-slate-700;
+}
+.hint {
+  @apply mt-1.5 text-xs leading-relaxed text-mut;
+}
+
+/* Botones: responden al presionar (scale .97) y el hover solo en escritorio */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-[0_6px_20px_-8px_rgba(29,78,216,0.6)] disabled:pointer-events-none disabled:opacity-60;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease;
+}
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/80 px-5 py-2.5 text-sm font-semibold text-ink backdrop-blur-md;
+  transition:
+    transform 160ms var(--ease-out),
+    border-color 200ms ease;
+}
+.btn:active,
+.btn-ghost:active,
+.press:active {
+  transform: scale(0.97);
+}
+.arr {
+  display: inline-block;
+  transition: transform 200ms var(--ease-out);
+}
+.lift {
+  transition:
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background-color: #1e40af;
+  }
+  .btn-ghost:hover {
+    border-color: #c7d7f7;
+  }
+  .btn:hover .arr,
+  .group:hover .arr {
+    transform: translateX(3px);
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -14px rgb(30 64 175 / 0.22);
+  }
+}
+
+.chip {
+  @apply inline-flex items-center rounded-full bg-soft px-2.5 py-0.5 font-ui text-[11px] text-mut;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
+}

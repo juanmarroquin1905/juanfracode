@@ -1,6 +1,6 @@
 import type { Saas } from "@/lib/types";
 
-type Props = { saas: Pick<Saas, "name" | "emoji" | "color" | "cover_url" | "slug">; className?: string; bare?: boolean };
+type Props = { saas: Pick<Saas, "name" | "emoji" | "color" | "cover_url" | "slug"> & { demo_url?: string | null }; className?: string; bare?: boolean };
 
 // Ventana de navegador con la captura de la app. Si aún no hay captura,
 // dibuja una interfaz de ejemplo con el color y el emoji de la app.
@@ -14,7 +14,7 @@ export function AppPreview({ saas, className = "", bare = false }: Props) {
         <span className="size-2 rounded-full bg-[#dbe3f3]" />
         <span className="size-2 rounded-full bg-[#dbe3f3]" />
         <span className="ml-2 truncate rounded-md bg-soft px-2 py-0.5 font-ui text-[10px] text-mut">
-          {saas.slug}.vercel.app
+          {addressOf(saas)}
         </span>
       </div>
       <div className={`relative aspect-[16/10] ${bare ? "lg:aspect-[16/9]" : ""}`}>
@@ -27,6 +27,17 @@ export function AppPreview({ saas, className = "", bare = false }: Props) {
       </div>
     </div>
   );
+}
+
+// Lo que se ve en la barra de direcciones: la demo real si existe.
+export function addressOf(saas: { slug: string; demo_url?: string | null }) {
+  if (saas.demo_url) {
+    try {
+      const u = new URL(saas.demo_url, process.env.NEXT_PUBLIC_SITE_URL || "https://juanfracode.vercel.app");
+      return `${u.host}${u.pathname === "/" ? "" : u.pathname}`;
+    } catch {}
+  }
+  return `${saas.slug}.vercel.app`;
 }
 
 function MockUI({ saas }: { saas: Props["saas"] }) {

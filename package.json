@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/build-plantillas.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "plantillas": "node scripts/build-plantillas.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
