@@ -239,57 +239,6 @@
   background: var(--vj-red);
 }
 
-/* Mapa */
-.vj-map {
-  border-radius: 12px;
-  background-color: #efe7d4;
-  background-image:
-    linear-gradient(rgb(29 43 79 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(29 43 79 / 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
-  cursor: grab;
-}
-.vj-map:active {
-  cursor: grabbing;
-}
-.vj-tile {
-  filter: sepia(0.28) saturate(0.85) contrast(0.98);
-  pointer-events: none;
-}
-.vj-pin {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
-  border-radius: 9999px;
-  border: 2.5px solid #fffdf7;
-  color: #fffdf7;
-  font-family: var(--font-vj-mono), ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 700;
-  box-shadow: 0 3px 8px rgb(29 43 79 / 0.35);
-  transition: transform 160ms var(--vj-ease);
-}
-.vj-pin:active {
-  transform: scale(0.9);
-}
-.vj-tip {
-  z-index: 4;
-  transform: translate(-50%, calc(-100% - 18px));
-  max-width: 220px;
-  border-radius: 8px;
-  background: var(--vj-ink);
-  color: #fffdf7;
-  padding: 5px 9px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  pointer-events: none;
-}
-
 /* Barra de presupuesto */
 .vj-bar {
   display: flex;

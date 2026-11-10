@@ -3,7 +3,7 @@ import { ViajesDemo } from "./demo";
 
 export const metadata: Metadata = {
   title: "Mis viajes (demo)",
-  description: "Planificador de viajes: destino, hotel, presupuesto, gastos, itinerario con mapa y lista de qué llevar.",
+  description: "Planificador de viajes: destino, hotel, presupuesto, gastos, itinerario por día y lista de qué llevar.",
 };
 
 export const viewport: Viewport = { themeColor: "#f6f0e3" };
