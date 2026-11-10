@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type { Saas } from "@/lib/types";
-import { AppPreview } from "./app-preview";
+import { AppPreview, addressOf } from "./app-preview";
 
 type DockApp = Pick<
   Saas,
@@ -206,7 +206,7 @@ function LiveDemo({ app, onClose }: { app: DockApp; onClose: () => void }) {
         <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
         <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
         <span className="ml-2 truncate rounded-md bg-soft px-2.5 py-1">
-          {app.slug}.vercel.app
+          {addressOf(app)}
         </span>
         <a
           href={app.demo_url!}

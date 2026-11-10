@@ -62,3 +62,17 @@ la gente pueda pulsar "Use this template".
 npm install
 npm run dev
 ```
+
+## Apps dentro de esta web (demo + descarga)
+
+Cada app vive en este mismo repo y se publica en el mismo Vercel:
+
+| Carpeta | Qué es |
+| --- | --- |
+| `src/apps/<app>/` | El código de la app (pantallas, gráficos, datos de ejemplo) |
+| `src/app/apps/<app>/` | La demo en `/apps/<app>`: sin base de datos, guarda en el navegador |
+| `plantillas/<app>/` | El resto del proyecto descargable: Next.js, Supabase, `schema.sql`, README, licencia MIT |
+| `supabase/apps/<app>.sql` | Lo que se pega en Supabase para que la app salga en la vitrina |
+
+En cada `npm run build` se arma solo `public/descargas/<app>.zip` (plantilla + código
+de la app) con `scripts/build-plantillas.mjs`. Para una app nueva, agrégala a la lista `APPS` de ese archivo.

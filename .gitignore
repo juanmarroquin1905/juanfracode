@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 !.env.example
+
+# zips de las apps (se arman solos en cada build)
+/public/descargas/
