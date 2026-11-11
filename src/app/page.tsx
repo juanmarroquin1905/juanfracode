@@ -60,7 +60,7 @@ export default async function Home() {
           <SectionTitle
             kicker="Skills para Claude"
             title="Tareas del día a día, en un clic"
-            text="Mi skill para crear tu primera app y skills populares de GitHub que le enseñan a Claude a ordenar archivos, adaptar tu CV y más."
+            text="Mi skill para crear tu primera app web y skills populares de GitHub que le enseñan a Claude a ordenar archivos, adaptar tu CV y más."
           />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {SKILLS.map((s) => (
@@ -138,7 +138,7 @@ function SkillBanner() {
         <div className="relative">
           <p className="chip">Skill gratis para Claude · Hecha por Juanfra Code</p>
           <h2 id="skill-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
-            Crea tu primera app con Claude
+            Crea tu primera app web con Claude
           </h2>
           <p className="mt-2 max-w-2xl leading-relaxed text-mut">
             Instálala en tu Claude y te hace preguntas paso a paso: tu idea, qué hace, cómo se ve. Luego la construye contigo para
