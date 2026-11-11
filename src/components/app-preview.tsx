@@ -7,12 +7,12 @@ type Props = { saas: Pick<Saas, "name" | "emoji" | "color" | "cover_url" | "slug
 export function AppPreview({ saas, className = "", bare = false }: Props) {
   return (
     <div
-      className={`overflow-hidden bg-white ${bare ? "" : "rounded-xl border border-line shadow-[0_24px_48px_-20px_rgba(30,64,175,0.25)]"} ${className}`}
+      className={`overflow-hidden bg-card ${bare ? "" : "rounded-xl border border-line shadow-[0_24px_48px_-20px_rgba(30,64,175,0.25)]"} ${className}`}
     >
-      <div className={`flex items-center gap-1.5 border-b border-line ${bare ? "bg-white/70 px-4 py-2.5" : "bg-white px-3 py-2"}`}>
-        <span className="size-2 rounded-full bg-[#dbe3f3]" />
-        <span className="size-2 rounded-full bg-[#dbe3f3]" />
-        <span className="size-2 rounded-full bg-[#dbe3f3]" />
+      <div className={`flex items-center gap-1.5 border-b border-line ${bare ? "bg-card/70 px-4 py-2.5" : "bg-card px-3 py-2"}`}>
+        <span className="size-2 rounded-full bg-line" />
+        <span className="size-2 rounded-full bg-line" />
+        <span className="size-2 rounded-full bg-line" />
         <span className="ml-2 truncate rounded-md bg-soft px-2 py-0.5 font-ui text-[10px] text-mut">
           {addressOf(saas)}
         </span>

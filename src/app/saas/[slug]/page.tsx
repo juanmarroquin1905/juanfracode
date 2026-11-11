@@ -60,7 +60,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
                 <p className="mt-1 text-sm text-mut">{saas.category}</p>
               </div>
             </div>
-            <p className="mt-5 text-lg leading-relaxed text-slate-600">{saas.tagline}</p>
+            <p className="mt-5 text-lg leading-relaxed text-mut">{saas.tagline}</p>
             {saas.demo_url && (
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <a href={saas.demo_url} target="_blank" rel="noreferrer" className="btn px-6 py-3 text-base">
@@ -74,8 +74,8 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
               {saas.demo_url ? (
                 <a href={saas.demo_url} target="_blank" rel="noreferrer" className="group relative block" aria-label={`Probar ${saas.name}`}>
                   <AppPreview saas={saas} />
-                  <span className="absolute inset-0 grid place-items-center rounded-xl bg-ink/0 transition group-hover:bg-ink/30">
-                    <span className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink opacity-0 shadow-lg transition group-hover:opacity-100">
+                  <span className="absolute inset-0 grid place-items-center rounded-xl bg-night/0 transition group-hover:bg-night/30">
+                    <span className="rounded-full bg-card px-5 py-2.5 text-sm font-semibold text-ink opacity-0 shadow-lg transition group-hover:opacity-100">
                       ▶ Probar la app
                     </span>
                   </span>
@@ -97,7 +97,7 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
                 <h2 className="text-lg font-bold text-ink">Qué incluye la plantilla</h2>
                 <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                   {saas.features.map((f) => (
-                    <li key={f} className="card flex gap-2.5 rounded-xl px-4 py-3 text-sm text-slate-700">
+                    <li key={f} className="card flex gap-2.5 rounded-xl px-4 py-3 text-sm text-ink">
                       <span className="text-accent">✓</span>
                       {f}
                     </li>

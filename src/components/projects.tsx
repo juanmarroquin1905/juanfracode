@@ -74,12 +74,12 @@ function Preview({ project }: { project: Project }) {
   const [failed, setFailed] = useState(false);
   const showImage = project.image && !failed;
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-line bg-card shadow-sm">
       <div className="flex items-center gap-1.5 border-b border-line bg-soft/70 px-3 py-2">
         <span className="size-2 rounded-full bg-[#ff5f57]" />
         <span className="size-2 rounded-full bg-[#febc2e]" />
         <span className="size-2 rounded-full bg-[#28c840]" />
-        <span className="ml-2 truncate rounded-md bg-white px-2 py-0.5 font-ui text-[10px] text-mut">
+        <span className="ml-2 truncate rounded-md bg-card px-2 py-0.5 font-ui text-[10px] text-mut">
           {project.url.replace(/^https?:\/\//, "")}
         </span>
       </div>
@@ -106,7 +106,7 @@ function Mock({ project }: { project: Project }) {
   return (
     <div
       className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center"
-      style={{ background: `radial-gradient(120% 90% at 50% 0%, ${color}22, #ffffff 70%)` }}
+      style={{ background: `radial-gradient(120% 90% at 50% 0%, ${color}22, var(--color-card) 70%)` }}
     >
       <span className="text-3xl">{emoji}</span>
       <p className="text-lg font-bold tracking-tight text-balance text-ink sm:text-xl">{headline}</p>

@@ -12,7 +12,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
       <main className="grid min-h-screen place-items-center px-4 text-center">
         <div className="max-w-md">
           <h1 className="text-xl font-bold text-ink">Tu cuenta no es administradora</h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-mut">
             Entraste como {user.email}. Para hacerla admin, ejecuta en Supabase la última línea de supabase/schema.sql con
             este correo.
           </p>
@@ -32,18 +32,18 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
             Panel
           </Link>
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/admin" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
+            <Link href="/admin" className="rounded-md px-3 py-1.5 text-mut hover:text-ink">
               Apps
             </Link>
-            <Link href="/admin/contactos" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
+            <Link href="/admin/contactos" className="rounded-md px-3 py-1.5 text-mut hover:text-ink">
               Contactos
             </Link>
-            <Link href="/" className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">
+            <Link href="/" className="rounded-md px-3 py-1.5 text-mut hover:text-ink">
               Ver web ↗
             </Link>
             {!isDemo && (
               <form action={logout}>
-                <button className="rounded-md px-3 py-1.5 text-slate-500 hover:text-ink">Salir</button>
+                <button className="rounded-md px-3 py-1.5 text-mut hover:text-ink">Salir</button>
               </form>
             )}
           </div>
