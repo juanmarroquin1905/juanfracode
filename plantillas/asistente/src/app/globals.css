@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* El estilo de la app (pantalla futurista) está en src/asistente/hud.css */
+body {
+  background: #030814;
+}

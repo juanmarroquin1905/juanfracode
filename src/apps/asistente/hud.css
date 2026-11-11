@@ -1,0 +1,436 @@
+/* Estilo propio de "Mi asistente" (NOVA): panel futurista tipo HUD.
+   Fondo azul noche con cuadrícula, líneas y textos en celeste neón,
+   un núcleo de luz en el centro que late cuando NOVA habla,
+   letra Orbitron para títulos y Chakra Petch para leer.
+   Todo vive dentro de .hud para no mezclarse con otros estilos. */
+/* En la capa "components" para que las clases de Tailwind puedan ajustarlas. */
+@layer theme, base, components, utilities;
+
+@layer components {
+  .hud {
+    --h-bg: #030814;
+    --h-panel: rgb(8 22 44 / 0.62);
+    --h-line: rgb(80 200 255 / 0.22);
+    --h-line-strong: rgb(80 200 255 / 0.55);
+    --h-cyan: #4fe3ff;
+    --h-blue: #2f8dff;
+    --h-ink: #dff6ff;
+    --h-mut: #7fa6c2;
+    --h-warn: #ffb547;
+    --h-ok: #52ffb0;
+    --h-red: #ff5d73;
+    --h-glow: 0 0 12px rgb(79 227 255 / 0.45);
+    --h-ease: cubic-bezier(0.23, 1, 0.32, 1);
+    min-height: 100vh;
+    color: var(--h-ink);
+    font-family: var(--font-hud-body), ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--h-bg);
+    background-image:
+      radial-gradient(900px 600px at 50% 30%, rgb(47 141 255 / 0.16), transparent 70%),
+      linear-gradient(rgb(79 227 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(79 227 255 / 0.045) 1px, transparent 1px);
+    background-size: auto, 44px 44px, 44px 44px;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+  /* Líneas de escaneo muy suaves encima de todo */
+  .hud::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgb(255 255 255 / 0.018) 0 1px, transparent 1px 3px);
+  }
+  .hud-display {
+    font-family: var(--font-hud-display), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .hud-num {
+    font-family: var(--font-hud-display), ui-sans-serif, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  .hud-glow {
+    color: var(--h-cyan);
+    text-shadow: var(--h-glow);
+  }
+
+  /* Panel con esquinas marcadas */
+  .hud-panel {
+    position: relative;
+    background: var(--h-panel);
+    border: 1px solid var(--h-line);
+    border-radius: 4px;
+    padding: 14px 16px 16px;
+    backdrop-filter: blur(6px);
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    animation: hud-in 0.6s var(--h-ease) both;
+  }
+  .hud-panel::before,
+  .hud-panel::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--h-cyan);
+    border-style: solid;
+    opacity: 0.9;
+  }
+  .hud-panel::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+  }
+  .hud-panel::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+  }
+  .hud-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-family: var(--font-hud-display), ui-sans-serif, system-ui, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--h-cyan);
+  }
+  .hud-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--h-line-strong), transparent);
+  }
+  .hud-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px dashed rgb(80 200 255 / 0.12);
+    font-size: 14px;
+  }
+  .hud-row:last-child {
+    border-bottom: 0;
+  }
+
+  /* Botones e inputs */
+  .hud-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--h-line-strong);
+    background: rgb(79 227 255 / 0.08);
+    color: var(--h-cyan);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:
+      background-color 0.2s var(--h-ease),
+      box-shadow 0.2s var(--h-ease),
+      transform 0.15s var(--h-ease);
+  }
+  .hud-btn:hover {
+    background: rgb(79 227 255 / 0.16);
+    box-shadow: var(--h-glow);
+  }
+  .hud-btn:active {
+    transform: scale(0.97);
+  }
+  .hud-btn[aria-pressed="true"] {
+    background: var(--h-cyan);
+    color: var(--h-bg);
+    box-shadow: var(--h-glow);
+  }
+  .hud-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .hud-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    background: rgb(2 10 24 / 0.8);
+    border: 1px solid var(--h-line-strong);
+    border-radius: 4px;
+    color: var(--h-ink);
+    font-size: 15px;
+    outline: none;
+    transition: box-shadow 0.2s var(--h-ease), border-color 0.2s var(--h-ease);
+  }
+  .hud-input::placeholder {
+    color: var(--h-mut);
+  }
+  .hud-input:focus {
+    border-color: var(--h-cyan);
+    box-shadow: var(--h-glow);
+  }
+  .hud-chip {
+    padding: 6px 11px;
+    border: 1px solid var(--h-line);
+    border-radius: 999px;
+    font-size: 12.5px;
+    color: var(--h-mut);
+    background: rgb(79 227 255 / 0.04);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  }
+  .hud-chip:hover {
+    color: var(--h-cyan);
+    border-color: var(--h-line-strong);
+    background: rgb(79 227 255 / 0.1);
+  }
+  .hud-check {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--h-line-strong);
+    border-radius: 3px;
+    display: grid;
+    place-items: center;
+    color: var(--h-bg);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+  .hud-check[aria-checked="true"] {
+    background: var(--h-ok);
+    border-color: var(--h-ok);
+    box-shadow: 0 0 10px rgb(82 255 176 / 0.5);
+  }
+  .hud-x {
+    margin-left: auto;
+    color: var(--h-mut);
+    opacity: 0;
+    padding: 0 4px;
+    cursor: pointer;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .hud-row:hover .hud-x,
+  .hud-x:focus-visible {
+    opacity: 1;
+  }
+  .hud-x:hover {
+    color: var(--h-red);
+  }
+  @media (hover: none) {
+    .hud-x {
+      opacity: 0.6;
+    }
+  }
+
+  /* Barra de progreso */
+  .hud-meter {
+    height: 6px;
+    background: rgb(79 227 255 / 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .hud-meter > span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--h-blue), var(--h-cyan));
+    box-shadow: var(--h-glow);
+    transition: width 0.8s var(--h-ease);
+  }
+  .hud-meter[data-over="true"] > span {
+    background: linear-gradient(90deg, var(--h-warn), var(--h-red));
+  }
+
+  /* ===== El núcleo ===== */
+  .hud-core {
+    position: relative;
+    width: min(340px, 74vw);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+  }
+  .hud-core svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .hud-ring {
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+  }
+  .hud-spin-a {
+    animation: hud-spin 24s linear infinite;
+  }
+  .hud-spin-b {
+    animation: hud-spin 16s linear infinite reverse;
+  }
+  .hud-spin-c {
+    animation: hud-spin 9s linear infinite;
+  }
+  .hud-orb {
+    position: relative;
+    width: 34%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, #ffffff 0%, #bdf6ff 14%, #4fe3ff 34%, #1b6dff 62%, rgb(27 109 255 / 0) 72%);
+    box-shadow:
+      0 0 40px 10px rgb(79 227 255 / 0.45),
+      0 0 120px 40px rgb(47 141 255 / 0.25);
+    animation: hud-breathe 4s ease-in-out infinite;
+    transition: filter 0.4s;
+  }
+  .hud-orb::after {
+    content: "";
+    position: absolute;
+    inset: -18%;
+    border-radius: 50%;
+    border: 1px solid rgb(79 227 255 / 0.5);
+    animation: hud-wave 3.2s ease-out infinite;
+  }
+  .hud-core[data-state="speaking"] .hud-orb {
+    animation: hud-talk 0.36s ease-in-out infinite alternate;
+    filter: brightness(1.25) saturate(1.2);
+  }
+  .hud-core[data-state="speaking"] .hud-orb::after {
+    animation-duration: 0.9s;
+  }
+  .hud-core[data-state="speaking"] .hud-spin-c {
+    animation-duration: 2.5s;
+  }
+  .hud-core[data-state="speaking"] .hud-spin-b {
+    animation-duration: 6s;
+  }
+  .hud-core[data-state="thinking"] .hud-spin-c,
+  .hud-core[data-state="thinking"] .hud-spin-a {
+    animation-duration: 1.6s;
+  }
+  .hud-core[data-state="listening"] .hud-orb {
+    background: radial-gradient(circle at 50% 45%, #ffffff 0%, #c8ffe6 14%, #52ffb0 34%, #12a66a 62%, rgb(18 166 106 / 0) 72%);
+    box-shadow:
+      0 0 40px 10px rgb(82 255 176 / 0.45),
+      0 0 120px 40px rgb(82 255 176 / 0.2);
+    animation: hud-talk 0.7s ease-in-out infinite alternate;
+  }
+  .hud-bars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hud-bars i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2px;
+    height: 10px;
+    margin-left: -1px;
+    background: var(--h-cyan);
+    box-shadow: var(--h-glow);
+    border-radius: 2px;
+    transform-origin: 50% 0;
+    opacity: 0.35;
+  }
+  .hud-core[data-state="speaking"] .hud-bars i {
+    opacity: 0.9;
+    animation: hud-bar 0.5s ease-in-out infinite alternate;
+  }
+
+  /* Chat */
+  .hud-msg {
+    max-width: 92%;
+    padding: 9px 13px;
+    font-size: 14.5px;
+    line-height: 1.45;
+    border-radius: 4px;
+    animation: hud-in 0.35s var(--h-ease) both;
+  }
+  .hud-msg[data-from="me"] {
+    margin-left: auto;
+    background: rgb(47 141 255 / 0.22);
+    border: 1px solid rgb(47 141 255 / 0.45);
+  }
+  .hud-msg[data-from="nova"] {
+    background: rgb(79 227 255 / 0.06);
+    border-left: 2px solid var(--h-cyan);
+  }
+  .hud-caret {
+    display: inline-block;
+    width: 7px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -2px;
+    background: var(--h-cyan);
+    animation: hud-blink 0.8s steps(1) infinite;
+  }
+  .hud-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(79 227 255 / 0.3) transparent;
+  }
+
+  @keyframes hud-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes hud-breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.06);
+    }
+  }
+  @keyframes hud-talk {
+    from {
+      transform: scale(0.94);
+    }
+    to {
+      transform: scale(1.14);
+    }
+  }
+  @keyframes hud-wave {
+    from {
+      transform: scale(0.8);
+      opacity: 0.9;
+    }
+    to {
+      transform: scale(1.9);
+      opacity: 0;
+    }
+  }
+  @keyframes hud-bar {
+    from {
+      height: 6px;
+    }
+    to {
+      height: 26px;
+    }
+  }
+  @keyframes hud-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  @keyframes hud-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hud *,
+    .hud *::before,
+    .hud *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
