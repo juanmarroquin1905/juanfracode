@@ -20,7 +20,7 @@ const PROJECTS: Project[] = [
     url: "https://tufierro.com",
     description: "Compra y vende autos en todo el Perú. Publicas gratis y hablas directo con el vendedor por WhatsApp.",
     tag: "Autos · Perú",
-    image: "https://tufierro.com/og.png",
+    image: "/proyectos/tufierro.webp",
     mock: { headline: "Encuentra tu fierro ideal", sub: "Autos usados y nuevos en todo el Perú", color: "#1d4ed8", emoji: "🚗" },
   },
   {
@@ -28,6 +28,7 @@ const PROJECTS: Project[] = [
     url: "https://vitrally.com",
     description: "Convierte tu catálogo en una tienda online con tu marca. Tus clientes arman el pedido y te llega por WhatsApp.",
     tag: "Tiendas online",
+    image: "/proyectos/vitrally.webp",
     mock: {
       headline: "Tu tienda online lista en 10 minutos",
       sub: "Los pedidos te llegan por WhatsApp",
@@ -82,7 +83,7 @@ function Preview({ project }: { project: Project }) {
           {project.url.replace(/^https?:\/\//, "")}
         </span>
       </div>
-      <div className="relative aspect-[1200/630]">
+      <div className="relative aspect-[16/10]">
         {showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -90,7 +91,7 @@ function Preview({ project }: { project: Project }) {
             alt={`Vista de ${project.name}`}
             loading="lazy"
             onError={() => setFailed(true)}
-            className="absolute inset-0 size-full object-cover"
+            className="absolute inset-0 size-full object-cover object-top"
           />
         ) : (
           <Mock project={project} />
