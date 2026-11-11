@@ -2,6 +2,7 @@ import { AppDock } from "@/components/app-dock";
 import { Catalog } from "@/components/catalog";
 import { Faq } from "@/components/faq";
 import { HowTo } from "@/components/how-to";
+import { Projects } from "@/components/projects";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialButtons } from "@/components/socials";
@@ -45,6 +46,11 @@ export default async function Home() {
             <Catalog items={items} />
           </section>
         )}
+
+        <section id="proyectos" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
+          <SectionTitle kicker="Mis proyectos" title="Lo que he lanzado" text="Productos reales que construí con este mismo stack." />
+          <Projects />
+        </section>
 
         <section id="como-usar" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
           <SectionTitle

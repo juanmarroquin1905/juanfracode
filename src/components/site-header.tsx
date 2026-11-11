@@ -13,10 +13,13 @@ export function SiteHeader() {
           <Link href="/#top" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
             Apps
           </Link>
-          <Link href="/#como-usar" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
+          <Link href="/#proyectos" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
+            Mis proyectos
+          </Link>
+          <Link href="/#como-usar" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink md:block">
             Cómo se publica
           </Link>
-          <Link href="/#preguntas" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink md:block">
+          <Link href="/#preguntas" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink lg:block">
             Preguntas
           </Link>
           {BRAND.socials.tiktok && (
