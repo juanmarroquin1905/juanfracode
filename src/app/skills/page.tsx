@@ -31,7 +31,9 @@ export default function SkillsPage() {
     ...s,
     content: readFileSync(join(process.cwd(), "skills", s.slug, "SKILL.md"), "utf8"),
     sourceRepo: SKILL_SOURCES[s.source].repo,
-    sourceUrl: `${SKILL_SOURCES[s.source].url}/tree/main/${s.source === "anthropic" ? "skills/" : ""}${s.slug}`,
+    sourceUrl: `${SKILL_SOURCES[s.source].url}/tree/main/${SKILL_SOURCES[s.source].path}${s.slug}`,
+    license: SKILL_SOURCES[s.source].license,
+    own: "own" in SKILL_SOURCES[s.source],
   }));
 
   return (
@@ -44,8 +46,8 @@ export default function SkillsPage() {
             Enséñale a Claude a hacer tareas del día a día
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-mut">
-            Una skill es un archivo con instrucciones que Claude aprende una vez y usa cuando la necesitas. Estas son de las más
-            populares de GitHub. Descárgalas gratis y súbelas a tu Claude.
+            Una skill es un archivo con instrucciones que Claude aprende una vez y usa cuando la necesitas. Aquí está la mía
+            para crear tu primera app y algunas de las más populares de GitHub. Descárgalas gratis y súbelas a tu Claude.
           </p>
         </div>
 
@@ -67,8 +69,8 @@ export default function SkillsPage() {
         </div>
 
         <p className="mt-10 text-sm leading-relaxed text-mut">
-          Estas skills no son mías: son copias sin cambios de{" "}
-          {Object.values(SKILL_SOURCES).map((src, i) => (
+          Las skills marcadas “Hecha por Juanfra Code” son mías, con licencia MIT. Las demás no son mías: son copias sin cambios de{" "}
+          {Object.values(SKILL_SOURCES).filter((src) => !("own" in src)).map((src, i) => (
             <span key={src.repo}>
               {i > 0 && " y "}
               <a href={src.url} target="_blank" rel="noreferrer" className="font-semibold text-ink underline decoration-line underline-offset-4 hover:decoration-accent">
