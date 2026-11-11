@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { Skill } from "@/config/skills";
 
-type Item = Skill & { content: string; sourceRepo: string; sourceUrl: string };
+type Item = Skill & { content: string; sourceRepo: string; sourceUrl: string; license: string; own: boolean };
 
 export function SkillList({ skills }: { skills: Item[] }) {
   return (
@@ -36,12 +36,13 @@ function SkillCard({ skill }: { skill: Item }) {
   }
 
   return (
-    <article id={skill.slug} className="card flex scroll-mt-24 flex-col p-5 sm:p-6">
+    <article id={skill.slug} className={`card flex scroll-mt-24 flex-col p-5 sm:p-6 ${skill.own ? "md:col-span-2 ring-2 ring-accent/30" : ""}`}>
       <div className="flex items-start gap-4">
         <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-soft text-2xl">{skill.emoji}</span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="text-lg font-semibold tracking-tight text-ink">{skill.title}</h3>
+            {skill.own && <span className="chip">Hecha por Juanfra Code</span>}
             {skill.where === "code" && <span className="chip !bg-amber-50 !text-amber-800">Mejor en Claude Code</span>}
           </div>
           <p className="mt-0.5 font-mono text-xs text-mut">{skill.slug}</p>
@@ -73,11 +74,11 @@ function SkillCard({ skill }: { skill: Item }) {
       )}
 
       <p className="mt-auto pt-5 text-xs text-mut">
-        De{" "}
+        {skill.own ? "Hecha por" : "De"}{" "}
         <a href={skill.sourceUrl} target="_blank" rel="noreferrer" className="underline decoration-line underline-offset-4 hover:text-ink">
           {skill.sourceRepo}
         </a>{" "}
-        · Apache 2.0
+        · {skill.license}
       </p>
     </article>
   );

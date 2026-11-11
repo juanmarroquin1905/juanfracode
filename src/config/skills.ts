@@ -1,12 +1,20 @@
 // Skills para Claude que se muestran en /skills.
-// El archivo de cada una vive en skills/<slug>/ (copia sin cambios de su repositorio original).
+// El archivo de cada una vive en skills/<slug>/. Las de terceros son copias sin cambios
+// de su repositorio original; las de "juanfracode" son propias (MIT).
 // Aquí solo va el texto en español que se ve en la web.
 
-export type SkillSource = { repo: string; url: string };
+export type SkillSource = { repo: string; url: string; path: string; license: string; own?: boolean };
 
 export const SKILL_SOURCES = {
-  composio: { repo: "ComposioHQ/awesome-claude-skills", url: "https://github.com/ComposioHQ/awesome-claude-skills" },
-  anthropic: { repo: "anthropics/skills", url: "https://github.com/anthropics/skills" },
+  juanfracode: {
+    repo: "Juanfra Code",
+    url: "https://github.com/juanmarroquin1905/juanfracode",
+    path: "skills/",
+    license: "MIT",
+    own: true,
+  },
+  composio: { repo: "ComposioHQ/awesome-claude-skills", url: "https://github.com/ComposioHQ/awesome-claude-skills", path: "", license: "Apache 2.0" },
+  anthropic: { repo: "anthropics/skills", url: "https://github.com/anthropics/skills", path: "skills/", license: "Apache 2.0" },
 } satisfies Record<string, SkillSource>;
 
 export type Skill = {
@@ -20,6 +28,15 @@ export type Skill = {
 };
 
 export const SKILLS: Skill[] = [
+  {
+    slug: "crea-tu-primera-app",
+    emoji: "🚀",
+    title: "Crea tu primera app",
+    text: "Te hace preguntas una por una (tu idea, para quién es, qué hace, qué guarda, cómo se ve) y luego la construye contigo: como artefacto para usarla ya en Claude, o lista para publicar en Vercel con Supabase.",
+    example: "Quiero crear mi primera app",
+    where: "todas",
+    source: "juanfracode",
+  },
   {
     slug: "file-organizer",
     emoji: "🗂️",
