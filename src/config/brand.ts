@@ -2,7 +2,7 @@
 // Si dejas una red vacía (""), no se muestra.
 export const BRAND = {
   name: "Juanfra Code",
-  title: "Apps simples para tu día a día",
+  title: "Micro apps web para tu día a día",
   titleHighlight: "tu día a día", // parte del título que va con degradado
   tagline:
     "Pequeños SaaS de uso personal que creo con Next.js, Supabase, Vercel y Claude Code. Pruébalos, descarga la plantilla gratis y lanza tu propia versión en minutos.",
