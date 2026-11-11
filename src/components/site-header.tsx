@@ -16,6 +16,9 @@ export function SiteHeader() {
           <Link href="/#proyectos" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
             Mis proyectos
           </Link>
+          <Link href="/skills" className="rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink">
+            Skills
+          </Link>
           <Link href="/#como-usar" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink md:block">
             Cómo se publica
           </Link>

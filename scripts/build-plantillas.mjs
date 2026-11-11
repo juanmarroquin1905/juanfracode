@@ -14,7 +14,7 @@ const APPS = [
   { slug: "viajes", folder: "mis-viajes" },
   { slug: "crm", folder: "mi-crm" },
 ];
-const SKIP = new Set(["node_modules", ".next", ".env.local", ".vercel", "next-env.d.ts"]);
+const SKIP = new Set(["node_modules", ".next", ".env.local", ".vercel", "next-env.d.ts", "__pycache__"]);
 
 function walk(dir) {
   return readdirSync(dir).flatMap((name) => {
@@ -96,6 +96,22 @@ for (const { slug, folder } of APPS) {
     ...walk(shared).map((p) => ({ name: `${folder}/src/${slug}/${relative(shared, p)}`, data: readFileSync(p) })),
   ].sort((a, b) => a.name.localeCompare(b.name));
   const out = join(ROOT, "public/descargas", `${slug}.zip`);
+  writeFileSync(out, zip(entries));
+  console.log(`✓ ${relative(ROOT, out)} (${entries.length} archivos)`);
+}
+
+// Skills para Claude: cada carpeta de skills/<nombre> se vuelve
+// public/descargas/skills/<nombre>.zip con la carpeta adentro (formato que pide Claude al subirla).
+const SKILLS = join(ROOT, "skills");
+mkdirSync(join(ROOT, "public/descargas/skills"), { recursive: true });
+for (const name of readdirSync(SKILLS)) {
+  const dir = join(SKILLS, name);
+  if (!statSync(dir).isDirectory()) continue;
+  const entries = walk(dir)
+    .filter((p) => !p.endsWith(".pyc"))
+    .map((p) => ({ name: `${name}/${relative(dir, p)}`, data: readFileSync(p) }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  const out = join(ROOT, "public/descargas/skills", `${name}.zip`);
   writeFileSync(out, zip(entries));
   console.log(`✓ ${relative(ROOT, out)} (${entries.length} archivos)`);
 }
