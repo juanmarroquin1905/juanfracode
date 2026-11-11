@@ -21,7 +21,7 @@ type DockApp = Pick<
   | "zip_url"
 >;
 
-// Palabra del titular según la categoría: "Apps simples para tu dinero".
+// Palabra del titular según la categoría: "Micro apps web para tu dinero".
 const WORDS: Record<string, string> = {
   finanzas: "tu dinero",
   dinero: "tu dinero",
@@ -70,7 +70,7 @@ export function AppDock({ apps }: { apps: DockApp[] }) {
     <>
       <header className="mx-auto max-w-3xl px-4 pt-10 pb-8 text-center sm:pt-14">
         <h1 className="enter text-[clamp(36px,5vw,60px)] leading-[1.04] font-bold tracking-[-0.04em] text-ink">
-          Apps simples para{" "}
+          Micro apps web para{" "}
           <span className="swap text-gradient block pb-[0.12em]" data-out={out}>
             {word}
           </span>
