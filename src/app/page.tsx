@@ -7,6 +7,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialButtons } from "@/components/socials";
 import { BRAND } from "@/config/brand";
+import { SKILLS } from "@/config/skills";
+import Link from "next/link";
 import { getPublishedSaas } from "@/lib/data";
 
 export const revalidate = 60;
@@ -50,6 +52,25 @@ export default async function Home() {
         <section id="proyectos" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
           <SectionTitle kicker="Mis proyectos" title="Lo que he lanzado" text="Productos reales que construí con este mismo stack." />
           <Projects />
+        </section>
+
+        <section id="skills" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
+          <SectionTitle
+            kicker="Skills para Claude"
+            title="Tareas del día a día, en un clic"
+            text="Skills populares de GitHub que le enseñan a Claude a ordenar archivos, elegir ganadores de sorteos, adaptar tu CV y más."
+          />
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {SKILLS.map((s) => (
+              <Link key={s.slug} href={`/skills#${s.slug}`} className="card lift press flex items-center gap-3 p-4">
+                <span className="text-2xl">{s.emoji}</span>
+                <span className="text-sm font-semibold leading-snug text-ink">{s.title}</span>
+              </Link>
+            ))}
+          </div>
+          <Link href="/skills" className="btn mt-6">
+            Ver todas las skills <span className="arr">→</span>
+          </Link>
         </section>
 
         <section id="como-usar" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
