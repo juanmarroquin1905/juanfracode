@@ -18,7 +18,7 @@ const INSTALL = [
   },
   {
     title: "Súbela a Claude",
-    text: "En claude.ai o la app de Claude, abre Configuración, busca la sección Skills y pulsa “Subir skill”. Elige el .zip.",
+    text: "En claude.ai o la app de Claude, abre Configuración → Personalización → Skills, agrega una skill nueva y elige el .zip.",
   },
   {
     title: "Pídele la tarea",
