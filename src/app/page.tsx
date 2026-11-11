@@ -42,6 +42,8 @@ export default async function Home() {
           Hechas con {STACK.join(" · ")}
         </p>
 
+        <SkillBanner />
+
         {items.length > 0 && (
           <section id="saas" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
             <SectionTitle kicker="Catálogo" title="Todas las apps" text="Ábrelas, juega con los datos de ejemplo y descárgalas si te sirven." />
@@ -58,7 +60,7 @@ export default async function Home() {
           <SectionTitle
             kicker="Skills para Claude"
             title="Tareas del día a día, en un clic"
-            text="Skills populares de GitHub que le enseñan a Claude a ordenar archivos, elegir ganadores de sorteos, adaptar tu CV y más."
+            text="Mi skill para crear tu primera app y skills populares de GitHub que le enseñan a Claude a ordenar archivos, adaptar tu CV y más."
           />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {SKILLS.map((s) => (
@@ -121,6 +123,38 @@ export default async function Home() {
       </main>
       <SiteFooter />
     </>
+  );
+}
+
+// Acceso destacado a la skill propia "Crea tu primera app", justo debajo del dock.
+function SkillBanner() {
+  return (
+    <section aria-labelledby="skill-banner" className="mx-auto max-w-4xl px-4 pt-14">
+      <div className="card relative grid items-center gap-5 overflow-hidden rounded-3xl p-6 sm:grid-cols-[auto_1fr] sm:gap-6 sm:p-8">
+        <div aria-hidden className="pointer-events-none absolute -top-20 -right-16 size-64 rounded-full bg-accent-2/20 blur-3xl" />
+        <span className="brand-gradient relative grid size-16 place-items-center rounded-2xl text-3xl shadow-[0_16px_32px_-12px_rgba(29,78,216,0.5)]">
+          🚀
+        </span>
+        <div className="relative">
+          <p className="chip">Skill gratis para Claude · Hecha por Juanfra Code</p>
+          <h2 id="skill-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
+            Crea tu primera app con Claude
+          </h2>
+          <p className="mt-2 max-w-2xl leading-relaxed text-mut">
+            Instálala en tu Claude y te hace preguntas paso a paso: tu idea, qué hace, cómo se ve. Luego la construye contigo para
+            usarla ya o publicarla en Vercel.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <a href="/descargas/skills/crea-tu-primera-app.zip" download className="btn">
+              Descargar skill <span className="arr">↓</span>
+            </a>
+            <Link href="/skills#crea-tu-primera-app" className="btn-ghost">
+              Cómo instalarla
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
