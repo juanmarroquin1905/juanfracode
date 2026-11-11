@@ -48,7 +48,7 @@ export function DownloadButtons({ slug, name, hasLead, actions, autoOpen = null 
       <dialog
         ref={dialog}
         onClose={() => !state?.ok && setPending(null)}
-        className="m-auto w-[min(440px,calc(100%-32px))] rounded-2xl border border-line bg-white p-0 text-ink shadow-2xl backdrop:bg-ink/40 backdrop:backdrop-blur-sm"
+        className="m-auto w-[min(440px,calc(100%-32px))] rounded-2xl border border-line bg-card p-0 text-ink shadow-2xl backdrop:bg-night/40 backdrop:backdrop-blur-sm"
       >
         <form action={formAction} className="space-y-4 p-6">
           <input type="hidden" name="slug" value={slug} />
@@ -75,7 +75,7 @@ export function DownloadButtons({ slug, name, hasLead, actions, autoOpen = null 
             </label>
             <input id="lead-social" name="social" placeholder="@tuusuario" className="input" />
           </div>
-          <label className="flex items-start gap-2.5 text-sm text-slate-600">
+          <label className="flex items-start gap-2.5 text-sm text-mut">
             <input type="checkbox" name="consent" className="mt-0.5 size-4 accent-[#1d4ed8]" />
             Acepto recibir novedades y nuevas apps de {BRAND.name} por correo o WhatsApp.
           </label>

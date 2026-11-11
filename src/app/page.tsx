@@ -105,7 +105,7 @@ export default async function Home() {
         </section>
 
         <section className="mx-auto max-w-6xl px-4 pt-24">
-          <div className="relative overflow-hidden rounded-3xl bg-ink px-6 py-16 text-center">
+          <div className="relative overflow-hidden rounded-3xl bg-night px-6 py-16 text-center">
             <div aria-hidden className="absolute -top-24 left-1/2 size-[480px] -translate-x-1/2 rounded-full bg-accent-2/30 blur-3xl" />
             <h2 className="relative text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl">
               Tu próxima app está a un clic
@@ -113,7 +113,7 @@ export default async function Home() {
             <p className="relative mx-auto mt-3 max-w-lg text-slate-300">
               Elige una plantilla, lánzala gratis y cámbiala a tu gusto con Claude Code.
             </p>
-            <a href="#top" className="press relative mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-transform duration-150">
+            <a href="#top" className="press relative mt-8 inline-flex rounded-full bg-card px-6 py-3 text-sm font-semibold text-ink transition-transform duration-150">
               Elegir una app
             </a>
           </div>

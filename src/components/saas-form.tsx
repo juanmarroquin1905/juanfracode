@@ -41,7 +41,7 @@ export function SaasForm({ saas, demo }: { saas?: Saas; demo: boolean }) {
         </div>
         <div>
           <label className="label" htmlFor="cover">Captura o portada</label>
-          <input id="cover" name="cover" type="file" accept="image/*" className="input file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:text-sm file:text-ink" />
+          <input id="cover" name="cover" type="file" accept="image/*" className="input file:mr-3 file:rounded-md file:border-0 file:bg-soft file:px-3 file:py-1 file:text-sm file:text-ink" />
           {saas?.cover_url && <p className="hint">Ya tiene una imagen. Sube otra solo si quieres cambiarla.</p>}
         </div>
       </Section>
@@ -74,7 +74,7 @@ export function SaasForm({ saas, demo }: { saas?: Saas; demo: boolean }) {
           <Field label="Orden" name="sort_order" type="number" defaultValue={String(saas?.sort_order ?? 0)} hint="Los números menores salen primero." />
           <label className="flex items-center gap-3 self-center rounded-lg border border-line px-4 py-3">
             <input type="checkbox" name="published" defaultChecked={saas?.published ?? true} className="size-4 accent-emerald-400" />
-            <span className="text-sm text-slate-700">Visible en la web</span>
+            <span className="text-sm text-ink">Visible en la web</span>
           </label>
         </div>
       </Section>

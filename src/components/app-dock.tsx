@@ -113,7 +113,7 @@ export function AppDock({ apps }: { apps: DockApp[] }) {
                     onClick={() => pick(i)}
                     className={`group press flex w-[76px] shrink-0 flex-col items-center gap-1.5 rounded-[18px] pt-2.5 pb-2 font-ui text-[11.5px] transition-[background-color,color,transform,box-shadow] duration-200 sm:w-[84px] ${
                       i === idx
-                        ? "bg-white font-medium text-ink shadow-[0_4px_14px_-6px_rgba(30,64,175,0.3)]"
+                        ? "bg-card font-medium text-ink shadow-[0_4px_14px_-6px_rgba(30,64,175,0.3)]"
                         : "text-mut"
                     }`}
                   >
@@ -190,11 +190,11 @@ function EmptyWindow() {
   return (
     <div>
       <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
-        <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
-        <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
-        <span className="size-2.5 rounded-full bg-[#dbe3f3]" />
+        <span className="size-2.5 rounded-full bg-line" />
+        <span className="size-2.5 rounded-full bg-line" />
+        <span className="size-2.5 rounded-full bg-line" />
       </div>
-      <div className="grid aspect-[16/10] place-items-center lg:aspect-[16/9] bg-white/60 p-8 text-center">
+      <div className="grid aspect-[16/10] place-items-center lg:aspect-[16/9] bg-card/60 p-8 text-center">
         <div>
           <span className="brand-gradient mx-auto grid size-14 place-items-center rounded-2xl font-mono text-lg font-bold text-white">
             {"</>"}

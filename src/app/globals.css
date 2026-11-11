@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Modo nocturno: la clase .dark va en <html> (ver src/components/theme.tsx).
+   Las apps demo de /apps/* nunca la reciben: tienen su propio estilo. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Estilo de la vitrina: cristal azul suave. Fondo casi blanco con un toque azul,
    acento azul → celeste, tarjetas translúcidas y animaciones cortas. */
 @theme {
@@ -11,11 +15,41 @@
   --color-line: #e3eaf8;
   --color-accent: #1d4ed8;
   --color-accent-2: #06b6d4;
+  --color-night: #0c1a3b; /* bloques oscuros (botón Sígueme, banner final) */
   --font-sans: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   --font-ui: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Versión nocturna del mismo cristal azul: azul marino profundo,
+   tarjetas de vidrio oscuro y el mismo acento azul → celeste. */
+.dark {
+  color-scheme: dark;
+  --color-canvas: #060c1d;
+  --color-ink: #e7eeff;
+  --color-mut: #97a8cf;
+  --color-card: #0e1830;
+  --color-soft: #16244a;
+  --color-line: #1f2e55;
+  --color-accent: #3b6ff0;
+  --color-accent-2: #22d3ee;
+  --color-night: #1b2b57;
+  /* avisos (rojo, ámbar, verde) en tonos oscuros */
+  --color-red-50: #2a0f17;
+  --color-red-200: #5c1f2c;
+  --color-red-600: #fb7185;
+  --color-red-700: #fda4af;
+  --color-amber-50: #2a1d06;
+  --color-amber-200: #5a4010;
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fde68a;
+  --color-emerald-50: #062419;
+  --color-emerald-200: #0f4a35;
+  --color-emerald-700: #6ee7b7;
+  --color-slate-300: #b6c3e0;
+  --color-slate-400: #7385ad;
 }
 
 body {
@@ -51,12 +85,25 @@ body {
   opacity: 0.16;
 }
 
+.dark .glows::before {
+  background: #2563eb;
+  opacity: 0.22;
+}
+.dark .glows::after {
+  background: #06b6d4;
+  opacity: 0.14;
+}
+
 .glass {
-  background: rgb(255 255 255 / 0.72);
+  background: color-mix(in srgb, var(--color-card) 72%, transparent);
   border: 1px solid var(--color-line);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 10px 40px -14px rgb(30 64 175 / 0.14);
+}
+.dark .glass,
+.dark .card {
+  box-shadow: 0 10px 40px -14px rgb(0 0 0 / 0.6);
 }
 
 .text-gradient {
@@ -66,14 +113,14 @@ body {
   @apply bg-linear-to-br from-accent to-accent-2;
 }
 .card {
-  @apply rounded-2xl border border-line bg-white/75 backdrop-blur-md shadow-[0_10px_40px_-14px_rgba(30,64,175,0.14)];
+  @apply rounded-2xl border border-line bg-card/75 backdrop-blur-md shadow-[0_10px_40px_-14px_rgba(30,64,175,0.14)];
 }
 
 .input {
-  @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-base text-ink outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-slate-400 focus:border-accent focus:ring-4 focus:ring-accent/15;
+  @apply w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-slate-400 focus:border-accent focus:ring-4 focus:ring-accent/15;
 }
 .label {
-  @apply mb-1.5 block text-sm font-semibold text-slate-700;
+  @apply mb-1.5 block text-sm font-semibold text-ink;
 }
 .hint {
   @apply mt-1.5 text-xs leading-relaxed text-mut;
@@ -87,7 +134,7 @@ body {
     background-color 200ms ease;
 }
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/80 px-5 py-2.5 text-sm font-semibold text-ink backdrop-blur-md;
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card/80 px-5 py-2.5 text-sm font-semibold text-ink backdrop-blur-md;
   transition:
     transform 160ms var(--ease-out),
     border-color 200ms ease;
@@ -118,6 +165,12 @@ body {
   }
   .btn-ghost:hover {
     border-color: #c7d7f7;
+  }
+  .dark .btn:hover {
+    background-color: #2f5fd6;
+  }
+  .dark .btn-ghost:hover {
+    border-color: #34477a;
   }
   .btn:hover .arr,
   .group:hover .arr {

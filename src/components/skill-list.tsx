@@ -67,7 +67,7 @@ function SkillCard({ skill }: { skill: Item }) {
       </div>
 
       {open && (
-        <pre className="mt-4 max-h-80 overflow-auto rounded-xl border border-line bg-white p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap text-ink">
+        <pre className="mt-4 max-h-80 overflow-auto rounded-xl border border-line bg-card p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap text-ink">
           {skill.content}
         </pre>
       )}

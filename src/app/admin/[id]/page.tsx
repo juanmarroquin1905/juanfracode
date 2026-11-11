@@ -9,10 +9,10 @@ export default async function EditSaas({ params }: PageProps<"/admin/[id]">) {
   if (!saas) notFound();
   return (
     <>
-      <Link href="/admin" className="text-sm text-slate-500 hover:text-ink">← Volver</Link>
+      <Link href="/admin" className="text-sm text-mut hover:text-ink">← Volver</Link>
       <div className="mt-3 mb-6 flex items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-ink">{saas.name}</h1>
-        <Link href={`/saas/${saas.slug}`} target="_blank" className="text-sm text-slate-500 hover:text-ink">
+        <Link href={`/saas/${saas.slug}`} target="_blank" className="text-sm text-mut hover:text-ink">
           Ver ficha ↗
         </Link>
       </div>

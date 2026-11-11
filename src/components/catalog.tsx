@@ -26,7 +26,7 @@ export function Catalog({ items }: { items: Saas[] }) {
               type="button"
               onClick={() => setCategory(c)}
               className={`press shrink-0 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-[background-color,color,border-color,transform] duration-200 ${
-                c === category ? "border-ink bg-ink text-white" : "border-line bg-white/80 text-mut hover:text-ink"
+                c === category ? "border-night bg-night text-white" : "border-line bg-card/80 text-mut hover:text-ink"
               }`}
             >
               {c}
