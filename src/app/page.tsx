@@ -148,7 +148,7 @@ function SkillBanner() {
             <a href="/descargas/skills/crea-tu-primera-app.zip" download className="btn">
               Descargar skill <span className="arr">↓</span>
             </a>
-            <Link href="/skills#crea-tu-primera-app" className="btn-ghost">
+            <Link href="/skills#instalar" className="btn-ghost">
               Cómo instalarla
             </Link>
           </div>

@@ -51,7 +51,7 @@ export default function SkillsPage() {
           </p>
         </div>
 
-        <ol className="mt-10 grid gap-3 sm:grid-cols-3">
+        <ol id="instalar" className="mt-10 grid scroll-mt-28 gap-3 sm:grid-cols-3">
           {INSTALL.map((s, i) => (
             <li key={s.title} className="card p-5">
               <span className="brand-gradient grid size-8 place-items-center rounded-full text-sm font-semibold text-white">{i + 1}</span>
