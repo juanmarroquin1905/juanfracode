@@ -16,7 +16,7 @@ import {
 } from "./options";
 import { makeZip } from "./zip";
 
-const STEPS = ["Tipo", "Nombre", "Diseño", "Funciones", "Vender", "Descargar"] as const;
+const STEPS = ["Tipo", "Nombre", "Diseño", "Funciones", "Extras", "Descargar"] as const;
 
 // Creador de micro apps: formulario por pasos, vista previa en vivo y descarga en .zip.
 export function Creator() {
@@ -198,7 +198,7 @@ export function Creator() {
           )}
 
           {step === 4 && (
-            <Step title="¿Quieres cobrar por tu app?" text="Opcional. Pega tu link de pago y la app mostrará un botón para comprar. El dinero llega directo a tu cuenta.">
+            <Step title="¿Vas a cobrar por ella?" text="Solo si quieres venderla. Si es para ti, pulsa Siguiente y listo.">
               <label className="label" htmlFor="c-pay">Tu link de pago <span className="font-normal text-mut">(opcional)</span></label>
               <input
                 id="c-pay"
@@ -231,10 +231,6 @@ export function Creator() {
                   </div>
                 </div>
               )}
-              <div className="mt-5 rounded-xl bg-soft p-4 text-sm leading-relaxed text-mut">
-                <strong className="text-ink">Ideas para venderla:</strong> cobra un pago único por la app, pide un “apoyo” voluntario o vende
-                una versión personalizada para un negocio (con su logo y sus categorías).
-              </div>
             </Step>
           )}
 
