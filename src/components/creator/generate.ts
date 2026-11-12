@@ -1,4 +1,4 @@
-import { STYLES, TYPES, slugify, type AppConfig, type StyleId, type TypeId } from "./options";
+import { STYLES, TYPE_FILES, plural, slugify, type AppConfig, type StyleId, type TypeId } from "./options";
 
 // Archivos de public/crear que se combinan para armar cada micro app.
 export type Assets = {
@@ -13,11 +13,11 @@ export async function loadAssets(): Promise<Assets> {
   const [base, css, ...rest] = await Promise.all([
     get("base.js"),
     get("base.css"),
-    ...TYPES.map((t) => get(`tipos/${t.id}.js`)),
+    ...TYPE_FILES.map((t) => get(`tipos/${t}.js`)),
     ...STYLES.map((s) => get(`estilos/${s.id}.css`)),
   ]);
-  const types = Object.fromEntries(TYPES.map((t, i) => [t.id, rest[i]])) as Record<TypeId, string>;
-  const styles = Object.fromEntries(STYLES.map((s, i) => [s.id, rest[TYPES.length + i]])) as Record<StyleId, string>;
+  const types = Object.fromEntries(TYPE_FILES.map((t, i) => [t, rest[i]])) as Record<TypeId, string>;
+  const styles = Object.fromEntries(STYLES.map((s, i) => [s.id, rest[TYPE_FILES.length + i]])) as Record<StyleId, string>;
   return { base, css, types, styles };
 }
 
@@ -32,6 +32,17 @@ function runtimeConfig(cfg: AppConfig) {
     features: cfg.features,
     categories: cfg.categories.map((c) => c.trim()).filter(Boolean),
     currency: cfg.currency,
+    ...(cfg.type === "coleccion"
+      ? {
+          itemName: cfg.itemName,
+          itemPlural: plural(cfg.itemName),
+          sortByDate: cfg.sortByDate,
+          fields: cfg.fields
+            .filter((f) => f.on && f.label.trim())
+            .map((f) => ({ key: f.key, label: f.label.trim(), type: f.type, ...(f.type === "options" ? { options: (f.options ?? []).filter(Boolean) } : {}) })),
+          samples: cfg.samples,
+        }
+      : {}),
     pay,
     credit: cfg.credit,
   };

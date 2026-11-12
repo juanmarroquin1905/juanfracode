@@ -1,44 +1,10 @@
+import { RECIPES, cloneFields, type Field, type Recipe } from "./recipes";
+
 // Opciones del creador de micro apps (/crear). Para sumar un tipo o un estilo nuevo:
 // 1) agrega su archivo en public/crear/tipos o public/crear/estilos, 2) agrégalo aquí.
 
-export const TYPES = [
-  {
-    id: "tareas",
-    emoji: "✅",
-    title: "Lista de tareas",
-    text: "Anota pendientes y márcalos cuando los termines.",
-    name: "Mis pendientes",
-    description: "Todo lo que tengo que hacer, en un solo lugar.",
-    categories: ["Casa", "Trabajo", "Personal"],
-  },
-  {
-    id: "habitos",
-    emoji: "🔥",
-    title: "Hábitos",
-    text: "Marca cada día lo que cumples y mira tu racha.",
-    name: "Mis hábitos",
-    description: "Pequeños pasos todos los días.",
-    categories: ["Salud", "Mente", "Rutina"],
-  },
-  {
-    id: "gastos",
-    emoji: "💸",
-    title: "Gastos",
-    text: "Registra en qué gastas y cuánto llevas en el mes.",
-    name: "Mis gastos",
-    description: "Sé en qué se va mi dinero.",
-    categories: ["Comida", "Transporte", "Ocio", "Casa"],
-  },
-  {
-    id: "notas",
-    emoji: "📝",
-    title: "Notas",
-    text: "Guarda ideas rápidas y fija las importantes.",
-    name: "Mis notas",
-    description: "Ideas y apuntes rápidos.",
-    categories: ["Ideas", "Personal", "Trabajo"],
-  },
-] as const;
+// Archivos de public/crear/tipos. "coleccion" arma la app con los campos que elige la persona.
+export const TYPE_FILES = ["tareas", "habitos", "gastos", "notas", "coleccion"] as const;
 
 export const STYLES = [
   {
@@ -91,15 +57,21 @@ export const EMOJIS = ["✅", "🔥", "💸", "📝", "🎯", "📚", "💪", "�
 
 export const CURRENCIES = ["S/", "$", "€", "MX$", "COP", "ARS", "Bs"];
 
-export type TypeId = (typeof TYPES)[number]["id"];
+export type TypeId = (typeof TYPE_FILES)[number];
 export type StyleId = (typeof STYLES)[number]["id"];
 export type FeatureId = (typeof FEATURES)[number]["id"];
 
 export type AppConfig = {
+  idea: string;
+  recipe: string;
   type: TypeId;
   name: string;
   emoji: string;
   description: string;
+  itemName: string;
+  fields: Field[];
+  samples: Recipe["samples"];
+  sortByDate: boolean;
   style: StyleId;
   color: string;
   features: FeatureId[];
@@ -109,21 +81,55 @@ export type AppConfig = {
   credit: boolean;
 };
 
-export function defaultConfig(type: TypeId = "tareas"): AppConfig {
-  const t = TYPES.find((x) => x.id === type)!;
+// Aplica una receta sin perder lo que la persona ya eligió de diseño, funciones y cobro.
+export function applyRecipe(cfg: AppConfig, r: Recipe, name?: string): AppConfig {
   return {
-    type,
-    name: t.name,
-    emoji: t.emoji,
-    description: t.description,
+    ...cfg,
+    recipe: r.id,
+    type: r.type,
+    name: name || r.name,
+    emoji: r.emoji,
+    description: r.description,
+    itemName: r.itemName ?? "elemento",
+    fields: cloneFields(r.fields),
+    samples: r.samples,
+    sortByDate: !!r.sortByDate,
+    categories: [...r.categories],
+    features: r.categories.length
+      ? cfg.features
+      : cfg.features.filter((x) => x !== "categorias"),
+  };
+}
+
+export function defaultConfig(): AppConfig {
+  const base: AppConfig = {
+    idea: "",
+    recipe: "",
+    type: "tareas",
+    name: "",
+    emoji: "",
+    description: "",
+    itemName: "",
+    fields: [],
+    samples: [],
+    sortByDate: false,
     style: "suave",
     color: COLORS[0].id,
-    features: ["buscar", "categorias"],
-    categories: [...t.categories],
+    features: ["buscar"],
+    categories: [],
     currency: "S/",
     pay: { url: "", label: "Comprar", text: "" },
     credit: true,
   };
+  return applyRecipe(base, RECIPES.find((r) => r.id === "citas")!);
+}
+
+export function plural(word: string) {
+  if (!word) return "elementos";
+  if (/[aeiouáéíóú]$/i.test(word)) return word + "s";
+  if (/z$/i.test(word)) return word.slice(0, -1) + "ces";
+  if (/s$/i.test(word)) return word;
+  return word + "es";
 }
 
 export function slugify(name: string) {
