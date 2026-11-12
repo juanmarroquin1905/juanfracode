@@ -1,0 +1,13 @@
+/* Estilo Minimal: blanco y negro, líneas finas, nada de sombras */
+:root {
+  --bg: #ffffff; --card: #ffffff; --ink: #111111; --mut: #6b6b6b; --field: #ffffff;
+  --border: 1px solid #111111; --border-input: 1px solid #d4d4d4; --radius: 6px; --shadow: none;
+  --font: "Inter", system-ui, sans-serif; --font-head: "Space Grotesk", system-ui, sans-serif; --head-spacing: -0.04em;
+}
+:root[data-theme="dark"] {
+  --bg: #0a0a0a; --card: #0a0a0a; --ink: #f5f5f5; --mut: #a3a3a3; --field: #0a0a0a;
+  --border: 1px solid #f5f5f5; --border-input: 1px solid #3a3a3a;
+}
+h1 { font-weight: 700; text-transform: uppercase; }
+.buy, .primary, .ghost, .chip { border-radius: 6px; }
+.logo { background: transparent; border: var(--border); }
