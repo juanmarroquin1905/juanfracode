@@ -1,11 +1,12 @@
 /* Estilo Suave: pastel, esquinas muy redondas y sombras ligeras */
 :root {
-  --bg: #f6f4fb; --card: #ffffff; --ink: #2b2540; --mut: #7a7391; --field: #faf9fd;
-  --border: 1px solid #ece8f6; --radius: 22px; --shadow: 0 10px 30px -16px rgba(80, 60, 140, .25);
+  --bg: #f6f4fb; --card: #ffffff; --ink: #2b2540; --mut: #7a7391; --line: #ece8f6; --field: #faf9fd;
+  --radius: 22px; --shadow: 0 1px 2px rgba(80, 60, 140, .05), 0 12px 30px -16px rgba(80, 60, 140, .25);
   --font: "Nunito", system-ui, sans-serif; --font-head: "Nunito", system-ui, sans-serif;
 }
 :root[data-theme="dark"] {
-  --bg: #17141f; --card: #221e2e; --ink: #f1eefa; --mut: #a59fbd; --field: #1b1825;
-  --border: 1px solid #312b42; --shadow: 0 10px 30px -16px rgba(0, 0, 0, .6);
+  --bg: #17141f; --card: #221e2e; --ink: #f1eefa; --mut: #a59fbd; --line: #312b42; --field: #1b1825;
+  --shadow: 0 12px 30px -16px rgba(0, 0, 0, .6);
 }
-h1 { font-weight: 800; }
+body { background: radial-gradient(700px 400px at 100% -10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent), var(--bg); background-attachment: fixed; }
+h1, .big { font-weight: 800; }

@@ -27,9 +27,12 @@
     form: function () {
       return '<input name="name" placeholder="Nuevo hábito, ej: meditar 5 minutos" required autocomplete="off">';
     },
-    read: function (f) {
+    read: function (f, C, ex) {
       var t = f.name.value.trim();
-      return t ? { name: t, days: [] } : null;
+      return t ? { name: t, days: ex ? ex.days : [] } : null;
+    },
+    fill: function (f, it) {
+      f.name.value = it.name;
     },
     item: function (it) {
       var dots = "";
@@ -40,7 +43,7 @@
         dots += '<button type="button" class="day' + (on ? " on" : "") + (i === 0 ? " hoy" : "") + '" data-act="dia" data-day="' + day + '" aria-label="' + day + '">' + DAYS[d.getDay()] + "</button>";
       }
       var s = streak(it);
-      return '<div class="grow"><strong>' + esc(it.name) + "</strong>" +
+      return '<div class="grow editable" data-act="editar"><strong>' + esc(it.name) + "</strong>" +
         '<span class="mut small">' + (s ? "🔥 " + s + (s === 1 ? " día seguido" : " días seguidos") : "Empieza hoy") + "</span></div>" +
         '<div class="days">' + dots + "</div>";
     },

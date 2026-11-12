@@ -9,7 +9,9 @@ import {
   EMOJIS,
   FEATURES,
   STYLES,
+  VIEWS,
   applyRecipe,
+  availableViews,
   defaultConfig,
   slugify,
   type AppConfig,
@@ -278,7 +280,7 @@ export function Creator() {
           )}
 
           {step === 2 && (
-            <Step title="Elige el diseño" text="Cada estilo cambia letras, fondos y formas. El color lo eliges abajo.">
+            <Step title="Elige el diseño" text="Cada estilo cambia letras, fondos y formas. Mira el cambio al instante a la derecha.">
               <div className="grid grid-cols-2 gap-2.5">
                 {STYLES.map((s) => (
                   <Choice key={s.id} on={cfg.style === s.id} onClick={() => set({ style: s.id })}>
@@ -303,6 +305,27 @@ export function Creator() {
                   />
                 ))}
               </div>
+              {availableViews(cfg).length > 0 && (
+                <>
+                  <p className="label mt-5">¿Cómo quieres ver tus datos al abrirla?</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {VIEWS.filter((v) => availableViews(cfg).includes(v.id)).map((v) => (
+                      <button
+                        key={v.id}
+                        type="button"
+                        onClick={() => set({ view: v.id })}
+                        aria-pressed={cfg.view === v.id}
+                        className={`press rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors ${
+                          cfg.view === v.id ? "border-accent bg-accent text-white" : "border-line bg-card text-ink hover:border-accent/40"
+                        }`}
+                      >
+                        {v.emoji} {v.title}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="hint">Dentro de la app también se puede cambiar de vista.</p>
+                </>
+              )}
             </Step>
           )}
 
@@ -468,10 +491,10 @@ export function Creator() {
               title="Vista previa de tu app"
               srcDoc={preview}
               sandbox="allow-scripts allow-forms allow-popups allow-downloads allow-modals"
-              className="block h-[560px] w-full bg-white lg:h-[640px]"
+              className="block h-[600px] w-full bg-white lg:h-[700px]"
             />
           ) : (
-            <div className="grid h-[560px] place-items-center text-sm text-mut lg:h-[640px]">
+            <div className="grid h-[600px] place-items-center text-sm text-mut lg:h-[700px]">
               {failed ? "No se pudo cargar la vista previa. Recarga la página." : "Cargando vista previa…"}
             </div>
           )}

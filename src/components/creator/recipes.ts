@@ -33,6 +33,7 @@ export type Recipe = {
   samples?: Record<string, string | number | boolean>[]; // en fechas, un número = días desde hoy
   categories: string[];
   sortByDate?: boolean;
+  view?: "lista" | "tarjetas" | "tabla" | "tablero" | "calendario";
 };
 
 const f = (key: string, label: string, type: FieldType, on = true, options?: string[]): Field => ({ key, label, type, on, options });
@@ -40,6 +41,7 @@ const f = (key: string, label: string, type: FieldType, on = true, options?: str
 export const RECIPES: Recipe[] = [
   {
     id: "citas",
+    view: "calendario",
     emoji: "📅",
     title: "Citas",
     name: "Mis citas",
@@ -67,6 +69,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "clientes",
+    view: "tablero",
     emoji: "👥",
     title: "Clientes",
     name: "Mis clientes",
@@ -91,6 +94,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "pedidos",
+    view: "tablero",
     emoji: "🧾",
     title: "Pedidos",
     name: "Mis pedidos",
@@ -116,6 +120,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "inventario",
+    view: "tabla",
     emoji: "📦",
     title: "Inventario",
     name: "Mi inventario",
@@ -161,6 +166,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "alumnos",
+    view: "tabla",
     emoji: "🎓",
     title: "Alumnos",
     name: "Mis alumnos",
@@ -184,6 +190,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "recetas",
+    view: "tarjetas",
     emoji: "🍳",
     title: "Recetas",
     name: "Mis recetas",
@@ -223,6 +230,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "libros",
+    view: "tablero",
     emoji: "📚",
     title: "Libros",
     name: "Mis libros",
@@ -244,6 +252,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "peliculas",
+    view: "tarjetas",
     emoji: "🎬",
     title: "Películas y series",
     name: "Por ver",
@@ -265,6 +274,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "mascotas",
+    view: "calendario",
     emoji: "🐶",
     title: "Mascotas",
     name: "Cuidado de mis mascotas",
@@ -325,6 +335,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "cumples",
+    view: "calendario",
     emoji: "🎂",
     title: "Cumpleaños",
     name: "Cumpleaños",
@@ -358,6 +369,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "proyectos",
+    view: "tablero",
     emoji: "💼",
     title: "Proyectos",
     name: "Mis proyectos",
@@ -381,6 +393,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "suscripciones",
+    view: "tabla",
     emoji: "💳",
     title: "Pagos del mes",
     name: "Pagos del mes",
