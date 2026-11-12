@@ -22,16 +22,20 @@
       return '<input name="desc" placeholder="¿En qué gastaste?" required autocomplete="off">' +
         '<input name="amount" type="number" step="0.01" min="0" placeholder="Monto" required inputmode="decimal" class="narrow">';
     },
-    read: function (f) {
+    read: function (f, C, ex) {
       var d = f.desc.value.trim();
       var a = parseFloat(f.amount.value);
-      return d && a > 0 ? { desc: d, amount: a, date: M.today(0) } : null;
+      return d && a > 0 ? { desc: d, amount: a, date: ex ? ex.date : M.today(0) } : null;
+    },
+    fill: function (f, it) {
+      f.desc.value = it.desc;
+      f.amount.value = it.amount;
     },
     sort: function (a, b) {
       return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
     },
     item: function (it) {
-      return '<div class="grow"><strong>' + esc(it.desc) + '</strong><span class="mut small">' + M.niceDate(it.date) + "</span></div>" +
+      return '<div class="grow editable" data-act="editar"><strong>' + esc(it.desc) + '</strong><span class="mut small">' + M.niceDate(it.date) + "</span></div>" +
         '<span class="amount">' + money(it.amount) + "</span>";
     },
     summary: function (items) {

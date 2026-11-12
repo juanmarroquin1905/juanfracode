@@ -1,0 +1,24 @@
+/* Estilo Cristal: fondo degradado con tarjetas de vidrio esmerilado */
+:root {
+  --bg: #eef2ff; --card: rgba(255, 255, 255, .62); --ink: #1e1b3a; --mut: #5b5a7a; --line: rgba(255, 255, 255, .7); --field: rgba(255, 255, 255, .7);
+  --radius: 22px; --shadow: 0 10px 40px -16px rgba(40, 30, 120, .3);
+  --font: "Plus Jakarta Sans", system-ui, sans-serif; --font-head: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+:root[data-theme="dark"] {
+  --bg: #0c0a1d; --card: rgba(30, 27, 60, .55); --ink: #f1f0ff; --mut: #a7a5cc; --line: rgba(255, 255, 255, .1); --field: rgba(20, 18, 40, .6);
+}
+body {
+  background:
+    radial-gradient(500px 380px at 10% 0%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 70%),
+    radial-gradient(520px 420px at 95% 30%, rgba(236, 72, 153, .28), transparent 70%),
+    radial-gradient(600px 500px at 40% 100%, rgba(34, 211, 238, .25), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+}
+.card, .views, .add { backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); }
+.ghost, .icon-btn, .chip { background: rgba(255, 255, 255, .5); backdrop-filter: blur(10px); }
+:root[data-theme="dark"] .ghost, :root[data-theme="dark"] .icon-btn, :root[data-theme="dark"] .chip { background: rgba(255, 255, 255, .08); }
+.col { background: rgba(255, 255, 255, .25); }
+:root[data-theme="dark"] .col { background: rgba(255, 255, 255, .04); }
+h1 { font-weight: 800; }
+@media (max-width: 640px) { .add { background: color-mix(in srgb, var(--bg) 85%, white); } :root[data-theme="dark"] .add { background: #17142e; } }

@@ -7,34 +7,14 @@ import { RECIPES, cloneFields, type Field, type Recipe } from "./recipes";
 export const TYPE_FILES = ["tareas", "habitos", "gastos", "notas", "coleccion"] as const;
 
 export const STYLES = [
-  {
-    id: "suave",
-    title: "Suave",
-    text: "Pastel, redondito y amigable",
-    preview: { bg: "#f6f4fb", card: "#ffffff", ink: "#2b2540", radius: 14 },
-    fonts: "family=Nunito:wght@400;700;800",
-  },
-  {
-    id: "minimal",
-    title: "Minimal",
-    text: "Blanco y negro, limpio",
-    preview: { bg: "#ffffff", card: "#ffffff", ink: "#111111", radius: 3 },
-    fonts: "family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;700",
-  },
-  {
-    id: "neon",
-    title: "Neón",
-    text: "Oscuro con brillo",
-    preview: { bg: "#07070d", card: "#11111b", ink: "#f4f4ff", radius: 10 },
-    fonts: "family=Outfit:wght@400;600;700",
-  },
-  {
-    id: "papel",
-    title: "Papel",
-    text: "Crema y serifa, tipo libreta",
-    preview: { bg: "#f5efe2", card: "#fffdf7", ink: "#2d2418", radius: 6 },
-    fonts: "family=Lora:ital,wght@0,400;0,700;1,700",
-  },
+  { id: "suave", title: "Suave", text: "Pastel y amigable", preview: { bg: "#f6f4fb", card: "#ffffff", ink: "#2b2540", radius: 14 }, fonts: "family=Nunito:wght@400;600;700;800" },
+  { id: "notion", title: "Notion", text: "Limpio y ordenado", preview: { bg: "#ffffff", card: "#ffffff", ink: "#37352f", radius: 4 }, fonts: "family=Inter:wght@400;500;600;700" },
+  { id: "ios", title: "iPhone", text: "Como una app nativa", preview: { bg: "#f2f2f7", card: "#ffffff", ink: "#000000", radius: 10 }, fonts: "family=Inter:wght@400;600;700;800" },
+  { id: "panel", title: "Panel", text: "Dashboard oscuro", preview: { bg: "#0b1120", card: "#111a2e", ink: "#e2e8f0", radius: 8 }, fonts: "family=Manrope:wght@400;600;700;800" },
+  { id: "cristal", title: "Cristal", text: "Vidrio y degradados", preview: { bg: "#e4e3ff", card: "#ffffffaa", ink: "#1e1b3a", radius: 14 }, fonts: "family=Plus+Jakarta+Sans:wght@400;600;700;800" },
+  { id: "minimal", title: "Minimal", text: "Blanco y negro", preview: { bg: "#ffffff", card: "#ffffff", ink: "#111111", radius: 3 }, fonts: "family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;700" },
+  { id: "neon", title: "Neón", text: "Oscuro con brillo", preview: { bg: "#07070d", card: "#11111b", ink: "#f4f4ff", radius: 10 }, fonts: "family=Outfit:wght@400;600;700" },
+  { id: "papel", title: "Papel", text: "Tipo libreta", preview: { bg: "#f5efe2", card: "#fffdf7", ink: "#2d2418", radius: 6 }, fonts: "family=Lora:ital,wght@0,400;0,700;1,700" },
 ] as const;
 
 export const COLORS = [
@@ -44,7 +24,29 @@ export const COLORS = [
   { id: "#16a34a", name: "Verde" },
   { id: "#ea580c", name: "Naranja" },
   { id: "#0891b2", name: "Turquesa" },
+  { id: "#d97706", name: "Ámbar" },
+  { id: "#111827", name: "Grafito" },
 ] as const;
+
+export const VIEWS = [
+  { id: "lista", title: "Lista", emoji: "☰" },
+  { id: "tarjetas", title: "Tarjetas", emoji: "▦" },
+  { id: "tabla", title: "Tabla", emoji: "▤" },
+  { id: "tablero", title: "Tablero", emoji: "▥" },
+  { id: "calendario", title: "Calendario", emoji: "📅" },
+] as const;
+export type ViewId = (typeof VIEWS)[number]["id"];
+
+// Vistas posibles según los datos (igual que en public/crear/tipos/coleccion.js)
+export function availableViews(cfg: { type: string; fields: Field[] }): ViewId[] {
+  if (cfg.type === "notas") return ["tarjetas", "lista"];
+  if (cfg.type !== "coleccion") return [];
+  const on = cfg.fields.filter((f) => f.on).slice(1);
+  const v: ViewId[] = ["lista", "tarjetas", "tabla"];
+  if (on.some((f) => f.type === "options" || f.type === "check")) v.push("tablero");
+  if (on.some((f) => f.type === "date")) v.push("calendario");
+  return v;
+}
 
 export const FEATURES = [
   { id: "buscar", title: "Buscador", text: "Una barra para encontrar cualquier cosa." },
@@ -72,6 +74,7 @@ export type AppConfig = {
   fields: Field[];
   samples: Recipe["samples"];
   sortByDate: boolean;
+  view: ViewId;
   style: StyleId;
   color: string;
   features: FeatureId[];
@@ -94,6 +97,7 @@ export function applyRecipe(cfg: AppConfig, r: Recipe, name?: string): AppConfig
     fields: cloneFields(r.fields),
     samples: r.samples,
     sortByDate: !!r.sortByDate,
+    view: r.view ?? (r.type === "notas" ? "tarjetas" : "lista"),
     categories: [...r.categories],
     features: r.categories.length
       ? cfg.features
@@ -113,6 +117,7 @@ export function defaultConfig(): AppConfig {
     fields: [],
     samples: [],
     sortByDate: false,
+    view: "lista",
     style: "suave",
     color: COLORS[0].id,
     features: ["buscar"],

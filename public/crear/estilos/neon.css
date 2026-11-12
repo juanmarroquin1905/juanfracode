@@ -1,14 +1,12 @@
 /* Estilo Neón: fondo oscuro con brillo del color principal */
 :root {
-  --bg: #07070d; --card: #11111b; --ink: #f4f4ff; --mut: #8d8db0; --field: #0b0b14;
-  --border: 1px solid color-mix(in srgb, var(--accent) 35%, #22223a); --radius: 16px;
-  --shadow: 0 0 0 1px rgba(255, 255, 255, .02), 0 0 26px -10px var(--accent);
+  --bg: #07070d; --card: #11111b; --ink: #f4f4ff; --mut: #8d8db0; --line: color-mix(in srgb, var(--accent) 30%, #22223a); --field: #0b0b14;
+  --radius: 16px; --shadow: 0 0 0 1px rgba(255, 255, 255, .02), 0 0 26px -12px var(--accent);
   --font: "Outfit", system-ui, sans-serif; --font-head: "Outfit", system-ui, sans-serif; --on-accent: #07070d;
 }
-:root[data-theme="dark"] {
-  --bg: #000000; --card: #0a0a10; --field: #050508;
-}
+:root[data-theme="dark"] { --bg: #000000; --card: #0a0a10; --field: #050508; }
 body { background: radial-gradient(600px 300px at 50% -80px, color-mix(in srgb, var(--accent) 30%, transparent), transparent), var(--bg); background-attachment: fixed; }
 h1 { font-weight: 700; text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 60%, transparent); }
-.buy, .primary { box-shadow: 0 0 22px -4px var(--accent); }
+.buy, .primary, .fab { box-shadow: 0 0 24px -4px var(--accent); }
 .big { color: var(--accent); text-shadow: 0 0 16px color-mix(in srgb, var(--accent) 50%, transparent); }
+.toast { background: #1a1a2a; border: 1px solid var(--line); }

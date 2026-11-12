@@ -1,0 +1,28 @@
+/* Estilo iPhone: fondo gris claro, grupos blancos, título grande y botones tipo iOS */
+:root {
+  --bg: #f2f2f7; --card: #ffffff; --ink: #000000; --mut: #8e8e93; --line: #e5e5ea; --field: #f2f2f7;
+  --border: 0; --border-input: 1px solid transparent; --radius: 14px; --shadow: none;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-head: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif; --head-spacing: -0.03em;
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --card: #1c1c1e; --ink: #ffffff; --mut: #8e8e93; --line: #2c2c2e; --field: #2c2c2e;
+}
+h1 { font-size: clamp(30px, 7vw, 36px); font-weight: 800; }
+.top { flex-direction: column; align-items: flex-start; }
+.logo { border-radius: 14px; box-shadow: none; }
+.list { gap: 0; border-radius: var(--radius); overflow: hidden; background: var(--card); }
+.list .item { border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--line); }
+.list .item:last-child { border-bottom: 0; }
+@media (hover: hover) { .list .item:hover { transform: none; box-shadow: none; } }
+.list.grid { gap: 12px; background: transparent; border-radius: 0; }
+.list.grid .item { border-radius: var(--radius); border-bottom: 0; }
+.views { background: #e3e3e8; border: 0; border-radius: 9px; padding: 2px; }
+.views button { border-radius: 7px; }
+:root[data-theme="dark"] .views { background: #2c2c2e; }
+:root[data-theme="dark"] .views button[aria-selected="true"] { background: #636366; }
+.buy, .primary { border-radius: 12px; box-shadow: none; }
+.ghost, .icon-btn, .chip { border: 0; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+.fab { border-radius: 50%; }
+.col { background: #e9e9ee; } :root[data-theme="dark"] .col { background: #1c1c1e; } :root[data-theme="dark"] .kcard { background: #2c2c2e; }
+.toast { background: rgba(30, 30, 30, .92); backdrop-filter: blur(12px); }

@@ -32,6 +32,7 @@ function runtimeConfig(cfg: AppConfig) {
     features: cfg.features,
     categories: cfg.categories.map((c) => c.trim()).filter(Boolean),
     currency: cfg.currency,
+    view: cfg.view,
     ...(cfg.type === "coleccion"
       ? {
           itemName: cfg.itemName,

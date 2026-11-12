@@ -7,6 +7,7 @@
   }
   M.start({
     addLabel: "Guardar nota",
+    views: ["tarjetas", "lista"],
     empty: "No hay notas. Escribe la primera arriba.",
     sample: function () {
       return [
@@ -18,16 +19,20 @@
       return '<input name="title" placeholder="Título" required autocomplete="off">' +
         '<textarea name="body" rows="2" placeholder="Escribe tu nota…"></textarea>';
     },
-    read: function (f) {
+    read: function (f, C, ex) {
       var t = f.title.value.trim();
-      return t ? { title: t, body: f.body.value.trim(), date: M.today(0), pin: false } : null;
+      return t ? { title: t, body: f.body.value.trim(), date: ex ? ex.date : M.today(0), pin: ex ? ex.pin : false } : null;
+    },
+    fill: function (f, it) {
+      f.title.value = it.title;
+      f.body.value = it.body || "";
     },
     sort: function (a, b) {
       return b.pin - a.pin || (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
     },
     item: function (it) {
       return '<button type="button" class="pin' + (it.pin ? " on" : "") + '" data-act="fijar" aria-label="Fijar">' + (it.pin ? "★" : "☆") + "</button>" +
-        '<div class="grow"><strong>' + esc(it.title) + "</strong>" +
+        '<div class="grow editable" data-act="editar"><strong>' + esc(it.title) + "</strong>" +
         (it.body ? '<p class="body">' + esc(it.body) + "</p>" : "") +
         '<span class="mut small">' + M.niceDate(it.date) + "</span></div>";
     },
