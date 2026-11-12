@@ -1,0 +1,12 @@
+/* Estilo Papel: crema, letra con serifa y líneas punteadas, como una libreta */
+:root {
+  --bg: #f5efe2; --card: #fffdf7; --ink: #2d2418; --mut: #85765f; --field: #fffdf7;
+  --border: 1.5px dashed #d9cdb5; --border-input: 1.5px solid #e2d8c4; --radius: 10px; --shadow: 2px 3px 0 #e6dcc8;
+  --font: "Lora", Georgia, serif; --font-head: "Lora", Georgia, serif;
+}
+:root[data-theme="dark"] {
+  --bg: #1f1b15; --card: #2a251d; --ink: #f3ead8; --mut: #b5a68b; --field: #241f18;
+  --border: 1.5px dashed #4a4134; --border-input: 1.5px solid #4a4134; --shadow: 2px 3px 0 #15120e;
+}
+h1 { font-weight: 700; font-style: italic; }
+.logo { transform: rotate(-4deg); }

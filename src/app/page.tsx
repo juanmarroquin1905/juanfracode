@@ -42,6 +42,7 @@ export default async function Home() {
           Hechas con {STACK.join(" · ")}
         </p>
 
+        <CreatorBanner />
         <SkillBanner />
 
         {items.length > 0 && (
@@ -123,6 +124,33 @@ export default async function Home() {
       </main>
       <SiteFooter />
     </>
+  );
+}
+
+// Acceso al creador de micro apps (/crear), para quien no usa Claude.
+function CreatorBanner() {
+  return (
+    <section aria-labelledby="creator-banner" className="mx-auto max-w-4xl px-4 pt-14">
+      <Link
+        href="/crear"
+        className="lift press relative grid items-center gap-5 overflow-hidden rounded-3xl bg-night p-6 text-white sm:grid-cols-[auto_1fr_auto] sm:gap-6 sm:p-8"
+      >
+        <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-accent-2/30 blur-3xl" />
+        <span className="relative grid size-16 place-items-center rounded-2xl bg-white/10 text-3xl">🛠️</span>
+        <div className="relative">
+          <p className="inline-flex rounded-full bg-white/10 px-2.5 py-0.5 font-ui text-[11px] text-slate-300">Nuevo · Gratis · Sin programar</p>
+          <h2 id="creator-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
+            Crea y vende tu micro app web
+          </h2>
+          <p className="mt-2 max-w-xl leading-relaxed text-slate-300">
+            Elige tipo, diseño y funciones, agrega tu link de pago y descárgala lista para Netlify o Vercel. No necesitas Claude.
+          </p>
+        </div>
+        <span className="relative inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-night">
+          Crear mi app <span className="arr">→</span>
+        </span>
+      </Link>
+    </section>
   );
 }
 

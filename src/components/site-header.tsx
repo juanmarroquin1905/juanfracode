@@ -17,7 +17,10 @@ export function SiteHeader() {
           <Link href="/#proyectos" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
             Mis proyectos
           </Link>
-          <Link href="/skills" className="rounded-full px-2 py-1.5 text-mut transition-colors hover:text-ink sm:px-3">
+          <Link href="/crear" className="rounded-full px-2 py-1.5 font-semibold text-accent transition-colors hover:text-ink sm:px-3">
+            Crear<span className="hidden sm:inline"> app</span>
+          </Link>
+          <Link href="/skills" className="hidden rounded-full px-2 py-1.5 text-mut sm:block transition-colors hover:text-ink sm:px-3">
             Skills
           </Link>
           <Link href="/#como-usar" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink md:block">
@@ -32,7 +35,7 @@ export function SiteHeader() {
               href={BRAND.socials.tiktok}
               target="_blank"
               rel="noreferrer"
-              className="press rounded-full bg-night px-3.5 py-2 sm:ml-1 sm:px-4 font-semibold text-white transition-transform duration-150"
+              className="press rounded-full bg-night px-3 py-2 sm:ml-1 sm:px-4 font-semibold text-white transition-transform duration-150"
             >
               Sígueme
             </a>
