@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { buildFiles, buildPreview, loadAssets, type Assets } from "./generate";
 import {
   COLORS,
@@ -28,6 +29,20 @@ export function Creator() {
   const [assets, setAssets] = useState<Assets | null>(null);
   const [failed, setFailed] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [full, setFull] = useState(false);
+
+  // Pantalla completa: Esc cierra y la página de atrás no se mueve.
+  useEffect(() => {
+    if (!full) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setFull(false);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [full]);
 
   useEffect(() => {
     loadAssets().then(setAssets, () => setFailed(true));
@@ -439,7 +454,14 @@ export function Creator() {
             <span className="mx-auto truncate rounded-full bg-soft px-3 py-0.5 font-ui text-xs text-mut">
               {slugify(cfg.name)}.netlify.app
             </span>
-            <span className="chip hidden sm:inline-flex">Vista previa</span>
+            <button
+              type="button"
+              onClick={() => setFull(true)}
+              disabled={!preview}
+              className="press inline-flex shrink-0 items-center gap-1 rounded-full bg-soft px-2.5 py-1 font-ui text-xs font-semibold text-ink hover:bg-line"
+            >
+              ⤢ <span className="hidden sm:inline">Pantalla completa</span>
+            </button>
           </div>
           {preview ? (
             <iframe
@@ -457,13 +479,37 @@ export function Creator() {
         <p className="mt-2 text-center font-ui text-xs text-mut">Pruébala: agrega, marca y borra. Así funcionará tu app publicada.</p>
       </div>
 
-      {/* En celular la vista previa queda abajo: un botón lleva a ella */}
-      <a
-        href="#vista-previa"
+      {/* En celular la vista previa queda abajo: este botón la abre en pantalla completa */}
+      <button
+        type="button"
+        onClick={() => setFull(true)}
+        disabled={!preview}
         className="press fixed right-4 bottom-4 z-30 inline-flex items-center gap-2 rounded-full bg-night px-4 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_-10px_rgba(12,26,59,0.6)] lg:hidden"
       >
         {cfg.emoji} Ver mi app
-      </a>
+      </button>
+
+      {full &&
+        preview &&
+        createPortal(
+        <div role="dialog" aria-modal="true" aria-label="Tu app en pantalla completa" className="enter fixed inset-0 z-50 flex flex-col bg-night/95 backdrop-blur-sm">
+          <div className="flex items-center gap-3 px-4 py-3 text-white">
+            <span className="text-xl">{cfg.emoji}</span>
+            <span className="min-w-0 flex-1 truncate font-semibold">{cfg.name || "Mi app"}</span>
+            <span className="hidden font-ui text-xs text-slate-300 sm:block">Así se verá publicada</span>
+            <button type="button" onClick={() => setFull(false)} className="press rounded-full bg-white px-4 py-2 text-sm font-semibold text-night">
+              ✕ Cerrar
+            </button>
+          </div>
+          <iframe
+            title="Tu app en pantalla completa"
+            srcDoc={preview}
+            sandbox="allow-scripts allow-forms allow-popups allow-downloads allow-modals"
+            className="block w-full flex-1 bg-white"
+          />
+        </div>,
+          document.body,
+        )}
     </div>
   );
 }
