@@ -12,7 +12,7 @@ const PUBLISH = [
   { title: "Créala aquí", text: "Elige tipo, nombre, diseño y funciones. Mira cómo queda en la vista previa." },
   { title: "Descarga el .zip", text: "Trae tu app completa y un archivo LEEME con los pasos. No necesita base de datos." },
   { title: "Publícala gratis", text: "Arrastra la carpeta a Netlify Drop o súbela a GitHub y conéctala con Vercel." },
-  { title: "Compártela o véndela", text: "Comparte tu enlace. Si pusiste tu link de pago, ya puedes cobrar por ella." },
+  { title: "Úsala y compártela", text: "Ábrela desde tu celular o compu y comparte el enlace con quien quieras." },
 ];
 
 export default function CrearPage() {
@@ -26,8 +26,8 @@ export default function CrearPage() {
             Crea tu <span className="text-gradient">micro app web</span> en 6 pasos
           </h1>
           <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-mut">
-            Elige qué hace, cómo se ve y qué funciones tiene. Al final la descargas lista para publicar en Netlify o Vercel, y si quieres,
-            con tu botón de pago para venderla.
+            Para ti, tu familia o tu negocio. Elige qué hace, cómo se ve y qué funciones tiene, y al final la descargas lista para
+            publicar gratis en Netlify o Vercel.
           </p>
         </div>
 

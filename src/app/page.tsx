@@ -140,10 +140,10 @@ function CreatorBanner() {
         <div className="relative">
           <p className="inline-flex rounded-full bg-white/10 px-2.5 py-0.5 font-ui text-[11px] text-slate-300">Nuevo · Gratis · Sin programar</p>
           <h2 id="creator-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
-            Crea y vende tu micro app web
+            Crea tu propia micro app web
           </h2>
           <p className="mt-2 max-w-xl leading-relaxed text-slate-300">
-            Elige tipo, diseño y funciones, agrega tu link de pago y descárgala lista para Netlify o Vercel. No necesitas Claude.
+            Para organizar tu día o tu negocio. Elige qué hace y cómo se ve, y descárgala lista para publicar gratis. No necesitas Claude.
           </p>
         </div>
         <span className="relative inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-night">
