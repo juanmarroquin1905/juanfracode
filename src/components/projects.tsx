@@ -36,17 +36,25 @@ const PROJECTS: Project[] = [
       emoji: "🛍️",
     },
   },
+  {
+    name: "Guionera",
+    url: "/guiones",
+    description: "Pega el link de un video que ya funcionó y recibe un guion listo para grabar en TikTok o Reels, con ganchos para probar.",
+    tag: "Guiones · IA",
+    mock: { headline: "Convierte un video en tu próximo guion", sub: "Ganchos, CTA y chat para ajustarlo", color: "#0891b2", emoji: "🎬" },
+  },
 ];
+
+const externo = (url: string) => /^https?:\/\//.test(url);
 
 export function Projects() {
   return (
-    <div className="grid gap-6 sm:grid-cols-2">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {PROJECTS.map((p) => (
         <a
           key={p.url}
           href={p.url}
-          target="_blank"
-          rel="noreferrer"
+          {...(externo(p.url) ? { target: "_blank", rel: "noreferrer" } : {})}
           className="card lift press group flex flex-col overflow-hidden"
         >
           <div className="border-b border-line p-3" style={{ background: `linear-gradient(180deg, ${p.mock.color}1a, ${p.mock.color}05)` }}>
@@ -61,7 +69,7 @@ export function Projects() {
             <p className="mt-auto flex items-center gap-2 pt-5 text-sm font-semibold text-ink">
               <LinkIcon />
               {p.url.replace(/^https?:\/\//, "")}
-              <span className="arr ml-auto text-accent">↗</span>
+              <span className="arr ml-auto text-accent">{externo(p.url) ? "↗" : "→"}</span>
             </p>
           </div>
         </a>
@@ -80,7 +88,7 @@ function Preview({ project }: { project: Project }) {
         <span className="size-2 rounded-full bg-[#febc2e]" />
         <span className="size-2 rounded-full bg-[#28c840]" />
         <span className="ml-2 truncate rounded-md bg-card px-2 py-0.5 font-ui text-[10px] text-mut">
-          {project.url.replace(/^https?:\/\//, "")}
+          {externo(project.url) ? project.url.replace(/^https?:\/\//, "") : `juanfracode.com${project.url}`}
         </span>
       </div>
       <div className="relative aspect-[16/10]">
