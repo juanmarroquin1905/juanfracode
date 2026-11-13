@@ -43,7 +43,7 @@ export default async function Home() {
         </p>
 
         <CreatorBanner />
-        <GuioneraBanner />
+        <VidScriptBanner />
         <SkillBanner />
 
         {items.length > 0 && (
@@ -221,10 +221,10 @@ function TutorialVideo() {
   );
 }
 
-// Acceso a la Guionera (/guiones): guiones para TikTok y Reels desde un video.
-function GuioneraBanner() {
+// Acceso a VidScript (/guiones): guiones para TikTok y Reels desde un video.
+function VidScriptBanner() {
   return (
-    <section aria-labelledby="guionera-banner" className="mx-auto max-w-4xl px-4 pt-6">
+    <section aria-labelledby="vidscript-banner" className="mx-auto max-w-4xl px-4 pt-6">
       <Link
         href="/guiones"
         className="lift press card grid items-center gap-5 p-6 sm:grid-cols-[auto_1fr_auto] sm:gap-6 sm:p-8"
@@ -232,7 +232,7 @@ function GuioneraBanner() {
         <span className="brand-gradient grid size-16 place-items-center rounded-2xl text-3xl text-white">🎬</span>
         <div>
           <p className="chip">Nuevo · Para creadores</p>
-          <h2 id="guionera-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
+          <h2 id="vidscript-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
             Convierte un video en tu próximo guion
           </h2>
           <p className="mt-2 max-w-xl leading-relaxed text-mut">
@@ -240,7 +240,7 @@ function GuioneraBanner() {
           </p>
         </div>
         <span className="btn w-fit">
-          Probar la Guionera <span className="arr">→</span>
+          Probar VidScript <span className="arr">→</span>
         </span>
       </Link>
     </section>

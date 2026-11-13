@@ -1,4 +1,4 @@
-// Tipos y opciones de la Guionera. Sin "server-only": también los usa el navegador.
+// Tipos y opciones de la VidScript. Sin "server-only": también los usa el navegador.
 
 export type GanchoEstilo = "mix" | "resultado" | "error" | "pregunta" | "historia" | "mito";
 export type CtaEstilo = "pregunta" | "palabra" | "seguir" | "guardar" | "bio" | "ninguno";

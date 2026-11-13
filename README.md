@@ -77,7 +77,7 @@ Cada app vive en este mismo repo y se publica en el mismo Vercel:
 En cada `npm run build` se arma solo `public/descargas/<app>.zip` (plantilla + código
 de la app) con `scripts/build-plantillas.mjs`. Para una app nueva, agrégala a la lista `APPS` de ese archivo.
 
-## Guionera (/guiones)
+## VidScript (/guiones)
 
 Convierte un video (link o transcripción pegada) en un guion para TikTok/Reels con Claude. Landing pública en `/guiones`; la app en `/guiones/app` exige entrar con la cuenta admin.
 

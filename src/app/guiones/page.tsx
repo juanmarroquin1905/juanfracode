@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
-  title: "Guionera",
+  title: "VidScript",
   description: "Pega el link de un video que ya funcionó y recibe un guion listo para grabar en TikTok o Reels, con ganchos para probar.",
 };
 
@@ -102,7 +102,7 @@ export default function GuionesLanding() {
 
         <div className="mt-12">
           <Link href="/guiones/app" className="btn">
-            Entrar a la Guionera <span className="arr">→</span>
+            Entrar a VidScript <span className="arr">→</span>
           </Link>
           <p className="mt-3 text-xs text-mut">Por ahora es de uso privado.</p>
         </div>
