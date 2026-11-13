@@ -61,12 +61,13 @@ export function Workspace({ video, demoSinClave }: { video: Video; demoSinClave?
   const ocupado = enVivo !== null;
 
   const enviar = useCallback(
-    async (contenido: string, previos: Mensaje[], ops: Opciones) => {
+    async (contenido: string, previos: Mensaje[], ops: Opciones, recorteAuto = true): Promise<void> => {
       const nuevos: Mensaje[] = [...previos, { role: "user", content: contenido }];
       setMensajes(nuevos);
       setEnVivo("");
       setError("");
       let acumulado = "";
+      let fallo = false;
       try {
         const res = await fetch("/guiones/app/api/chat", {
           method: "POST",
@@ -90,9 +91,24 @@ export function Workspace({ video, demoSinClave }: { video: Video; demoSinClave?
         if (i >= 0) {
           const msg = acumulado.slice(i + ERROR_MARCA.length);
           acumulado = acumulado.slice(0, i);
+          fallo = true;
           setError(msg || "Algo falló. Intenta de nuevo.");
         }
-        if (acumulado.trim()) setMensajes([...nuevos, { role: "assistant", content: acumulado }]);
+        if (acumulado.trim()) {
+          const todos: Mensaje[] = [...nuevos, { role: "assistant", content: acumulado }];
+          setMensajes(todos);
+          // Si el guion se pasó del tiempo pedido, lo acorta una vez solo.
+          const tope = DURACIONES.find((d) => d.id === ops.duracion)?.segundos ?? 60;
+          if (recorteAuto && !fallo && esGuion(acumulado) && segundosHablados(acumulado) > tope + 5) {
+            setEnVivo(null);
+            return enviar(
+              `Se pasó de tiempo: dura unos ${segundosHablados(acumulado)} s y el máximo es ${tope} s. Acórtalo para que dure ${tope} s o menos, sin perder lo esencial. Devuélveme el guion completo.`,
+              todos,
+              ops,
+              false,
+            );
+          }
+        }
       } catch (e) {
         setError(e instanceof Error ? e.message : "No se pudo generar. Intenta de nuevo.");
       } finally {
@@ -272,15 +288,50 @@ function Respuesta({ md, tope, onAcortar, bloqueado }: { md: string; tope: numbe
   const guion = esGuion(md) && hablado.length > 0;
   const seg = segundosHablados(md);
   const pasado = seg > tope + 5;
+  const [vista, setVista] = useState<"todo" | "leer">("todo");
+  const [letra, setLetra] = useState<"A" | "B" | "C">("A");
+  const leer = textoHablado(md, letra);
   return (
     <div>
-      <Markdown texto={md} />
+      {guion && (
+        <div className="mb-2 inline-flex rounded-full bg-soft p-0.5 text-xs font-semibold">
+          {(
+            [
+              ["todo", "Guion completo"],
+              ["leer", "Solo guion para leer"],
+            ] as const
+          ).map(([id, label]) => (
+            <button key={id} type="button" onClick={() => setVista(id)} className={`rounded-full px-3 py-1 ${vista === id ? "bg-card text-ink shadow-sm" : "text-mut"}`}>
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
+      {guion && vista === "leer" ? (
+        <div>
+          <div className="mb-2 flex items-center gap-1.5 text-xs text-mut">
+            Gancho:
+            {(["A", "B", "C"] as const).map((l) => (
+              <button key={l} type="button" onClick={() => setLetra(l)} className={`size-6 rounded-full font-semibold ${letra === l ? "bg-accent text-white" : "bg-soft"}`}>
+                {l}
+              </button>
+            ))}
+          </div>
+          <div className="space-y-3 rounded-xl border border-line bg-card/60 p-4 text-[17px] leading-relaxed text-ink">
+            {leer.split("\n\n").map((t, i) => (
+              <p key={i}>{t}</p>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Markdown texto={md} />
+      )}
       {guion && (
         <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-line pt-3">
           <span className={`text-xs font-semibold ${pasado ? "text-amber-700" : "text-mut"}`}>
             {contarPalabras(hablado)} palabras · ~{seg} s hablado
           </span>
-          <Copiar texto={hablado} label="Copiar lo que digo" />
+          <Copiar texto={leer} label="Copiar lo que digo" />
           <Copiar texto={md} label="Copiar todo" />
           {pasado && (
             <button className="btn !px-3 !py-1.5 !text-xs" disabled={bloqueado} onClick={() => onAcortar(tope)}>

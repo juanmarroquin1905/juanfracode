@@ -81,7 +81,7 @@ export function NuevoVideoForm({ urlInicial = "", modoInicial = "link" }: { urlI
       )}
 
       <details open className="rounded-xl border border-line bg-soft/50 p-4">
-        <summary className="cursor-pointer text-sm font-semibold text-ink">Cómo quieres el guion</summary>
+        <summary className="cursor-pointer text-sm font-semibold text-ink">Preguntas rápidas: cómo quieres el guion</summary>
         <div className="mt-4">
           <OpcionesCampos value={opciones} onChange={cambiar} />
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { CTAS, DURACIONES, GANCHOS, TONOS, type Opciones } from "@/lib/guiones/types";
+import { AUDIENCIAS, CTAS, DURACIONES, GANCHOS, GRABACIONES, OBJETIVOS, TONOS, type Opciones } from "@/lib/guiones/types";
 
 const sel = "input !py-2 !text-sm";
 
@@ -58,6 +58,56 @@ export function OpcionesCampos({
             </option>
           ))}
         </select>
+      </div>
+      <div>
+        <label className="label">¿Para quién es?</label>
+        <select className={sel} value={value.audiencia} onChange={(e) => set("audiencia", e.target.value as Opciones["audiencia"])}>
+          {AUDIENCIAS.map((a) => (
+            <option key={a.id} value={a.id}>
+              {a.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label className="label">¿Qué debe hacer la persona al terminar?</label>
+        <select className={sel} value={value.objetivo} onChange={(e) => set("objetivo", e.target.value as Opciones["objetivo"])}>
+          {OBJETIVOS.map((a) => (
+            <option key={a.id} value={a.id}>
+              {a.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label className="label">¿Cómo lo vas a grabar?</label>
+        <select className={sel} value={value.grabacion} onChange={(e) => set("grabacion", e.target.value as Opciones["grabacion"])}>
+          {GRABACIONES.map((a) => (
+            <option key={a.id} value={a.id}>
+              {a.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label className="label">Idea del video a usar</label>
+        <input
+          className={sel}
+          value={value.idea}
+          maxLength={300}
+          placeholder="Vacío = la que decida Claude"
+          onChange={(e) => set("idea", e.target.value)}
+        />
+      </div>
+      <div className="col-span-full">
+        <label className="label">¿Qué NO debe decir o hacer? (opcional)</label>
+        <input
+          className={sel}
+          value={value.evitar}
+          maxLength={300}
+          placeholder="Ej: no menciones precios, sin groserías"
+          onChange={(e) => set("evitar", e.target.value)}
+        />
       </div>
       <div className="col-span-full">
         <label className="label">Ángulo (opcional)</label>
