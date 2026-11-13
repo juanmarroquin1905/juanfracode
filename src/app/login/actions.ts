@@ -10,7 +10,8 @@ export async function login(_: string | null, formData: FormData): Promise<strin
     password: String(formData.get("password") ?? ""),
   });
   if (error) return "Correo o contraseña incorrectos.";
-  redirect("/admin");
+  const next = String(formData.get("next") ?? "");
+  redirect(next === "/guiones/app" ? next : "/admin");
 }
 
 export async function logout() {

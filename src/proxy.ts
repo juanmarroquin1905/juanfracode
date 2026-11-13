@@ -7,5 +7,5 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   // Solo las páginas con sesión. La vitrina pública no pasa por aquí.
-  matcher: ["/admin/:path*", "/login"],
+  matcher: ["/admin/:path*", "/guiones/app/:path*", "/login"],
 };
