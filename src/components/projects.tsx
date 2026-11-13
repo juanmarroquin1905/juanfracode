@@ -16,6 +16,14 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    name: "VidScript",
+    url: "/guiones",
+    description: "Pega el link de un video que ya funcionó y recibe un guion listo para grabar en TikTok o Reels, con ganchos para probar.",
+    tag: "Guiones · IA",
+    image: "/proyectos/vidscript.webp",
+    mock: { headline: "Convierte un video en tu próximo guion", sub: "Ganchos, CTA y chat para ajustarlo", color: "#0891b2", emoji: "🎬" },
+  },
+  {
     name: "Tufierro",
     url: "https://tufierro.com",
     description: "Compra y vende autos en todo el Perú. Publicas gratis y hablas directo con el vendedor por WhatsApp.",
@@ -35,13 +43,6 @@ const PROJECTS: Project[] = [
       color: "#7c3aed",
       emoji: "🛍️",
     },
-  },
-  {
-    name: "VidScript",
-    url: "/guiones",
-    description: "Pega el link de un video que ya funcionó y recibe un guion listo para grabar en TikTok o Reels, con ganchos para probar.",
-    tag: "Guiones · IA",
-    mock: { headline: "Convierte un video en tu próximo guion", sub: "Ganchos, CTA y chat para ajustarlo", color: "#0891b2", emoji: "🎬" },
   },
 ];
 
