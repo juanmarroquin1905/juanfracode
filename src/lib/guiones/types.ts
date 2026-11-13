@@ -4,12 +4,23 @@ export type GanchoEstilo = "mix" | "resultado" | "error" | "pregunta" | "histori
 export type CtaEstilo = "pregunta" | "palabra" | "seguir" | "guardar" | "bio" | "ninguno";
 export type Duracion = "30-40" | "45-60" | "60-90";
 export type Tono = "cercano" | "energico" | "serio" | "divertido";
+export type Audiencia = "" | "principiantes" | "estudiantes" | "emprendedores" | "usuarios-ia";
+export type Objetivo = "" | "comentar" | "guardar" | "seguir" | "link";
+export type Grabacion = "" | "camara" | "camara-pantalla" | "pantalla";
 
 export type Opciones = {
   gancho: GanchoEstilo;
   cta: CtaEstilo;
   duracion: Duracion;
   tono: Tono;
+  /** Preguntas rápidas antes de generar (todas opcionales). */
+  audiencia: Audiencia;
+  objetivo: Objetivo;
+  grabacion: Grabacion;
+  /** Idea del video que se quiere usar; vacío = la que decida Claude. */
+  idea: string;
+  /** Lo que NO debe decir o hacer. */
+  evitar: string;
   /** Ángulo extra que pide Juan (opcional). */
   angulo: string;
   /** Quién es el creador y para quién habla (opcional, se recuerda entre videos). */
@@ -21,6 +32,11 @@ export const OPCIONES_POR_DEFECTO: Opciones = {
   cta: "pregunta",
   duracion: "45-60",
   tono: "cercano",
+  audiencia: "",
+  objetivo: "",
+  grabacion: "",
+  idea: "",
+  evitar: "",
   angulo: "",
   perfil: "",
 };
@@ -56,6 +72,29 @@ export const TONOS: { id: Tono; label: string }[] = [
   { id: "divertido", label: "Divertido" },
 ];
 
+export const AUDIENCIAS: { id: Audiencia; label: string }[] = [
+  { id: "", label: "Cualquiera" },
+  { id: "principiantes", label: "Principiantes sin experiencia" },
+  { id: "estudiantes", label: "Estudiantes" },
+  { id: "emprendedores", label: "Emprendedores y negocios" },
+  { id: "usuarios-ia", label: "Gente que ya usa IA" },
+];
+
+export const OBJETIVOS: { id: Objetivo; label: string }[] = [
+  { id: "", label: "El que mejor encaje" },
+  { id: "comentar", label: "Que comenten" },
+  { id: "guardar", label: "Que guarden el video" },
+  { id: "seguir", label: "Que me sigan" },
+  { id: "link", label: "Que entren al link" },
+];
+
+export const GRABACIONES: { id: Grabacion; label: string }[] = [
+  { id: "", label: "Como convenga" },
+  { id: "camara", label: "Solo a cámara" },
+  { id: "camara-pantalla", label: "Cámara y pantalla" },
+  { id: "pantalla", label: "Solo pantalla (voz en off)" },
+];
+
 export type Mensaje = { role: "user" | "assistant"; content: string };
 
 export type Video = {
@@ -81,7 +120,7 @@ export function segundosObjetivo(d: Duracion): number {
 }
 
 /** Devuelve solo lo que Juan dice en voz alta: el gancho A y el resto del guion. */
-export function textoHablado(md: string): string {
+export function textoHablado(md: string, letra: "A" | "B" | "C" = "A"): string {
   const out: string[] = [];
   let enGanchos = false;
   let gancho = "";
@@ -98,7 +137,7 @@ export function textoHablado(md: string): string {
       continue;
     }
     if (!/^>\s?/.test(linea)) continue;
-    if (enGanchos && !/gancho a\b/i.test(gancho)) continue;
+    if (enGanchos && !new RegExp(`gancho ${letra}\\b`, "i").test(gancho)) continue;
     out.push(linea.replace(/^>\s?/, ""));
   }
   return out.join("\n\n");

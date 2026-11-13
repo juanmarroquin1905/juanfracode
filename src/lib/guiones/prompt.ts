@@ -26,6 +26,24 @@ const TONO: Record<Tono, string> = {
   divertido: "Tono divertido y ligero, con algo de humor, sin perder el mensaje.",
 };
 
+const AUD: Record<string, string> = {
+  principiantes: "principiantes sin experiencia (nada de jerga técnica)",
+  estudiantes: "estudiantes (ejemplos de estudio, tareas y primeros ingresos)",
+  emprendedores: "emprendedores y dueños de negocio (ahorro de tiempo y dinero)",
+  "usuarios-ia": "gente que ya usa IA y busca ir más allá",
+};
+const OBJ: Record<string, string> = {
+  comentar: "que comente",
+  guardar: "que guarde el video",
+  seguir: "que lo siga",
+  link: "que entre al link de su perfil",
+};
+const GRAB: Record<string, string> = {
+  camara: "solo a cámara (sin grabaciones de pantalla)",
+  "camara-pantalla": "su cara y grabaciones de pantalla",
+  pantalla: "solo grabación de pantalla con su voz en off",
+};
+
 function rangoPalabras(d: Opciones["duracion"]): string {
   return d === "30-40" ? "85 y 110" : d === "60-90" ? "170 y 215" : "130 y 160";
 }
@@ -55,6 +73,8 @@ Reglas del guion:
 - Escribe como habla una persona, no como se escribe: frases de una sola idea, conectores orales ("y ojo", "mira", "la verdad es que"), preguntas directas al espectador, nada de paréntesis, listas, siglas raras ni frases largas con muchas comas. Sin emojis dentro de lo que se dice. Antes de responder, léelo mentalmente en voz alta y reescribe lo que suene a texto escrito o se trabe al decirlo.
 - No inventes experiencias personales de Juan, cifras, resultados ni citas. NUNCA dejes huecos, corchetes ni placeholders en el guion: todo lo que está en las líneas con ">" debe poder leerse tal cual frente a la cámara.
 - Los 3 ganchos se hacen con DOS bases: el título del video (ya está validado, es lo que hizo que la gente lo viera) y el contenido del guion que escribes (su resultado, dato o idea más fuerte). Su único trabajo es RETENER: que la persona no deslice en los primeros 3 segundos. Cada gancho debe: (1) abrir una curiosidad sin regalar la respuesta, (2) ser específico (una cifra o un caso concreto vale más que una promesa general), (3) hablarle directo a la persona, sin introducción ni rodeos, (4) poder cumplirse con lo que viene en el guion; nunca prometer algo que el guion no entrega. Si el video muestra un resultado medible (ingresos, visitas, tiempo), el gancho A lo lleva. El gancho dura 3 segundos, se dice desde el primer segundo y su texto aparece en pantalla desde el cuadro 0 (máximo 8 palabras, puede llevar 1 emoji). El cuerpo debe funcionar con cualquiera de los tres sin repetir lo que dijo el gancho.
+- No afirmes nada que el video no dijo ni inventes "gancheras" sobre su contenido (por ejemplo "los últimos son los que más se olvidan" si el video no lo plantea). Todo lo que se dice debe estar respaldado por el material.
+- Respeta el tope de palabras del ESTILO PEDIDO: cuenta las palabras de lo que se dice (gancho A + guion + cierre) antes de responder y recorta hasta entrar. Si hay más puntos de los que caben, resume cada uno en una frase corta en vez de pasarte; la duración manda sobre la lista completa. No escribas la duración en el resultado: la app la calcula.
 - Dentro del guion, hacia la mitad, deja una frase corta que vuelva a enganchar ("y el tercero es el que casi nadie hace", "ahora viene lo importante") para sostener la atención.
 
 Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que Juan dice en voz alta va en líneas que empiezan con "> ". Los tiempos van entre comillas invertidas.
@@ -64,7 +84,6 @@ Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que 
 **De qué trata el video:** <1 o 2 frases>
 **Qué conservé del video:** <los puntos que quedaron>
 **Idea central:** <una frase>
-**Duración:** <segundos> s
 
 ## Ganchos para probar
 
@@ -121,6 +140,11 @@ export function bloqueEstilo(o: Opciones): string {
     `- ${CTA[o.cta]}`,
     `- ${TONO[o.tono]}`,
   ];
+  if (o.audiencia) lineas.push(`- Audiencia de este video: ${AUD[o.audiencia]}. Usa ejemplos y un nivel de explicación que le sirvan.`);
+  if (o.objetivo) lineas.push(`- Lo que Juan quiere que haga la persona al terminar: ${OBJ[o.objetivo]}. El cierre debe llevar a eso.`);
+  if (o.grabacion) lineas.push(`- Cómo lo va a grabar: ${GRAB[o.grabacion]}. Los textos de "En pantalla" deben ser coherentes con eso.`);
+  if (o.idea.trim()) lineas.push(`- Idea o parte del video que Juan quiere usar (haz el guion sobre esto): ${o.idea.trim()}`);
+  if (o.evitar.trim()) lineas.push(`- Lo que NO debe decir ni hacer (obligatorio): ${o.evitar.trim()}`);
   if (o.angulo.trim()) lineas.push(`- Ángulo pedido por Juan: ${o.angulo.trim()}`);
   if (o.perfil.trim()) lineas.push(`- Sobre Juan y su audiencia (úsalo para elegir el enfoque, sin inventar nada más): ${o.perfil.trim()}`);
   return lineas.join("\n");
