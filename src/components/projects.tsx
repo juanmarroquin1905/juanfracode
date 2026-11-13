@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
     },
   },
   {
-    name: "Guionera",
+    name: "VidScript",
     url: "/guiones",
     description: "Pega el link de un video que ya funcionó y recibe un guion listo para grabar en TikTok o Reels, con ganchos para probar.",
     tag: "Guiones · IA",

@@ -39,7 +39,7 @@ export default async function AdminLayout({ children }: LayoutProps<"/admin">) {
               Contactos
             </Link>
             <Link href="/guiones/app" className="rounded-md px-3 py-1.5 text-mut hover:text-ink">
-              Guionera
+              VidScript
             </Link>
             <Link href="/" className="rounded-md px-3 py-1.5 text-mut hover:text-ink">
               Ver web ↗

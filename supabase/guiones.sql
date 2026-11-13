@@ -1,4 +1,4 @@
--- Guionera: guarda tus videos, la transcripción y el chat con cada guion.
+-- VidScript: guarda tus videos, la transcripción y el chat con cada guion.
 -- Pégalo en Supabase > SQL Editor > New query del proyecto juanfracode y pulsa Run.
 -- Solo el administrador (tu usuario en la tabla admins) puede ver y usar estos datos.
 create table if not exists public.guiones_videos (
