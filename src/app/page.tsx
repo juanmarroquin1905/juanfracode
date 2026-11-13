@@ -43,6 +43,7 @@ export default async function Home() {
         </p>
 
         <CreatorBanner />
+        <GuioneraBanner />
         <SkillBanner />
 
         {items.length > 0 && (
@@ -217,5 +218,31 @@ function TutorialVideo() {
         />
       </div>
     </div>
+  );
+}
+
+// Acceso a la Guionera (/guiones): guiones para TikTok y Reels desde un video.
+function GuioneraBanner() {
+  return (
+    <section aria-labelledby="guionera-banner" className="mx-auto max-w-4xl px-4 pt-6">
+      <Link
+        href="/guiones"
+        className="lift press card grid items-center gap-5 p-6 sm:grid-cols-[auto_1fr_auto] sm:gap-6 sm:p-8"
+      >
+        <span className="brand-gradient grid size-16 place-items-center rounded-2xl text-3xl text-white">🎬</span>
+        <div>
+          <p className="chip">Nuevo · Para creadores</p>
+          <h2 id="guionera-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
+            Convierte un video en tu próximo guion
+          </h2>
+          <p className="mt-2 max-w-xl leading-relaxed text-mut">
+            Pega el link de un video que ya funcionó y recibe un guion listo para grabar en TikTok o Reels, con ganchos para probar.
+          </p>
+        </div>
+        <span className="btn w-fit">
+          Probar la Guionera <span className="arr">→</span>
+        </span>
+      </Link>
+    </section>
   );
 }

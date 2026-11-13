@@ -20,6 +20,9 @@ export function SiteHeader() {
           <Link href="/crear" className="rounded-full px-2 py-1.5 font-semibold text-accent transition-colors hover:text-ink sm:px-3">
             Crear<span className="hidden sm:inline"> app</span>
           </Link>
+          <Link href="/guiones" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
+            Guionera
+          </Link>
           <Link href="/skills" className="hidden rounded-full px-2 py-1.5 text-mut sm:block transition-colors hover:text-ink sm:px-3">
             Skills
           </Link>
