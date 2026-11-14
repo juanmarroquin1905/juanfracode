@@ -1,10 +1,10 @@
 // Tipos y opciones de la VidScript. Sin "server-only": también los usa el navegador.
 
 export type GanchoEstilo = "mix" | "resultado" | "error" | "pregunta" | "historia" | "mito";
-export type CtaEstilo = "pregunta" | "palabra" | "seguir" | "guardar" | "bio" | "ninguno";
+export type CtaEstilo = "pregunta" | "palabra" | "seguir" | "seguir-comenta" | "guardar" | "bio" | "ninguno";
 export type Duracion = "30-40" | "45-60" | "60-90";
 export type Tono = "cercano" | "energico" | "serio" | "divertido";
-export type Audiencia = "" | "principiantes" | "estudiantes" | "emprendedores" | "usuarios-ia";
+export type Audiencia = "" | "principiantes" | "estudiantes" | "emprendedores" | "avanzados";
 export type Objetivo = "" | "comentar" | "guardar" | "seguir" | "link";
 export type Grabacion = "" | "camara" | "camara-pantalla" | "pantalla";
 
@@ -53,7 +53,8 @@ export const GANCHOS: { id: GanchoEstilo; label: string; ayuda: string }[] = [
 export const CTAS: { id: CtaEstilo; label: string }[] = [
   { id: "pregunta", label: "Pregunta para comentar" },
   { id: "palabra", label: "Comenta una palabra" },
-  { id: "seguir", label: "Sígueme (parte 2)" },
+  { id: "seguir", label: "Sígueme (siguiente parte)" },
+    { id: "seguir-comenta", label: "Sígueme + pregunta" },
   { id: "guardar", label: "Guarda este video" },
   { id: "bio", label: "Link en mi perfil" },
   { id: "ninguno", label: "Sin llamado" },
@@ -77,7 +78,7 @@ export const AUDIENCIAS: { id: Audiencia; label: string }[] = [
   { id: "principiantes", label: "Principiantes sin experiencia" },
   { id: "estudiantes", label: "Estudiantes" },
   { id: "emprendedores", label: "Emprendedores y negocios" },
-  { id: "usuarios-ia", label: "Gente que ya usa IA" },
+  { id: "avanzados", label: "Gente que ya sabe del tema" },
 ];
 
 export const OBJETIVOS: { id: Objetivo; label: string }[] = [
