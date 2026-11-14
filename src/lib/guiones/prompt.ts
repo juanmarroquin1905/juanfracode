@@ -13,8 +13,8 @@ const GANCHO: Record<GanchoEstilo, string> = {
 const CTA: Record<CtaEstilo, string> = {
   pregunta: "Cierra con una pregunta fácil de contestar en comentarios (idealmente con un número o una palabra), sin pedir que te sigan.",
   palabra: "Cierra pidiendo que comenten una palabra clave concreta (en mayúsculas) para recibir algo útil relacionado.",
-  seguir: "Cierra dejando una parte 2 pendiente y pidiendo que lo sigan para verla.",
-  "seguir-comenta": "Cierra pidiendo que lo sigan para ver la siguiente parte y luego una pregunta fácil para comentar. Máximo dos frases cortas.",
+  seguir: "Cierra pidiendo que lo sigan, con una razón concreta para hacerlo. Solo menciona una próxima parte si el pedido dice que hay una.",
+  "seguir-comenta": "Cierra pidiendo que lo sigan (con una razón concreta; solo menciona una próxima parte si el pedido dice que hay una) y luego una pregunta fácil para comentar. Máximo dos frases cortas.",
   guardar: "Cierra pidiendo que guarden el video para tenerlo a mano cuando lo necesiten, diciendo en una frase por qué les va a servir.",
   bio: "Cierra invitando a entrar al link del perfil (bio) para continuar o conseguir algo relacionado.",
   ninguno: "Cierra con una frase de remate fuerte, sin pedir nada (sin pedir comentario, seguir ni guardar).",
@@ -79,7 +79,7 @@ Reglas del guion:
 - Respeta el tope de palabras del ESTILO PEDIDO: cuenta las palabras de lo que se dice (gancho A + guion + cierre) antes de responder y recorta hasta entrar. Si hay más puntos de los que caben, resume cada uno en una frase corta en vez de pasarte; la duración manda sobre la lista completa. No escribas la duración en el resultado: la app la calcula.
 - Los 3 ganchos deben ser coherentes con el guion y con lo que dijo el video: no lo contradigan (si el guion dice "casi empatados", ningún gancho dice "le ganó"), no exageren (si el video dijo "la mejor opción en el 90 % de tus tareas", no digas "resuelve el 90 %") y no acusen a la persona de un error que el video no plantea.
 - Si la transcripción es confusa en una cifra o una anécdota (números cortados, dos historias mezcladas), no la uses o dila de forma general; nunca la reconstruyas adivinando.
-- Nunca anuncies una "parte 2" ni contenido futuro, salvo que el pedido diga que el guion es parte de una serie y cuál es la parte siguiente.
+- Nunca anuncies una "parte 2" ni contenido futuro, salvo que el pedido diga que el guion es parte de una serie y cuál es la parte siguiente. Tampoco menciones la próxima sesión, el curso, el canal ni la marca del autor original.
 - Lo más concreto va primero: si el material tiene un ejemplo, una demostración o una comparación, el guion arranca con eso en los primeros 10 segundos; las definiciones van después y en una sola frase.
 - Cada frase aporta algo nuevo: no repitas la misma idea con otras palabras ni expliques dos veces el mismo término.
 - El cierre pide UNA sola acción (la del estilo pedido); no juntes "sígueme" y "comenta" en el mismo cierre, salvo que el estilo de cierre elegido sea "Sígueme + pregunta".
