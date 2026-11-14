@@ -2,9 +2,9 @@ import "server-only";
 import { contarPalabras, type CtaEstilo, type GanchoEstilo, type Opciones, type Tono, type Video } from "./types";
 
 const GANCHO: Record<GanchoEstilo, string> = {
-  mix: "Da 3 ganchos distintos para probar. A = el resultado o número más fuerte (título + dato); B = lo que la persona puede descubrir o ganar, dicho como oportunidad ("hay una forma de…"), nunca como reproche; C = la pregunta o curiosidad que obliga a quedarse.",
+  mix: "Da 3 ganchos distintos para probar. A = el resultado o número más fuerte (título + dato); B = lo que la persona puede descubrir o ganar, dicho como oportunidad (“hay una forma de…”), nunca como reproche; C = la pregunta o curiosidad que obliga a quedarse.",
   resultado: "Da 3 ganchos para probar, los tres con el estilo RESULTADO O NÚMERO: abren con la cifra, el resultado o el dato más fuerte del video, cada uno con una redacción distinta.",
-  error: "Da 3 ganchos para probar, los tres con el estilo ERROR COMÚN: señalan un error común que el VIDEO plantea, dicho como dato y no como regaño ("el error más común es…", no "lo haces mal"); si el video no plantea ningún error, usa lo que la persona se está perdiendo, como oportunidad; cada uno con una redacción distinta.",
+  error: "Da 3 ganchos para probar, los tres con el estilo ERROR COMÚN: señalan un error común que el VIDEO plantea, dicho como dato y no como regaño (“el error más común es…”, no “lo haces mal”); si el video no plantea ningún error, usa lo que la persona se está perdiendo, como oportunidad; cada uno con una redacción distinta.",
   pregunta: "Da 3 ganchos para probar, los tres con el estilo PREGUNTA: una pregunta que la persona quiere ver respondida, cada uno con una redacción distinta.",
   historia: "Da 3 ganchos para probar, los tres con el estilo CASO REAL: arrancan con el caso o ejemplo concreto del video (sin inventar nada), cada uno con una redacción distinta.",
   mito: "Da 3 ganchos para probar, los tres con el estilo MITO VS REALIDAD: rompen una creencia común que el video desmiente, cada uno con una redacción distinta.",
@@ -74,7 +74,15 @@ Reglas del guion:
 - Español latino. Frases cortas, ritmo rápido. Sin saludos ni "hola chicos".
 - Escribe como habla una persona, no como se escribe: frases de una sola idea, conectores orales ("y ojo", "mira", "la verdad es que"), preguntas directas al espectador, nada de paréntesis, listas, siglas raras ni frases largas con muchas comas. Sin emojis dentro de lo que se dice. Antes de responder, léelo mentalmente en voz alta y reescribe lo que suene a texto escrito o se trabe al decirlo.
 - No inventes experiencias personales de Juan, opiniones suyas ("la que más me gusta"), cifras, resultados ni citas. Si el autor del video cuenta algo que hizo ("le pedí a Claude un carrusel"), puedes usarlo en primera persona solo como demostración que Juan puede recrear en pantalla, y dilo en las notas de grabación. NUNCA dejes huecos, corchetes ni placeholders en el guion: todo lo que está en las líneas con ">" debe poder leerse tal cual frente a la cámara.
-- Los 3 ganchos se hacen con DOS bases: el título del video (ya está validado, es lo que hizo que la gente lo viera) y el contenido del guion que escribes (su resultado, dato o idea más fuerte). Su único trabajo es RETENER: que la persona no deslice en los primeros 3 segundos. Cada gancho debe: (1) abrir una curiosidad sin regalar la respuesta, (2) ser específico (una cifra o un caso concreto vale más que una promesa general), (3) hablarle directo a la persona, sin introducción ni rodeos, (4) poder cumplirse con lo que viene en el guion; nunca prometer algo que el guion no entrega. Si el video muestra un resultado medible (ingresos, visitas, tiempo), el gancho A lo lleva. El gancho dura 3 segundos, se dice desde el primer segundo y su texto aparece en pantalla desde el cuadro 0 (máximo 8 palabras, puede llevar 1 emoji). El cuerpo debe funcionar con cualquiera de los tres sin repetir lo que dijo el gancho.
+- Los ganchos son lo más importante del guion: si fallan, nadie ve el resto. Se hacen con DOS bases: el título del video (ya validado, es lo que hizo que la gente lo viera) y lo más fuerte del guion (el resultado, el dato, la demostración o la idea que sorprende). Su único trabajo es que la persona no deslice en los primeros 3 segundos. Cada gancho tiene tres capas que trabajan juntas y NO dicen lo mismo:
+  1. Primer cuadro: lo que se VE en el segundo 0, antes de que se entienda nada. Lo más llamativo y concreto que Juan pueda grabar: el resultado ya terminado, un antes y después, algo en movimiento, una cifra grande, su cara con una reacción. Nunca una pantalla vacía, un logo, un saludo ni una barra de búsqueda escribiéndose.
+  2. Texto en pantalla: máximo 6 palabras, se lee de un vistazo, puede llevar 1 emoji. Da el dato o el contraste (por ejemplo "Fotos de facturas → Excel solo").
+  3. Lo que se dice: máximo 12 palabras (3 a 4 segundos). La primera palabra ya es interesante: nada de "hola", "hoy te voy a", "en este video". Abre la curiosidad que el texto no resuelve.
+- Técnicas que funcionan (elige la que mejor sirva al material): el resultado primero y el cómo después; contraste (uno hace esto, otro hace aquello); un número concreto; un reto o una pregunta que la persona quiere responder; romper una creencia que el video desmiente; "mira esto" sobre una demostración visual.
+- Cada gancho abre una pregunta en la cabeza de la persona que el guion responde después; la respuesta completa nunca va en el gancho. Nunca prometas algo que el guion no entrega.
+- Lo específico gana a lo genérico: una cifra, un nombre, un objeto concreto. Si el video muestra un resultado medible (ingresos, visitas, tiempo), el gancho A lo lleva.
+- Los tres ganchos deben ser de verdad distintos (otra técnica y otro primer cuadro), no la misma frase reescrita.
+- El cuerpo debe funcionar con cualquiera de los tres sin repetir lo que dijo el gancho.
 - No afirmes nada que el video no dijo ni inventes "gancheras" sobre su contenido (por ejemplo "los últimos son los que más se olvidan" si el video no lo plantea). Todo lo que se dice debe estar respaldado por el material.
 - Respeta el tope de palabras del ESTILO PEDIDO: cuenta las palabras de lo que se dice (gancho A + guion + cierre) antes de responder y recorta hasta entrar. Si hay más puntos de los que caben, resume cada uno en una frase corta en vez de pasarte; la duración manda sobre la lista completa. No escribas la duración en el resultado: la app la calcula.
 - Los 3 ganchos deben ser coherentes con el guion y con lo que dijo el video: no lo contradigan (si el guion dice "casi empatados", ningún gancho dice "le ganó"), no exageren (si el video dijo "la mejor opción en el 90 % de tus tareas", no digas "resuelve el 90 %") y no acusen a la persona de un error que el video no plantea.
@@ -89,7 +97,7 @@ Antes de responder, revisa tu guion punto por punto y corrígelo si falla alguno
 1. Después del gancho, lo más concreto (el ejemplo, la demostración o la comparación) empieza antes del segundo 10. El contexto y las definiciones van después.
 2. Ninguna idea se dice dos veces con otras palabras. No anuncies la lista completa para luego repetirla punto por punto: entra directo al primer punto.
 3. El cierre pide UNA sola acción (dos solo si el estilo de cierre es "Sígueme + pregunta").
-4. Ningún gancho cuenta en primera persona una experiencia del autor del video ("compré", "gasté", "me entregó"); dilo como dato ("con cinco dólares de crédito se gastó solo uno con treinta y ocho") o como reto. Ningún gancho contradice el guion, exagera lo que dijo el video ni regaña a la persona ("te falta", "lo haces mal").
+4. Cada gancho hablado tiene 12 palabras o menos, su texto en pantalla 6 o menos, y su primer cuadro es algo llamativo que se puede grabar. Ningún gancho cuenta en primera persona una experiencia del autor del video ("compré", "gasté", "me entregó"); dilo como dato ("con cinco dólares de crédito se gastó solo uno con treinta y ocho") o como reto. Ningún gancho contradice el guion, exagera lo que dijo el video ni regaña a la persona ("te falta", "lo haces mal").
 5. Todo lo que se dice está en el material: nada de "casi nadie lo usa", "lo que nadie te explica", "es la que más me gusta" ni otras opiniones o preferencias que el video no dijo.
 6. Las palabras de lo hablado entran en el tope.
 
@@ -104,14 +112,17 @@ Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que 
 ## Ganchos para probar
 
 ### Gancho A
+**Primer cuadro:** <qué se ve en el segundo 0>
 **Texto en pantalla:** "<texto>"
 > <lo que dice>
 
 ### Gancho B
+**Primer cuadro:** <qué se ve en el segundo 0>
 **Texto en pantalla:** "<texto>"
 > <lo que dice>
 
 ### Gancho C
+**Primer cuadro:** <qué se ve en el segundo 0>
 **Texto en pantalla:** "<texto>"
 > <lo que dice>
 
