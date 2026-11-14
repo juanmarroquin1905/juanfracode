@@ -4,7 +4,7 @@ export type GanchoEstilo = "mix" | "resultado" | "error" | "pregunta" | "histori
 export type CtaEstilo = "pregunta" | "palabra" | "seguir" | "guardar" | "bio" | "ninguno";
 export type Duracion = "30-40" | "45-60" | "60-90";
 export type Tono = "cercano" | "energico" | "serio" | "divertido";
-export type Audiencia = "" | "principiantes" | "estudiantes" | "emprendedores" | "usuarios-ia";
+export type Audiencia = "" | "principiantes" | "estudiantes" | "emprendedores" | "avanzados";
 export type Objetivo = "" | "comentar" | "guardar" | "seguir" | "link";
 export type Grabacion = "" | "camara" | "camara-pantalla" | "pantalla";
 
@@ -77,7 +77,7 @@ export const AUDIENCIAS: { id: Audiencia; label: string }[] = [
   { id: "principiantes", label: "Principiantes sin experiencia" },
   { id: "estudiantes", label: "Estudiantes" },
   { id: "emprendedores", label: "Emprendedores y negocios" },
-  { id: "usuarios-ia", label: "Gente que ya usa IA" },
+  { id: "avanzados", label: "Gente que ya sabe del tema" },
 ];
 
 export const OBJETIVOS: { id: Objetivo; label: string }[] = [

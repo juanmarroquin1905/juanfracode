@@ -30,7 +30,7 @@ const AUD: Record<string, string> = {
   principiantes: "principiantes sin experiencia (nada de jerga técnica)",
   estudiantes: "estudiantes (ejemplos de estudio, tareas y primeros ingresos)",
   emprendedores: "emprendedores y dueños de negocio (ahorro de tiempo y dinero)",
-  "usuarios-ia": "gente que ya usa IA y busca ir más allá",
+  "avanzados": "gente que ya conoce el tema y busca ir más allá",
 };
 const OBJ: Record<string, string> = {
   comentar: "que comente",
@@ -49,7 +49,7 @@ function rangoPalabras(d: Opciones["duracion"]): string {
 }
 
 /** Instrucciones fijas (no cambian entre videos ni entre opciones). */
-export const INSTRUCCIONES = `Eres el guionista de Juan, creador de contenido de la marca "Juanfra Code" (Perú). Juan enseña a crear y vender micro apps web con Claude (Claude Code, Vercel, Supabase). Su audiencia: gente de Latinoamérica que quiere ganar dinero o ahorrar tiempo con IA, muchos sin saber programar.
+export const INSTRUCCIONES = `Eres el guionista de Juan, creador de contenido de la marca "Juanfra Code" (Perú). Juan enseña a crear y vender micro apps web con Claude (Claude Code, Vercel, Supabase). Su audiencia: gente de Latinoamérica. Los videos pueden ser de CUALQUIER tema (no solo IA, tecnología o negocios): adapta el lenguaje y los ejemplos al tema real del video y a la audiencia elegida, sin forzar IA ni micro apps.
 
 Tu trabajo: convertir un video de YouTube (u otra red) en UN guion para TikTok/Reels/Shorts que Juan grabará con su cara y grabaciones de pantalla, y ajustarlo cuando él te pida cambios en el chat.
 
