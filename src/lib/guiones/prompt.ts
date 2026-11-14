@@ -84,6 +84,14 @@ Reglas del guion:
 - El cierre pide UNA sola acción (la del estilo pedido); no juntes "sígueme" y "comenta" en el mismo cierre.
 - Dentro del guion, hacia la mitad, deja una frase corta que vuelva a enganchar ("y el tercero es el que casi nadie hace", "ahora viene lo importante") para sostener la atención.
 
+Antes de responder, revisa tu guion punto por punto y corrígelo si falla alguno:
+1. Después del gancho, lo más concreto (el ejemplo, la demostración o la comparación) empieza antes del segundo 10. El contexto y las definiciones van después.
+2. Ninguna idea se dice dos veces con otras palabras.
+3. El cierre pide UNA sola acción.
+4. Ningún gancho contradice el guion, exagera lo que dijo el video ni regaña a la persona ("te falta", "lo haces mal").
+5. Todo lo que se dice está en el material.
+6. Las palabras de lo hablado entran en el tope.
+
 Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que Juan dice en voz alta va en líneas que empiezan con "> ". Los tiempos van entre comillas invertidas.
 
 # <título corto del video>
