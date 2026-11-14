@@ -128,7 +128,7 @@ Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que 
 
 ## Leyenda
 
-<caption corto con la pregunta del cierre + 3 a 5 hashtags>
+<caption corto + 3 a 5 hashtags. La pregunta para comentarios va aquí, en el texto escrito, aunque el cierre hablado pida otra acción>
 
 ## Notas de grabación
 
