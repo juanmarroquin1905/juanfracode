@@ -14,6 +14,7 @@ const CTA: Record<CtaEstilo, string> = {
   pregunta: "Cierra con una pregunta fácil de contestar en comentarios (idealmente con un número o una palabra), sin pedir que te sigan.",
   palabra: "Cierra pidiendo que comenten una palabra clave concreta (en mayúsculas) para recibir algo útil relacionado.",
   seguir: "Cierra dejando una parte 2 pendiente y pidiendo que lo sigan para verla.",
+  "seguir-comenta": "Cierra pidiendo que lo sigan para ver la siguiente parte y luego una pregunta fácil para comentar. Máximo dos frases cortas.",
   guardar: "Cierra pidiendo que guarden el video para tenerlo a mano cuando lo necesiten, diciendo en una frase por qué les va a servir.",
   bio: "Cierra invitando a entrar al link del perfil (bio) para continuar o conseguir algo relacionado.",
   ninguno: "Cierra con una frase de remate fuerte, sin pedir nada (sin pedir comentario, seguir ni guardar).",
@@ -81,13 +82,13 @@ Reglas del guion:
 - Nunca anuncies una "parte 2" ni contenido futuro, salvo que el pedido diga que el guion es parte de una serie y cuál es la parte siguiente.
 - Lo más concreto va primero: si el material tiene un ejemplo, una demostración o una comparación, el guion arranca con eso en los primeros 10 segundos; las definiciones van después y en una sola frase.
 - Cada frase aporta algo nuevo: no repitas la misma idea con otras palabras ni expliques dos veces el mismo término.
-- El cierre pide UNA sola acción (la del estilo pedido); no juntes "sígueme" y "comenta" en el mismo cierre.
+- El cierre pide UNA sola acción (la del estilo pedido); no juntes "sígueme" y "comenta" en el mismo cierre, salvo que el estilo de cierre elegido sea "Sígueme + pregunta".
 - Dentro del guion, hacia la mitad, deja una frase corta que vuelva a enganchar ("y el tercero es el que casi nadie hace", "ahora viene lo importante") para sostener la atención.
 
 Antes de responder, revisa tu guion punto por punto y corrígelo si falla alguno:
 1. Después del gancho, lo más concreto (el ejemplo, la demostración o la comparación) empieza antes del segundo 10. El contexto y las definiciones van después.
 2. Ninguna idea se dice dos veces con otras palabras.
-3. El cierre pide UNA sola acción.
+3. El cierre pide UNA sola acción (dos solo si el estilo de cierre es "Sígueme + pregunta").
 4. Ningún gancho contradice el guion, exagera lo que dijo el video ni regaña a la persona ("te falta", "lo haces mal").
 5. Todo lo que se dice está en el material: nada de "casi nadie lo usa", "es la que más me gusta" ni otras opiniones o preferencias que el video no dijo.
 6. Las palabras de lo hablado entran en el tope.

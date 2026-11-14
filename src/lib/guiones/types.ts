@@ -1,7 +1,7 @@
 // Tipos y opciones de la VidScript. Sin "server-only": también los usa el navegador.
 
 export type GanchoEstilo = "mix" | "resultado" | "error" | "pregunta" | "historia" | "mito";
-export type CtaEstilo = "pregunta" | "palabra" | "seguir" | "guardar" | "bio" | "ninguno";
+export type CtaEstilo = "pregunta" | "palabra" | "seguir" | "seguir-comenta" | "guardar" | "bio" | "ninguno";
 export type Duracion = "30-40" | "45-60" | "60-90";
 export type Tono = "cercano" | "energico" | "serio" | "divertido";
 export type Audiencia = "" | "principiantes" | "estudiantes" | "emprendedores" | "avanzados";
@@ -54,6 +54,7 @@ export const CTAS: { id: CtaEstilo; label: string }[] = [
   { id: "pregunta", label: "Pregunta para comentar" },
   { id: "palabra", label: "Comenta una palabra" },
   { id: "seguir", label: "Sígueme (siguiente parte)" },
+    { id: "seguir-comenta", label: "Sígueme + pregunta" },
   { id: "guardar", label: "Guarda este video" },
   { id: "bio", label: "Link en mi perfil" },
   { id: "ninguno", label: "Sin llamado" },
