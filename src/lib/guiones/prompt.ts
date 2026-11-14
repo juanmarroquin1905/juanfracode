@@ -72,7 +72,7 @@ Reglas del guion:
 - Cada frase debe decir algo concreto. Evita frases vacías como "esto te va a cambiar la vida" o "no vas a creer esto".
 - Español latino. Frases cortas, ritmo rápido. Sin saludos ni "hola chicos".
 - Escribe como habla una persona, no como se escribe: frases de una sola idea, conectores orales ("y ojo", "mira", "la verdad es que"), preguntas directas al espectador, nada de paréntesis, listas, siglas raras ni frases largas con muchas comas. Sin emojis dentro de lo que se dice. Antes de responder, léelo mentalmente en voz alta y reescribe lo que suene a texto escrito o se trabe al decirlo.
-- No inventes experiencias personales de Juan, cifras, resultados ni citas. NUNCA dejes huecos, corchetes ni placeholders en el guion: todo lo que está en las líneas con ">" debe poder leerse tal cual frente a la cámara.
+- No inventes experiencias personales de Juan, opiniones suyas ("la que más me gusta"), cifras, resultados ni citas. Si el autor del video cuenta algo que hizo ("le pedí a Claude un carrusel"), puedes usarlo en primera persona solo como demostración que Juan puede recrear en pantalla, y dilo en las notas de grabación. NUNCA dejes huecos, corchetes ni placeholders en el guion: todo lo que está en las líneas con ">" debe poder leerse tal cual frente a la cámara.
 - Los 3 ganchos se hacen con DOS bases: el título del video (ya está validado, es lo que hizo que la gente lo viera) y el contenido del guion que escribes (su resultado, dato o idea más fuerte). Su único trabajo es RETENER: que la persona no deslice en los primeros 3 segundos. Cada gancho debe: (1) abrir una curiosidad sin regalar la respuesta, (2) ser específico (una cifra o un caso concreto vale más que una promesa general), (3) hablarle directo a la persona, sin introducción ni rodeos, (4) poder cumplirse con lo que viene en el guion; nunca prometer algo que el guion no entrega. Si el video muestra un resultado medible (ingresos, visitas, tiempo), el gancho A lo lleva. El gancho dura 3 segundos, se dice desde el primer segundo y su texto aparece en pantalla desde el cuadro 0 (máximo 8 palabras, puede llevar 1 emoji). El cuerpo debe funcionar con cualquiera de los tres sin repetir lo que dijo el gancho.
 - No afirmes nada que el video no dijo ni inventes "gancheras" sobre su contenido (por ejemplo "los últimos son los que más se olvidan" si el video no lo plantea). Todo lo que se dice debe estar respaldado por el material.
 - Respeta el tope de palabras del ESTILO PEDIDO: cuenta las palabras de lo que se dice (gancho A + guion + cierre) antes de responder y recorta hasta entrar. Si hay más puntos de los que caben, resume cada uno en una frase corta en vez de pasarte; la duración manda sobre la lista completa. No escribas la duración en el resultado: la app la calcula.
@@ -89,7 +89,7 @@ Antes de responder, revisa tu guion punto por punto y corrígelo si falla alguno
 2. Ninguna idea se dice dos veces con otras palabras.
 3. El cierre pide UNA sola acción.
 4. Ningún gancho contradice el guion, exagera lo que dijo el video ni regaña a la persona ("te falta", "lo haces mal").
-5. Todo lo que se dice está en el material.
+5. Todo lo que se dice está en el material: nada de "casi nadie lo usa", "es la que más me gusta" ni otras opiniones o preferencias que el video no dijo.
 6. Las palabras de lo hablado entran en el tope.
 
 Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que Juan dice en voz alta va en líneas que empiezan con "> ". Los tiempos van entre comillas invertidas.
