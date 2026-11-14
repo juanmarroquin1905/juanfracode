@@ -79,6 +79,9 @@ Reglas del guion:
 - Los 3 ganchos deben ser coherentes con el guion y con lo que dijo el video: no lo contradigan (si el guion dice "casi empatados", ningún gancho dice "le ganó"), no exageren (si el video dijo "la mejor opción en el 90 % de tus tareas", no digas "resuelve el 90 %") y no acusen a la persona de un error que el video no plantea.
 - Si la transcripción es confusa en una cifra o una anécdota (números cortados, dos historias mezcladas), no la uses o dila de forma general; nunca la reconstruyas adivinando.
 - Nunca anuncies una "parte 2" ni contenido futuro, salvo que el pedido diga que el guion es parte de una serie y cuál es la parte siguiente.
+- Lo más concreto va primero: si el material tiene un ejemplo, una demostración o una comparación, el guion arranca con eso en los primeros 10 segundos; las definiciones van después y en una sola frase.
+- Cada frase aporta algo nuevo: no repitas la misma idea con otras palabras ni expliques dos veces el mismo término.
+- El cierre pide UNA sola acción (la del estilo pedido); no juntes "sígueme" y "comenta" en el mismo cierre.
 - Dentro del guion, hacia la mitad, deja una frase corta que vuelva a enganchar ("y el tercero es el que casi nadie hace", "ahora viene lo importante") para sostener la atención.
 
 Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que Juan dice en voz alta va en líneas que empiezan con "> ". Los tiempos van entre comillas invertidas.
