@@ -54,7 +54,7 @@ export const CTAS: { id: CtaEstilo; label: string }[] = [
   { id: "pregunta", label: "Pregunta para comentar" },
   { id: "palabra", label: "Comenta una palabra" },
   { id: "seguir", label: "Sígueme (siguiente parte)" },
-    { id: "seguir-comenta", label: "Sígueme + pregunta" },
+  { id: "seguir-comenta", label: "Sígueme + pregunta" },
   { id: "guardar", label: "Guarda este video" },
   { id: "bio", label: "Link en mi perfil" },
   { id: "ninguno", label: "Sin llamado" },
@@ -98,6 +98,9 @@ export const GRABACIONES: { id: Grabacion; label: string }[] = [
 
 export type Mensaje = { role: "user" | "assistant"; content: string };
 
+/** Una parte de una serie: un video corto sacado de un video largo, con su propio chat. */
+export type ParteSerie = { titulo: string; idea: string; pasaje: string; gancho: string; mensajes: Mensaje[] };
+
 export type Video = {
   id: string;
   url: string;
@@ -107,6 +110,8 @@ export type Video = {
   transcript: string;
   opciones: Opciones;
   mensajes: Mensaje[];
+  /** Plan de serie (vacío si es un solo video). */
+  serie: ParteSerie[];
   created_at: string;
   updated_at: string;
 };
@@ -151,4 +156,28 @@ export function contarPalabras(texto: string): number {
 /** Segundos que dura hablado (unas 2,6 palabras por segundo). */
 export function segundosHablados(md: string): number {
   return Math.round(contarPalabras(textoHablado(md)) / 2.6);
+}
+
+/** Estilo para generar una parte: usa su idea y, si no es la última, cierra con "sígueme". */
+export function opcionesParte(o: Opciones, serie: ParteSerie[], i: number): Opciones {
+  const ultima = i >= serie.length - 1;
+  const cta = !ultima && o.cta !== "seguir" && o.cta !== "seguir-comenta" ? "seguir" : o.cta;
+  return { ...o, idea: serie[i].idea, cta };
+}
+
+/** Pedido para generar el guion de la parte i de la serie. */
+export function pedidoParte(serie: ParteSerie[], i: number, cta: CtaEstilo): string {
+  const p = serie[i];
+  const n = serie.length;
+  const conPregunta = cta === "seguir-comenta";
+  const sig =
+    i < n - 1
+      ? `El cierre pide ${conPregunta ? "seguirte" : "UNA sola acción: seguirte"} para ver la parte ${i + 2} (“${serie[i + 1].titulo}”), adelantando en una frase lo concreto que va a ganar ahí${conPregunta ? ", y después una pregunta fácil para comentar" : ""}. No le restes valor a esta parte (nada de "la ventaja real" o "lo importante viene después"). Esto manda sobre el estilo de cierre elegido.`
+      : "Es el ÚLTIMO video de la serie: NO anuncies ninguna parte siguiente ni la próxima sesión del curso original; la serie termina aquí. Cierra la serie con una frase de remate y pide una sola acción (seguirte para más contenido así, o la del estilo elegido). Esto manda sobre el estilo de cierre elegido.";
+  const intro = i === 0 ? "Abre sin repetir saludo largo." : `Es la parte ${i + 1}: no repitas la introducción general; entra directo a la idea.`;
+  const anterior =
+    i > 0
+      ? ` y NO gastes segundos hablados en resumir la parte anterior: después del gancho entra directo al contenido. Si hace falta ubicar a la persona, ponlo como texto en pantalla corto (por ejemplo: "Antes: ${serie[i - 1].titulo}") en las notas de grabación`
+      : "";
+  return `Genera el guion de la parte ${i + 1} de ${n} de una serie sacada de este video largo. Título de esta parte: “${p.titulo}”. Idea única: ${p.idea}. Usa SOLO esa parte del material. ${intro} ${sig} Ponle el título "${p.titulo}" (Parte ${i + 1}/${n}). Apunta a la parte baja de la duración pedida: es una sola idea, debe ser corto. Que se note que es una serie: indica en las notas de grabación poner "Parte ${i + 1}/${n}" como etiqueta fija en una esquina; NO lo metas en el texto en pantalla del gancho (sigue con máximo 6 palabras)${anterior}. El cierre (CTA) debe ser coherente con esto.`;
 }

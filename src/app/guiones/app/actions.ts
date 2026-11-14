@@ -22,6 +22,7 @@ export async function crearVideo(_: FormState, fd: FormData): Promise<FormState>
   const url = String(fd.get("url") ?? "").trim();
   const pegada = String(fd.get("transcripcion") ?? "").trim();
   let titulo = String(fd.get("titulo") ?? "").trim();
+  const serie = fd.get("formato") === "serie";
   let canal = "";
   let opciones: Opciones;
   try {
@@ -74,7 +75,7 @@ export async function crearVideo(_: FormState, fd: FormData): Promise<FormState>
     return { error: "No pude guardar el video. Intenta de nuevo." };
   }
   revalidatePath("/guiones/app");
-  redirect(`/guiones/app/${id}`);
+  redirect(`/guiones/app/${id}${serie ? "?serie=1" : ""}`);
 }
 
 export async function borrarVideo(fd: FormData) {

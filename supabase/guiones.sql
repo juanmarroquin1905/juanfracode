@@ -11,6 +11,7 @@ create table if not exists public.guiones_videos (
   transcript text not null,
   opciones jsonb not null default '{}'::jsonb,   -- estilo de gancho, CTA, duración, tono...
   mensajes jsonb not null default '[]'::jsonb,   -- el chat: [{role, content}]
+  serie jsonb not null default '[]'::jsonb,      -- plan de serie: [{titulo, idea, pasaje, gancho, mensajes}]
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -35,3 +36,6 @@ create policy "El admin edita sus videos" on public.guiones_videos
 drop policy if exists "El admin borra sus videos" on public.guiones_videos;
 create policy "El admin borra sus videos" on public.guiones_videos
   for delete using (public.is_admin() and user_id = auth.uid());
+
+-- Si creaste la tabla antes de que existiera la serie:
+alter table public.guiones_videos add column if not exists serie jsonb not null default '[]'::jsonb;

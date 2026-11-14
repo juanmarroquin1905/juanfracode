@@ -1,5 +1,5 @@
 import "server-only";
-import { contarPalabras, type CtaEstilo, type GanchoEstilo, type Opciones, type Tono, type Video } from "./types";
+import { contarPalabras, DURACIONES, type CtaEstilo, type GanchoEstilo, type Opciones, type ParteSerie, type Tono, type Video } from "./types";
 
 const GANCHO: Record<GanchoEstilo, string> = {
   mix: "Da 3 ganchos distintos para probar. A = el resultado o número más fuerte (título + dato); B = lo que la persona puede descubrir o ganar, dicho como oportunidad (“hay una forma de…”), nunca como reproche; C = la pregunta o curiosidad que obliga a quedarse.",
@@ -180,6 +180,44 @@ export function bloqueEstilo(o: Opciones): string {
 /** Tope de palabras habladas para la duración elegida (para avisar si se pasa). */
 export function topePalabras(o: Opciones): number {
   return o.duracion === "30-40" ? 110 : o.duracion === "60-90" ? 215 : 160;
+}
+
+/** Pedido para dividir un video largo en una serie de videos cortos (responde JSON). */
+export function promptSerie(v: Pick<Video, "title" | "channel" | "url" | "transcript">, o: Opciones, n: number): string {
+  const cuantos = n > 0 ? `exactamente ${n} videos` : "entre 3 y 8 videos (los que de verdad tenga el material; no rellenes)";
+  const dur = DURACIONES.find((d) => d.id === o.duracion)?.label ?? "30 a 60 s";
+  return `Eres editor de contenido para TikTok y Reels. Tienes la transcripción de un video largo (puede ser un curso o una clase). Divídelo en ${cuantos} cortos.
+
+Reglas:
+- Cada video cubre UNA sola idea que se entienda sola, en ${dur}.
+- Ordénalos como serie: el orden debe tener sentido para quien los ve uno tras otro.
+- Usa solo lo que dice el material. No inventes ideas, cifras ni ejemplos. Ignora patrocinios, publicidad del autor y relleno.
+- Prioriza lo más valioso, concreto y con ejemplos; salta lo que no aporta.
+- "idea" debe ser una frase clara que sirva para pedir el guion después, mencionando el ejemplo o analogía concreta del video si la hay.
+- "pasaje" son las primeras palabras (6 a 10) de la parte de la transcripción de donde sale, tal cual aparecen, para ubicarla.
+- "gancho" es una frase corta de gancho tentativa basada en el material.
+
+Responde SOLO con un arreglo JSON, sin texto extra ni bloques de código, con este formato:
+[{"titulo":"…","idea":"…","pasaje":"…","gancho":"…"}]
+
+${bloqueMaterial(v)}`;
+}
+
+/** Lee el arreglo JSON del plan de serie. */
+export function leerPlanSerie(texto: string): ParteSerie[] {
+  const a = texto.indexOf("[");
+  const b = texto.lastIndexOf("]");
+  if (a < 0 || b < a) return [];
+  try {
+    const arr: unknown = JSON.parse(texto.slice(a, b + 1));
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .filter((x): x is Record<string, unknown> => !!x && typeof x === "object" && !!(x as Record<string, unknown>).titulo && !!(x as Record<string, unknown>).idea)
+      .slice(0, 12)
+      .map((x) => ({ titulo: String(x.titulo), idea: String(x.idea), pasaje: String(x.pasaje ?? ""), gancho: String(x.gancho ?? ""), mensajes: [] }));
+  } catch {
+    return [];
+  }
 }
 
 export { contarPalabras };
