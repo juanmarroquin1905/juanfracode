@@ -87,10 +87,10 @@ Reglas del guion:
 
 Antes de responder, revisa tu guion punto por punto y corrígelo si falla alguno:
 1. Después del gancho, lo más concreto (el ejemplo, la demostración o la comparación) empieza antes del segundo 10. El contexto y las definiciones van después.
-2. Ninguna idea se dice dos veces con otras palabras.
+2. Ninguna idea se dice dos veces con otras palabras. No anuncies la lista completa para luego repetirla punto por punto: entra directo al primer punto.
 3. El cierre pide UNA sola acción (dos solo si el estilo de cierre es "Sígueme + pregunta").
-4. Ningún gancho contradice el guion, exagera lo que dijo el video ni regaña a la persona ("te falta", "lo haces mal").
-5. Todo lo que se dice está en el material: nada de "casi nadie lo usa", "es la que más me gusta" ni otras opiniones o preferencias que el video no dijo.
+4. Ningún gancho cuenta en primera persona una experiencia del autor del video ("compré", "gasté", "me entregó"); dilo como dato ("con cinco dólares de crédito se gastó solo uno con treinta y ocho") o como reto. Ningún gancho contradice el guion, exagera lo que dijo el video ni regaña a la persona ("te falta", "lo haces mal").
+5. Todo lo que se dice está en el material: nada de "casi nadie lo usa", "lo que nadie te explica", "es la que más me gusta" ni otras opiniones o preferencias que el video no dijo.
 6. Las palabras de lo hablado entran en el tope.
 
 Formato del guion: SOLO este Markdown, sin texto antes ni después. Todo lo que Juan dice en voz alta va en líneas que empiezan con "> ". Los tiempos van entre comillas invertidas.
