@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getAdminUser } from "@/lib/data";
-import { guardarChat, obtenerVideo } from "@/lib/guiones/data";
+import { guardarChat, guardarParte, obtenerVideo } from "@/lib/guiones/data";
 import { bloqueEstilo, bloqueMaterial, INSTRUCCIONES } from "@/lib/guiones/prompt";
 import { normalizarOpciones, type Mensaje } from "@/lib/guiones/types";
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return json(500, "Falta ANTHROPIC_API_KEY en las variables de entorno (Vercel > Settings > Environment Variables).");
 
-  let body: { id?: string; mensajes?: Mensaje[]; opciones?: unknown };
+  let body: { id?: string; mensajes?: Mensaje[]; opciones?: unknown; parte?: number };
   try {
     body = await req.json();
   } catch {
@@ -33,6 +33,8 @@ export async function POST(req: Request) {
   const video = await obtenerVideo(body.id);
   if (!video) return json(404, "No encontré ese video.");
   const opciones = normalizarOpciones(body.opciones as never);
+  const parte = typeof body.parte === "number" && Number.isInteger(body.parte) ? body.parte : null;
+  if (parte !== null && !video.serie[parte]) return json(400, "No encontré esa parte de la serie.");
 
   const client = new Anthropic({ apiKey });
   const usarFallback = process.env.GUIONES_FALLBACKS !== "off";
@@ -66,7 +68,9 @@ export async function POST(req: Request) {
           const final = await stream.finalMessage();
           if (final.stop_reason === "refusal") throw new Error("Claude no quiso generar este contenido. Prueba con otro video.");
           if (!texto.trim()) throw new Error("La respuesta llegó vacía. Intenta de nuevo.");
-          await guardarChat(video.id, [...mensajes, { role: "assistant", content: texto }], opciones);
+          const todos: Mensaje[] = [...mensajes, { role: "assistant", content: texto }];
+          if (parte !== null) await guardarParte(video.id, parte, todos, opciones);
+          else await guardarChat(video.id, todos, opciones);
         } catch (e) {
           const msg = e instanceof Error ? e.message : "Error desconocido.";
           controller.enqueue(encoder.encode(`${ERROR_MARCA}${msg}`));

@@ -12,6 +12,7 @@ export function NuevoVideoForm({ urlInicial = "", modoInicial = "link" }: { urlI
   const [modo, setModo] = useState<"link" | "texto">(modoInicial);
   const [opciones, setOpciones] = useState<Opciones>(OPCIONES_POR_DEFECTO);
   const [url, setUrl] = useState(urlInicial);
+  const [formato, setFormato] = useState<"uno" | "serie">("uno");
 
   // Recuerda tu último estilo y tu perfil entre videos.
   useEffect(() => {
@@ -79,6 +80,26 @@ export function NuevoVideoForm({ urlInicial = "", modoInicial = "link" }: { urlI
           </div>
         </div>
       )}
+
+      <fieldset>
+        <legend className="label">¿Cómo lo quieres?</legend>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {(
+            [
+              ["uno", "Un solo video", "Con lo más importante del video."],
+              ["serie", "Varios videos por partes", "Ideal para cursos o videos largos. Primero ves el plan y luego generas cada parte."],
+            ] as const
+          ).map(([id, titulo, ayuda]) => (
+            <label key={id} className={`flex cursor-pointer gap-2.5 rounded-xl border p-3 text-sm ${formato === id ? "border-accent bg-soft" : "border-line"}`}>
+              <input type="radio" name="formato" value={id} checked={formato === id} onChange={() => setFormato(id)} className="mt-0.5 accent-[var(--color-accent)]" />
+              <span>
+                <span className="block font-semibold text-ink">{titulo}</span>
+                <span className="block text-xs text-mut">{ayuda}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <details open className="rounded-xl border border-line bg-soft/50 p-4">
         <summary className="cursor-pointer text-sm font-semibold text-ink">Preguntas rápidas: cómo quieres el guion</summary>
