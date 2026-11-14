@@ -53,7 +53,7 @@ export const GANCHOS: { id: GanchoEstilo; label: string; ayuda: string }[] = [
 export const CTAS: { id: CtaEstilo; label: string }[] = [
   { id: "pregunta", label: "Pregunta para comentar" },
   { id: "palabra", label: "Comenta una palabra" },
-  { id: "seguir", label: "Sígueme (parte 2)" },
+  { id: "seguir", label: "Sígueme (siguiente parte)" },
   { id: "guardar", label: "Guarda este video" },
   { id: "bio", label: "Link en mi perfil" },
   { id: "ninguno", label: "Sin llamado" },
