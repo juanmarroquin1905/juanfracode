@@ -2,9 +2,9 @@ import "server-only";
 import { contarPalabras, type CtaEstilo, type GanchoEstilo, type Opciones, type Tono, type Video } from "./types";
 
 const GANCHO: Record<GanchoEstilo, string> = {
-  mix: "Da 3 ganchos distintos para probar. A = el resultado o número más fuerte (título + dato); B = el error o lo que la persona se está perdiendo; C = la pregunta o curiosidad que obliga a quedarse.",
+  mix: "Da 3 ganchos distintos para probar. A = el resultado o número más fuerte (título + dato); B = lo que la persona puede descubrir o ganar, dicho como oportunidad ("hay una forma de…"), nunca como reproche; C = la pregunta o curiosidad que obliga a quedarse.",
   resultado: "Da 3 ganchos para probar, los tres con el estilo RESULTADO O NÚMERO: abren con la cifra, el resultado o el dato más fuerte del video, cada uno con una redacción distinta.",
-  error: "Da 3 ganchos para probar, los tres con el estilo ERROR COMÚN: señalan lo que la gente hace mal o se está perdiendo, cada uno con una redacción distinta.",
+  error: "Da 3 ganchos para probar, los tres con el estilo ERROR COMÚN: señalan un error común que el VIDEO plantea, dicho como dato y no como regaño ("el error más común es…", no "lo haces mal"); si el video no plantea ningún error, usa lo que la persona se está perdiendo, como oportunidad; cada uno con una redacción distinta.",
   pregunta: "Da 3 ganchos para probar, los tres con el estilo PREGUNTA: una pregunta que la persona quiere ver respondida, cada uno con una redacción distinta.",
   historia: "Da 3 ganchos para probar, los tres con el estilo CASO REAL: arrancan con el caso o ejemplo concreto del video (sin inventar nada), cada uno con una redacción distinta.",
   mito: "Da 3 ganchos para probar, los tres con el estilo MITO VS REALIDAD: rompen una creencia común que el video desmiente, cada uno con una redacción distinta.",
