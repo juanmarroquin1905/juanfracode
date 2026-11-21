@@ -71,11 +71,11 @@ export default function Home() {
         <header className="mx-auto max-w-3xl px-4 pt-8 pb-8 text-center sm:pt-14 sm:pb-10">
           <p className="enter chip">Crea con Claude · Gratis · En español</p>
           <h1 className="enter enter-1 mt-4 text-[clamp(32px,4.8vw,58px)] leading-[1.04] font-bold tracking-[-0.04em] text-balance text-ink">
-            Crea con Claude
-            <span className="text-gradient block pb-[0.12em]">aunque nunca hayas programado</span>
+            Crea apps, webs y videos
+            <span className="text-gradient block pb-[0.12em]">con Claude</span>
           </h1>
           <p className="enter enter-2 mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-mut">
-            Te enseño a crear micro apps web, páginas web y videos con Claude. Elige por dónde empezar.
+            Aunque nunca hayas programado. Te enseño paso a paso a crear micro apps web, páginas web y videos. Elige por dónde empezar.
           </p>
         </header>
 
