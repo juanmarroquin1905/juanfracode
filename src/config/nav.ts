@@ -1,9 +1,9 @@
 // Menú principal de la web: todo gira en torno a editar videos con Claude.
 export const NAV = [
   { href: "/", label: "Inicio" },
-  { href: "/studio", label: "Studio" },
+  { href: "/#como-funciona", label: "Cómo funciona" },
+  { href: "/recursos", label: "Recursos gratis" },
   { href: "/guiones", label: "VidScript" },
-  { href: "/videos", label: "Guías" },
 ] as const;
 
 // Otras secciones de Juanfra Code. Ya no van en el menú, pero siguen abiertas (enlaces en el pie de página).
@@ -17,8 +17,7 @@ export const MORE_LINKS = [
 // Qué sección del menú se marca en cada ruta (las rutas viejas siguen funcionando).
 export function activeNav(path: string) {
   if (path === "/") return "/";
-  if (path.startsWith("/studio")) return "/studio";
+  if (path.startsWith("/recursos")) return "/recursos";
   if (path.startsWith("/guiones")) return "/guiones";
-  if (path.startsWith("/videos")) return "/videos";
   return "";
 }

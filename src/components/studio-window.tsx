@@ -3,7 +3,7 @@ import { BRAND } from "@/config/brand";
 
 // Ventana de escritorio que presenta el Studio. Es solo una presentación:
 // no muestra funciones concretas hasta que el Studio esté listo.
-export function StudioWindow({ showLink = true }: { showLink?: boolean }) {
+export function StudioWindow({ showLink = false }: { showLink?: boolean }) {
   return (
     <section aria-label={BRAND.studioName} className="enter enter-3 mx-auto max-w-5xl px-4">
       <div className="glass overflow-hidden rounded-[22px]">
