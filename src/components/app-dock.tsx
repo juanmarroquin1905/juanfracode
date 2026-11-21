@@ -46,7 +46,9 @@ const DEFAULT_WORD = "tu día a día";
 const wordFor = (category?: string) =>
   WORDS[category?.trim().toLowerCase() ?? ""] ?? DEFAULT_WORD;
 
-export function AppDock({ apps }: { apps: DockApp[] }) {
+// heading="h2" cuando el dock va dentro de una página que ya tiene su propio título.
+export function AppDock({ apps, heading = "h1" }: { apps: DockApp[]; heading?: "h1" | "h2" }) {
+  const Title = heading;
   const [idx, setIdx] = useState(0);
   const [shown, setShown] = useState(0); // lo que se ve mientras termina la transición
   const [out, setOut] = useState(false);
@@ -69,12 +71,12 @@ export function AppDock({ apps }: { apps: DockApp[] }) {
   return (
     <>
       <header className="mx-auto max-w-3xl px-4 pt-10 pb-8 text-center sm:pt-14">
-        <h1 className="enter text-[clamp(36px,5vw,60px)] leading-[1.04] font-bold tracking-[-0.04em] text-ink">
+        <Title className={`enter ${heading === "h1" ? "text-[clamp(36px,5vw,60px)]" : "text-[clamp(30px,4vw,46px)]"} leading-[1.04] font-bold tracking-[-0.04em] text-ink`}>
           Micro apps web para{" "}
           <span className="swap text-gradient block pb-[0.12em]" data-out={out}>
             {word}
           </span>
-        </h1>
+        </Title>
         <p className="enter enter-1 mx-auto mt-3 max-w-xl text-[17px] leading-relaxed text-mut">
           {apps.length > 0
             ? "Elige una app en la barra de abajo y pruébala aquí mismo. Si te sirve, te llevas el código gratis."

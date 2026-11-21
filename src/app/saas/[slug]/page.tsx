@@ -45,8 +45,8 @@ export default async function SaasPage({ params, searchParams }: PageProps<"/saa
     <>
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 pt-8">
-        <Link href="/#top" className="text-sm text-mut hover:text-ink">
-          ← Todas las apps
+        <Link href="/micro-apps#ejemplos" className="text-sm text-mut hover:text-ink">
+          ← Todos los ejemplos
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_340px]">

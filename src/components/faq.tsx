@@ -21,10 +21,10 @@ const QUESTIONS = [
   },
 ];
 
-export function Faq() {
+export function Faq({ items = QUESTIONS }: { items?: { q: string; a: string }[] }) {
   return (
     <div className="card divide-y divide-line overflow-hidden">
-      {QUESTIONS.map((item) => (
+      {items.map((item) => (
         <details key={item.q} className="group px-5 py-4 open:bg-soft/60">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink">
             {item.q}
