@@ -1,19 +1,24 @@
-// Menú principal de la web. Los 3 pilares (micro apps, webs y videos) + skills.
+// Menú principal de la web: todo gira en torno a editar videos con Claude.
 export const NAV = [
   { href: "/", label: "Inicio" },
+  { href: "/studio", label: "Studio" },
+  { href: "/guiones", label: "VidScript" },
+  { href: "/videos", label: "Guías" },
+] as const;
+
+// Otras secciones de Juanfra Code. Ya no van en el menú, pero siguen abiertas (enlaces en el pie de página).
+export const MORE_LINKS = [
   { href: "/micro-apps", label: "Micro apps" },
+  { href: "/crear", label: "Creador de micro apps" },
   { href: "/webs", label: "Webs" },
-  { href: "/videos", label: "Videos" },
   { href: "/skills", label: "Skills" },
 ] as const;
 
 // Qué sección del menú se marca en cada ruta (las rutas viejas siguen funcionando).
 export function activeNav(path: string) {
   if (path === "/") return "/";
-  if (path.startsWith("/micro-apps") || path.startsWith("/crear") || path.startsWith("/apps") || path.startsWith("/saas"))
-    return "/micro-apps";
-  if (path.startsWith("/webs")) return "/webs";
-  if (path.startsWith("/videos") || path.startsWith("/guiones")) return "/videos";
-  if (path.startsWith("/skills")) return "/skills";
+  if (path.startsWith("/studio")) return "/studio";
+  if (path.startsWith("/guiones")) return "/guiones";
+  if (path.startsWith("/videos")) return "/videos";
   return "";
 }

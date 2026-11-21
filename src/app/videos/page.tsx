@@ -4,10 +4,11 @@ import { PillarHero, ResourceCard } from "@/components/pillar-parts";
 import { SectionTitle } from "@/components/sections";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { BRAND } from "@/config/brand";
 
 export const metadata: Metadata = {
-  title: "Videos con Claude",
-  description: "Usa Claude para tus videos de TikTok, Reels y Shorts: guiones con VidScript y, muy pronto, edición con Claude.",
+  title: "Guías para editar con Claude",
+  description: "Guías paso a paso para editar tus videos de TikTok, Reels y Shorts con Claude, junto a CapCut, DaVinci Resolve o Premiere.",
 };
 
 const VIDSCRIPT = [
@@ -23,10 +24,10 @@ export default function VideosPage() {
       <SiteHeader />
       <main className="pb-4">
         <PillarHero
-          kicker="Pilar 3 · Videos con Claude"
-          title="Crea y edita tus videos"
+          kicker="Guías"
+          title="Edita tus videos"
           highlight="con Claude"
-          text="Para TikTok, Reels y Shorts. Desde el guion hasta la edición, con herramientas que uso en mis propios videos."
+          text="Para TikTok, Reels y Shorts. Mi flujo paso a paso, desde el guion hasta el video listo, con el editor que ya usas."
         />
 
         {/* Herramienta estrella */}
@@ -55,11 +56,20 @@ export default function VideosPage() {
           </div>
         </section>
 
-        <section id="recursos" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-20">
-          <SectionTitle kicker="Recursos" title="Lo que viene para tus videos" text="Estoy preparando estos recursos. Sígueme en redes para enterarte cuando salgan." />
+        <section id="guias" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-20">
+          <SectionTitle kicker="Guías" title="Claude + tu editor favorito" text="Estoy preparando estas guías. Sígueme en redes para enterarte cuando salgan." />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <ResourceCard emoji="🎬" title="Guiones con VidScript" text="Ganchos, CTA y duración a tu elección, a partir de un video de referencia." href="/guiones" cta="Abrir VidScript" />
-            <ResourceCard emoji="✂️" title="Edita videos con Claude" text="Guía para usar Claude en la edición: cortes, subtítulos y más." />
+            <ResourceCard emoji="📱" title="Claude + CapCut" text="Cómo usar Claude para editar más rápido en CapCut." />
+            <ResourceCard emoji="🎚️" title="Claude + DaVinci Resolve" text="Cómo usar Claude para editar más rápido en DaVinci Resolve." />
+            <ResourceCard emoji="🎞️" title="Claude + Premiere" text="Cómo usar Claude para editar más rápido en Premiere Pro." />
+          </div>
+        </section>
+
+        <section id="recursos" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-20">
+          <SectionTitle kicker="Recursos" title="Herramientas para tus videos" />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <ResourceCard emoji="🎬" title={BRAND.studioName} text="Instálalo en tu Claude, arrastra tus videos y edita con plantillas." href="/studio" cta="Conocer el Studio" />
+            <ResourceCard emoji="✍️" title="Guiones con VidScript" text="Ganchos, CTA y duración a tu elección, a partir de un video de referencia." href="/guiones" cta="Abrir VidScript" />
             <ResourceCard emoji="🧠" title="Skills para videos" text="Skills para Claude pensadas para creadores de contenido." />
           </div>
         </section>
