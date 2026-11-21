@@ -5,7 +5,7 @@ export const BRAND = {
   title: "Edita tus videos con Claude",
   titleHighlight: "con Claude", // parte del título que va con degradado
   tagline:
-    "Para creadores de contenido: edita tus videos con Claude en minutos, no en horas. Guiones con VidScript, el Studio para Claude y guías paso a paso.",
+    "Para creadores de contenido: edita tus videos con Claude en minutos, no en horas. Prompts gratis para Claude Code, ffmpeg y Remotion, y muy pronto el Studio para tu Claude.",
   // Nombre del Studio (lo que la gente instala en su Claude para editar con plantillas).
   // Cámbialo aquí y se actualiza en toda la web.
   studioName: "VidStudio",

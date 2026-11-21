@@ -10,7 +10,7 @@ import { PROMPT_GROUPS } from "@/config/prompts";
 
 export const metadata: Metadata = {
   title: "Recursos gratis para editar con Claude",
-  description: "Prompts gratis para editar tus videos con Claude, por efecto: cortes, ganchos, subtítulos, zooms, B-roll, sonidos y más.",
+  description: "Prompts gratis para editar tus videos con Claude Code, ffmpeg y Remotion, por efecto: cortes, ganchos, subtítulos animados, zooms, música y más.",
 };
 
 export default function RecursosPage() {
@@ -23,7 +23,7 @@ export default function RecursosPage() {
           kicker={`Gratis · ${total} prompts`}
           title="Edita tus videos"
           highlight="con estos prompts"
-          text="Un prompt por efecto. Cópialo, pégalo en Claude y ahorra tiempo en tu próximo video."
+          text="Sin editores de video: solo Claude Code, ffmpeg y Remotion. Un prompt por efecto. Cópialo, pégalo en Claude Code y listo."
         />
         <nav aria-label="Grupos" className="mt-6 flex flex-wrap justify-center gap-2 px-4">
           {PROMPT_GROUPS.map((g) => (
@@ -63,8 +63,6 @@ export default function RecursosPage() {
           <SectionTitle kicker="Lo que viene" title="Más recursos en camino" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <ResourceCard emoji="🧠" title="Skills por efecto" text="Skills para Claude que aplican un efecto completo con una sola orden." />
-            <ResourceCard emoji="📱" title="Guía: Claude + CapCut" text="Mi flujo para editar más rápido en CapCut con ayuda de Claude." />
-            <ResourceCard emoji="🎚️" title="Guía: Claude + DaVinci o Premiere" text="El mismo flujo, en DaVinci Resolve o Premiere Pro." />
           </div>
           <p className="mt-6 text-sm text-mut">
             ¿Quieres editar todo esto con plantillas, sin copiar prompts?{" "}

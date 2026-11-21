@@ -93,9 +93,8 @@ export default function Home() {
             title="Recursos para editar con Claude, desde hoy"
             text={`No tienes que esperar a ${STUDIO} para ahorrar tiempo. Úsalos gratis.`}
           />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <ResourceCard emoji="💬" title="Prompts por efecto" text="Cortes, ganchos, subtítulos, zooms, B-roll, sonidos y más. Cópialos y pégalos en Claude." href="/recursos" cta="Ver los prompts" />
-            <ResourceCard emoji="📱" title="Guía: Claude + CapCut" text="Mi flujo para editar más rápido en CapCut con ayuda de Claude." />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <ResourceCard emoji="💬" title="Prompts por efecto" text="Cortes, ganchos, subtítulos animados, zooms y música con Claude Code, ffmpeg y Remotion." href="/recursos" cta="Ver los prompts" />
             <ResourceCard emoji="🧠" title="Skills por efecto" text="Skills para Claude que aplican un efecto completo con una sola orden." />
             <ResourceCard emoji="✍️" title="VidScript" text="Convierte un video que ya funcionó en tu próximo guion, con ganchos para probar." href="/guiones" cta="Conocer VidScript" />
           </div>
