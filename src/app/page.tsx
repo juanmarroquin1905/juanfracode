@@ -1,60 +1,140 @@
-import { AppDock } from "@/components/app-dock";
-import { Catalog } from "@/components/catalog";
+import Link from "next/link";
 import { Faq } from "@/components/faq";
-import { HowTo } from "@/components/how-to";
+import { OldAnchors } from "@/components/old-anchors";
 import { Projects } from "@/components/projects";
+import { CreatorBanner, SectionTitle, SkillBanner, VidScriptBanner } from "@/components/sections";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialButtons } from "@/components/socials";
 import { BRAND } from "@/config/brand";
 import { SKILLS } from "@/config/skills";
-import Link from "next/link";
-import { getPublishedSaas } from "@/lib/data";
 
-export const revalidate = 60;
+// Los 3 pilares de Juanfra Code. Cada uno lleva a su página.
+const PILLARS = [
+  {
+    href: "/micro-apps",
+    emoji: "🧩",
+    color: "#1d4ed8",
+    kicker: "Pilar 1",
+    title: "Micro apps web",
+    text: "Apps pequeñas para organizar tu día o tu negocio, creadas sin programar o con Claude.",
+    items: ["Creador de micro apps, sin programar", "Skill “Crea tu primera app”", "Ejemplos para probar y descargar"],
+    cta: "Crear una micro app",
+  },
+  {
+    href: "/webs",
+    emoji: "🌐",
+    color: "#0891b2",
+    kicker: "Pilar 2",
+    title: "Webs con Claude",
+    text: "Tu página web hecha con Claude y publicada gratis con GitHub y Vercel.",
+    items: ["De la idea a tu web publicada", "Ejemplos de webs reales", "Guías y plantillas (pronto)"],
+    cta: "Crear mi web",
+  },
+  {
+    href: "/videos",
+    emoji: "🎬",
+    color: "#7c3aed",
+    kicker: "Pilar 3",
+    title: "Videos con Claude",
+    text: "Guiones que enganchan y, muy pronto, edición de tus videos con Claude.",
+    items: ["VidScript: guiones desde un video", "Series de videos cortos", "Edición con Claude (pronto)"],
+    cta: "Ver herramientas",
+  },
+];
 
-const STACK = ["Next.js", "Supabase", "Vercel", "GitHub", "Claude Code"];
+const HOME_FAQ = [
+  {
+    q: "¿Necesito saber programar?",
+    a: "No. Puedes empezar con el creador de micro apps, que es sin programar, o pedirle a Claude que escriba el código por ti. En mis videos te muestro cada paso.",
+  },
+  {
+    q: "¿Qué es una micro app web?",
+    a: "Una app pequeña que se abre en el navegador, del celular o la compu, para una tarea concreta: tus gastos, tu rutina, tus clientes. No se instala desde una tienda de apps.",
+  },
+  {
+    q: "¿Qué es Claude?",
+    a: "Es la inteligencia artificial de Anthropic. Le escribes en español lo que quieres y te ayuda a crear el código, los textos o los guiones de tus videos.",
+  },
+  {
+    q: "¿Cuánto cuesta?",
+    a: "El creador, los ejemplos y las skills de esta web son gratis. Para publicar, GitHub, Vercel y Supabase tienen planes gratis que alcanzan para empezar.",
+  },
+];
 
-export default async function Home() {
-  const items = await getPublishedSaas();
-
+export default function Home() {
   return (
     <>
+      <OldAnchors />
       <SiteHeader />
       <main id="top" className="scroll-mt-24">
-        <AppDock
-          apps={items.slice(0, 8).map((s) => ({
-            id: s.id,
-            slug: s.slug,
-            name: s.name,
-            tagline: s.tagline,
-            category: s.category,
-            emoji: s.emoji,
-            color: s.color,
-            cover_url: s.cover_url,
-            demo_url: s.demo_url,
-            features: s.features,
-            repo_url: s.repo_url,
-            zip_url: s.zip_url,
-          }))}
-        />
-        <p className="mt-4 text-center font-ui text-xs text-mut">
-          Hechas con {STACK.join(" · ")}
-        </p>
+        <header className="mx-auto max-w-3xl px-4 pt-8 pb-8 text-center sm:pt-14 sm:pb-10">
+          <p className="enter chip">Crea con Claude · Gratis · En español</p>
+          <h1 className="enter enter-1 mt-4 text-[clamp(32px,4.8vw,58px)] leading-[1.04] font-bold tracking-[-0.04em] text-balance text-ink">
+            Crea con Claude
+            <span className="text-gradient block pb-[0.12em]">aunque nunca hayas programado</span>
+          </h1>
+          <p className="enter enter-2 mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-mut">
+            Te enseño a crear micro apps web, páginas web y videos con Claude. Elige por dónde empezar.
+          </p>
+        </header>
 
-        <CreatorBanner />
-        <VidScriptBanner />
-        <SkillBanner />
+        {/* Los 3 pilares, como ventanas de escritorio */}
+        <section aria-label="Qué puedes crear" className="mx-auto grid max-w-6xl gap-4 px-4 md:grid-cols-3">
+          {PILLARS.map((p, i) => (
+            <Link
+              key={p.href}
+              href={p.href}
+              className={`glass lift press group enter enter-${i + 1} flex flex-col overflow-hidden rounded-[22px]`}
+            >
+              <div className="flex items-center gap-1.5 border-b border-line px-4 py-2.5">
+                <span className="size-2.5 rounded-full bg-line" />
+                <span className="size-2.5 rounded-full bg-line" />
+                <span className="size-2.5 rounded-full bg-line" />
+                <span className="ml-auto font-ui text-[11px] text-mut">juanfracode{p.href}</span>
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="grid size-12 place-items-center rounded-2xl text-2xl transition-transform duration-200 ease-(--ease-out) group-hover:-translate-y-0.5"
+                    style={{ background: `linear-gradient(135deg, ${p.color}40, ${p.color}14)` }}
+                  >
+                    {p.emoji}
+                  </span>
+                  <div>
+                    <p className="font-ui text-[11px] text-mut">{p.kicker}</p>
+                    <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink">{p.title}</h2>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-mut">{p.text}</p>
+                <ul className="mt-4 space-y-2 font-ui text-sm text-ink">
+                  {p.items.map((it) => (
+                    <li key={it} className="flex items-center gap-2">
+                      <span className="size-1.5 shrink-0 rounded-full" style={{ background: p.color }} />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-auto pt-6 text-sm font-semibold text-accent">
+                  {p.cta} <span className="arr">→</span>
+                </p>
+              </div>
+            </Link>
+          ))}
+        </section>
+        <p className="mt-5 text-center font-ui text-xs text-mut">Hecho con Claude · Next.js · Supabase · Vercel · GitHub</p>
 
-        {items.length > 0 && (
-          <section id="saas" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
-            <SectionTitle kicker="Catálogo" title="Todas las apps" text="Ábrelas, juega con los datos de ejemplo y descárgalas si te sirven." />
-            <Catalog items={items} />
-          </section>
-        )}
+        <section aria-labelledby="empieza" className="pt-20">
+          <div className="mx-auto max-w-4xl px-4">
+            <SectionTitle kicker="Empieza por aquí" title="Herramientas gratis para crear hoy" />
+          </div>
+          <CreatorBanner className="pt-0" />
+          <VidScriptBanner />
+          <SkillBanner className="pt-6" />
+        </section>
 
         <section id="proyectos" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
-          <SectionTitle kicker="Mis proyectos" title="Lo que he lanzado" text="Productos reales que construí con este mismo stack." />
+          <SectionTitle kicker="Mis proyectos" title="Lo que he lanzado con Claude" text="Productos reales que construí con este mismo stack." />
           <Projects />
         </section>
 
@@ -77,16 +157,6 @@ export default async function Home() {
           </Link>
         </section>
 
-        <section id="como-usar" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
-          <SectionTitle
-            kicker="Cómo funciona"
-            title="De la vitrina a tu propia app"
-            text="Todas vienen listas para Vercel + Supabase. No necesitas instalar nada en tu computadora."
-          />
-          <HowTo />
-          <TutorialVideo />
-        </section>
-
         <section className="mx-auto max-w-6xl px-4 pt-24">
           <div className="card grid items-center gap-8 overflow-hidden rounded-3xl p-6 sm:p-10 md:grid-cols-[auto_1fr]">
             <span className="brand-gradient grid size-24 place-items-center rounded-3xl font-mono text-3xl font-bold text-white shadow-[0_16px_32px_-12px_rgba(29,78,216,0.5)]">
@@ -94,7 +164,7 @@ export default async function Home() {
             </span>
             <div>
               <p className="text-sm font-semibold text-accent">Juanfra Code</p>
-              <h2 className="mt-1 text-2xl font-bold text-ink">Aprende a crearlas conmigo</h2>
+              <h2 className="mt-1 text-2xl font-bold text-ink">Aprende a crear conmigo</h2>
               <p className="mt-3 max-w-2xl leading-relaxed text-mut">{BRAND.about}</p>
               <div className="mt-5">
                 <SocialButtons />
@@ -105,144 +175,31 @@ export default async function Home() {
 
         <section id="preguntas" className="mx-auto max-w-3xl scroll-mt-24 px-4 pt-24">
           <SectionTitle kicker="Preguntas" title="Preguntas frecuentes" center />
-          <Faq />
+          <Faq items={HOME_FAQ} />
         </section>
 
         <section className="mx-auto max-w-6xl px-4 pt-24">
           <div className="relative overflow-hidden rounded-3xl bg-night px-6 py-16 text-center">
             <div aria-hidden className="absolute -top-24 left-1/2 size-[480px] -translate-x-1/2 rounded-full bg-accent-2/30 blur-3xl" />
             <h2 className="relative text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl">
-              Tu próxima app está a un clic
+              ¿Qué quieres crear hoy?
             </h2>
-            <p className="relative mx-auto mt-3 max-w-lg text-slate-300">
-              Elige una plantilla, lánzala gratis y cámbiala a tu gusto con Claude Code.
-            </p>
-            <a href="#top" className="press relative mt-8 inline-flex rounded-full bg-card px-6 py-3 text-sm font-semibold text-ink transition-transform duration-150">
-              Elegir una app
-            </a>
+            <p className="relative mx-auto mt-3 max-w-lg text-slate-300">Elige un camino y empieza gratis.</p>
+            <div className="relative mt-8 flex flex-wrap justify-center gap-2.5">
+              {PILLARS.map((p) => (
+                <Link
+                  key={p.href}
+                  href={p.href}
+                  className="press inline-flex items-center gap-2 rounded-full bg-card px-5 py-3 text-sm font-semibold text-ink transition-transform duration-150"
+                >
+                  {p.emoji} {p.title}
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       </main>
       <SiteFooter />
     </>
-  );
-}
-
-// Acceso al creador de micro apps (/crear), para quien no usa Claude.
-function CreatorBanner() {
-  return (
-    <section aria-labelledby="creator-banner" className="mx-auto max-w-4xl px-4 pt-14">
-      <Link
-        href="/crear"
-        className="lift press relative grid items-center gap-5 overflow-hidden rounded-3xl bg-night p-6 text-white sm:grid-cols-[auto_1fr_auto] sm:gap-6 sm:p-8"
-      >
-        <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-accent-2/30 blur-3xl" />
-        <span className="relative grid size-16 place-items-center rounded-2xl bg-white/10 text-3xl">🛠️</span>
-        <div className="relative">
-          <p className="inline-flex rounded-full bg-white/10 px-2.5 py-0.5 font-ui text-[11px] text-slate-300">Nuevo · Gratis · Sin programar</p>
-          <h2 id="creator-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
-            Crea tu propia micro app web
-          </h2>
-          <p className="mt-2 max-w-xl leading-relaxed text-slate-300">
-            Para organizar tu día o tu negocio. Elige qué hace y cómo se ve, y descárgala lista para publicar gratis. No necesitas Claude.
-          </p>
-        </div>
-        <span className="relative inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-night">
-          Crear mi app <span className="arr">→</span>
-        </span>
-      </Link>
-    </section>
-  );
-}
-
-// Acceso destacado a la skill propia "Crea tu primera app", justo debajo del dock.
-function SkillBanner() {
-  return (
-    <section aria-labelledby="skill-banner" className="mx-auto max-w-4xl px-4 pt-14">
-      <div className="card relative grid items-center gap-5 overflow-hidden rounded-3xl p-6 sm:grid-cols-[auto_1fr] sm:gap-6 sm:p-8">
-        <div aria-hidden className="pointer-events-none absolute -top-20 -right-16 size-64 rounded-full bg-accent-2/20 blur-3xl" />
-        <span className="brand-gradient relative grid size-16 place-items-center rounded-2xl text-3xl shadow-[0_16px_32px_-12px_rgba(29,78,216,0.5)]">
-          🚀
-        </span>
-        <div className="relative">
-          <p className="chip">Skill gratis para Claude · Hecha por Juanfra Code</p>
-          <h2 id="skill-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
-            Crea tu primera app web con Claude
-          </h2>
-          <p className="mt-2 max-w-2xl leading-relaxed text-mut">
-            Instálala en tu Claude y te hace preguntas paso a paso: tu idea, qué hace, cómo se ve. Luego la construye contigo para
-            usarla ya o publicarla en Vercel.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <a href="/descargas/skills/crea-tu-primera-app.zip" download className="btn">
-              Descargar skill <span className="arr">↓</span>
-            </a>
-            <Link href="/skills#instalar" className="btn-ghost">
-              Cómo instalarla
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SectionTitle({ kicker, title, text, center }: { kicker: string; title: string; text?: string; center?: boolean }) {
-  return (
-    <div className={`mb-6 ${center ? "text-center" : ""}`}>
-      <p className="chip">{kicker}</p>
-      <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">{title}</h2>
-      {text && <p className={`mt-2 max-w-2xl text-mut ${center ? "mx-auto" : ""}`}>{text}</p>}
-    </div>
-  );
-}
-
-// Convierte un enlace de YouTube (watch, youtu.be o shorts) en uno para incrustar.
-function youtubeEmbed(url: string) {
-  const m = url.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/);
-  return m ? `https://www.youtube-nocookie.com/embed/${m[1]}` : null;
-}
-
-function TutorialVideo() {
-  const src = BRAND.tutorialUrl ? youtubeEmbed(BRAND.tutorialUrl) : null;
-  if (!src) return null;
-  return (
-    <div className="card mt-6 overflow-hidden p-2">
-      <div className="relative aspect-video overflow-hidden rounded-xl">
-        <iframe
-          src={src}
-          title="Tutorial: cómo lanzar una plantilla"
-          className="absolute inset-0 size-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-    </div>
-  );
-}
-
-// Acceso a VidScript (/guiones): guiones para TikTok y Reels desde un video.
-function VidScriptBanner() {
-  return (
-    <section aria-labelledby="vidscript-banner" className="mx-auto max-w-4xl px-4 pt-6">
-      <Link
-        href="/guiones"
-        className="lift press card grid items-center gap-5 p-6 sm:grid-cols-[auto_1fr_auto] sm:gap-6 sm:p-8"
-      >
-        <span className="brand-gradient grid size-16 place-items-center rounded-2xl text-3xl text-white">🎬</span>
-        <div>
-          <p className="chip">Nuevo · Para creadores</p>
-          <h2 id="vidscript-banner" className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
-            Convierte un video en tu próximo guion
-          </h2>
-          <p className="mt-2 max-w-xl leading-relaxed text-mut">
-            Pega el link de un video que ya funcionó y recibe un guion listo para grabar en TikTok o Reels, con ganchos para probar.
-          </p>
-        </div>
-        <span className="btn w-fit">
-          Probar VidScript <span className="arr">→</span>
-        </span>
-      </Link>
-    </section>
   );
 }

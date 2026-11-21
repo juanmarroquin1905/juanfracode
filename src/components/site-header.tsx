@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BRAND } from "@/config/brand";
+import { NavLinks } from "@/components/nav-links";
 import { ThemeToggle } from "@/components/theme";
 
 export function SiteHeader() {
@@ -10,28 +11,10 @@ export function SiteHeader() {
           <span className="grid h-6 place-items-center rounded-lg bg-night px-1.5 font-mono text-[11px] text-white">{"</>"}</span>
           {BRAND.name}
         </Link>
-        <nav className="flex items-center gap-0.5 text-sm sm:gap-1">
-          <Link href="/#top" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
-            Apps
-          </Link>
-          <Link href="/#proyectos" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
-            Mis proyectos
-          </Link>
-          <Link href="/crear" className="rounded-full px-2 py-1.5 font-semibold text-accent transition-colors hover:text-ink sm:px-3">
-            Crear<span className="hidden sm:inline"> app</span>
-          </Link>
-          <Link href="/guiones" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink sm:block">
-            VidScript
-          </Link>
-          <Link href="/skills" className="hidden rounded-full px-2 py-1.5 text-mut sm:block transition-colors hover:text-ink sm:px-3">
-            Skills
-          </Link>
-          <Link href="/#como-usar" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink md:block">
-            Cómo se publica
-          </Link>
-          <Link href="/#preguntas" className="hidden rounded-full px-3 py-1.5 text-mut transition-colors hover:text-ink lg:block">
-            Preguntas
-          </Link>
+        <nav aria-label="Principal" className="hidden items-center gap-0.5 text-sm md:flex">
+          <NavLinks variant="bar" />
+        </nav>
+        <div className="flex items-center gap-0.5 text-sm sm:gap-1">
           <ThemeToggle />
           {BRAND.socials.tiktok && (
             <a
@@ -43,8 +26,12 @@ export function SiteHeader() {
               Sígueme
             </a>
           )}
-        </nav>
+        </div>
       </div>
+      {/* En celular el menú va en una fila debajo de la barra, siempre a la vista */}
+      <nav aria-label="Principal" className="-mx-4 mt-2 flex gap-1 overflow-x-auto px-4 pb-1 md:hidden">
+        <NavLinks variant="row" />
+      </nav>
     </header>
   );
 }
