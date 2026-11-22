@@ -1,5 +1,5 @@
 // Plantillas de Juanfra Studio que se muestran en el inicio.
-// Imagen en public/plantillas-studio/<slug>.webp (captura 9:16 de cada plantilla).
+// Miniatura animada en public/plantillas-studio/<slug>.mp4 y su portada <slug>.jpg (9:16).
 export type Plantilla = { slug: string; title: string; text: string; tags: string[] };
 
 export const PLANTILLAS: Plantilla[] = [

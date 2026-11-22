@@ -6,11 +6,11 @@ import { SectionTitle } from "@/components/sections";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialButtons } from "@/components/socials";
-import { StudioShowcase } from "@/components/studio-showcase";
+import { BeforeAfter } from "@/components/before-after";
+import { Vsl } from "@/components/vsl";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { BRAND } from "@/config/brand";
 import { PLANTILLAS } from "@/config/plantillas";
-import Image from "next/image";
 
 const STUDIO = BRAND.studioName;
 
@@ -90,7 +90,23 @@ export default function Home() {
           </p>
         </header>
 
-        <StudioShowcase />
+        <Vsl />
+
+        {/* Antes y después */}
+        <section aria-labelledby="antes-despues" className="mx-auto max-w-5xl px-4 pt-20">
+          <div className="grid items-center gap-10 md:grid-cols-[1fr_auto]">
+            <div className="text-center md:text-left">
+              <p className="chip">Antes / Después</p>
+              <h2 id="antes-despues" className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-balance text-ink sm:text-4xl">
+                El mismo video, <span className="text-gradient">antes y después</span>
+              </h2>
+              <p className="mx-auto mt-3 max-w-md leading-relaxed text-mut md:mx-0">
+                A la izquierda, el video tal como lo grabé. A la derecha, el mismo video editado con {STUDIO}. Arrastra la línea y mira el cambio mientras corre.
+              </p>
+            </div>
+            <BeforeAfter />
+          </div>
+        </section>
 
         {/* 2. Cómo funciona */}
         <section id="como-funciona" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
@@ -129,13 +145,17 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
             {PLANTILLAS.map((t) => (
               <article key={t.slug} className="card lift group flex flex-col overflow-hidden !rounded-[18px]">
-                <div className="relative aspect-[184/326] overflow-hidden bg-[#0b1020]">
-                  <Image
-                    src={`/plantillas-studio/${t.slug}.webp`}
-                    alt={`Plantilla ${t.title}`}
-                    fill
-                    sizes="(min-width: 1024px) 220px, (min-width: 768px) 30vw, 46vw"
-                    className="object-cover transition-transform duration-300 ease-(--ease-out) group-hover:scale-[1.03]"
+                <div className="relative aspect-[9/16] overflow-hidden bg-[#0b1020]">
+                  <video
+                    src={`/plantillas-studio/${t.slug}.mp4`}
+                    poster={`/plantillas-studio/${t.slug}.jpg`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label={`Vista animada de la plantilla ${t.title}`}
+                    className="absolute inset-0 size-full object-cover"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-3.5 sm:p-4">
