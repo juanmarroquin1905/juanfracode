@@ -2,7 +2,7 @@
 // Si dejas una red vacía (""), no se muestra.
 export const BRAND = {
   name: "Juanfra Code",
-  title: "Edita tus videos con Claude",
+  title: "Ahorra horas editando tus videos con Claude",
   titleHighlight: "con Claude", // parte del título que va con degradado
   tagline:
     "Para creadores de contenido: edita tus videos con Claude en minutos, no en horas. Prompts gratis para Claude Code, ffmpeg y Remotion, y muy pronto el Studio para tu Claude.",
