@@ -6,7 +6,8 @@ import { SectionTitle } from "@/components/sections";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialButtons } from "@/components/socials";
-import { StudioShowcase } from "@/components/studio-showcase";
+import { BeforeAfter } from "@/components/before-after";
+import { Vsl } from "@/components/vsl";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { BRAND } from "@/config/brand";
 import { PLANTILLAS } from "@/config/plantillas";
@@ -89,7 +90,23 @@ export default function Home() {
           </p>
         </header>
 
-        <StudioShowcase />
+        <Vsl />
+
+        {/* Antes y después */}
+        <section aria-labelledby="antes-despues" className="mx-auto max-w-5xl px-4 pt-20">
+          <div className="grid items-center gap-10 md:grid-cols-[1fr_auto]">
+            <div className="text-center md:text-left">
+              <p className="chip">Antes / Después</p>
+              <h2 id="antes-despues" className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-balance text-ink sm:text-4xl">
+                El mismo video, <span className="text-gradient">antes y después</span>
+              </h2>
+              <p className="mx-auto mt-3 max-w-md leading-relaxed text-mut md:mx-0">
+                A la izquierda, el video tal como lo grabé. A la derecha, el mismo video editado con {STUDIO}. Arrastra la línea y mira el cambio mientras corre.
+              </p>
+            </div>
+            <BeforeAfter />
+          </div>
+        </section>
 
         {/* 2. Cómo funciona */}
         <section id="como-funciona" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
