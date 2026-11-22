@@ -10,7 +10,6 @@ import { StudioShowcase } from "@/components/studio-showcase";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { BRAND } from "@/config/brand";
 import { PLANTILLAS } from "@/config/plantillas";
-import Image from "next/image";
 
 const STUDIO = BRAND.studioName;
 
@@ -129,13 +128,17 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
             {PLANTILLAS.map((t) => (
               <article key={t.slug} className="card lift group flex flex-col overflow-hidden !rounded-[18px]">
-                <div className="relative aspect-[184/326] overflow-hidden bg-[#0b1020]">
-                  <Image
-                    src={`/plantillas-studio/${t.slug}.webp`}
-                    alt={`Plantilla ${t.title}`}
-                    fill
-                    sizes="(min-width: 1024px) 220px, (min-width: 768px) 30vw, 46vw"
-                    className="object-cover transition-transform duration-300 ease-(--ease-out) group-hover:scale-[1.03]"
+                <div className="relative aspect-[9/16] overflow-hidden bg-[#0b1020]">
+                  <video
+                    src={`/plantillas-studio/${t.slug}.mp4`}
+                    poster={`/plantillas-studio/${t.slug}.jpg`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label={`Vista animada de la plantilla ${t.title}`}
+                    className="absolute inset-0 size-full object-cover"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-3.5 sm:p-4">
