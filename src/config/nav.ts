@@ -2,6 +2,7 @@
 export const NAV = [
   { href: "/", label: "Inicio" },
   { href: "/#como-funciona", label: "Cómo funciona" },
+  { href: "/#plantillas", label: "Plantillas" },
   { href: "/recursos", label: "Recursos gratis" },
   { href: "/guiones", label: "VidScript" },
 ] as const;

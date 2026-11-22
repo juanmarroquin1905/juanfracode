@@ -17,6 +17,7 @@ export function StudioCharacter() {
       {/* Personaje */}
       <div className="sc-person">
         <div className="sc-head" />
+        <div className="sc-neck" />
         <div className="sc-body" />
       </div>
 

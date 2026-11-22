@@ -294,8 +294,8 @@ body {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 46%;
-  aspect-ratio: 1;
+  width: 40%;
+  aspect-ratio: 0.86;
   z-index: 1;
   transform: translateX(-50%);
   border-radius: 50%;
@@ -303,11 +303,20 @@ body {
   box-shadow: inset -2cqw -2cqw 5cqw rgb(0 0 0 / 0.18);
   animation: sc-nod 3.5s ease-in-out infinite;
 }
+.sc-neck {
+  position: absolute;
+  left: 50%;
+  top: 27%;
+  width: 14%;
+  height: 12%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #aab0bc, #d4d8e0 50%, #aab0bc);
+}
 .sc-body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 33%;
+  top: 37%;
   bottom: 0;
   border-radius: 48% 48% 0 0 / 30% 30% 0 0;
   background: linear-gradient(180deg, #d9dde5 0%, #b6bcc8 100%);
