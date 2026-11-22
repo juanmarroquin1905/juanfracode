@@ -232,3 +232,172 @@ body {
     transition-duration: 0ms !important;
   }
 }
+
+/* ===== Video de muestra animado del Studio (studio-character.tsx) =====
+   Se dibuja en un contenedor 9:16; todas las medidas van en % o en "cqw"
+   (ancho del contenedor) para que se vea igual en cualquier tamaño. */
+.sc-scene {
+  position: absolute;
+  inset: 0;
+  container-type: inline-size;
+  overflow: hidden;
+  border-radius: 6%/3.4%;
+  background: radial-gradient(120% 70% at 50% 75%, #3a4256 0%, #1c2333 55%, #10151f 100%);
+  font-family: var(--font-sora), sans-serif;
+  color: #fff;
+  --sc-loop: 7s;
+}
+.sc-tag {
+  position: absolute;
+  top: 2.5%;
+  left: 4%;
+  font-size: 4.2cqw;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+.sc-title {
+  position: absolute;
+  top: 9%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2cqw;
+  animation: sc-pop var(--sc-loop) var(--ease-out, ease-out) infinite;
+}
+.sc-title span {
+  background: #fff;
+  color: #0b1020;
+  font-weight: 800;
+  font-size: 7.4cqw;
+  line-height: 1.15;
+  padding: 0.6cqw 2.4cqw;
+  border-radius: 1.6cqw;
+}
+.sc-title small {
+  font-size: 4cqw;
+  opacity: 0.85;
+}
+.sc-person {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: 78%;
+  height: 66%;
+  transform: translateX(-50%);
+  animation: sc-breathe 3.2s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+.sc-head {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 46%;
+  aspect-ratio: 1;
+  z-index: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #f1f3f7 0%, #c9ced8 60%, #a9afbb 100%);
+  box-shadow: inset -2cqw -2cqw 5cqw rgb(0 0 0 / 0.18);
+  animation: sc-nod 3.5s ease-in-out infinite;
+}
+.sc-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 33%;
+  bottom: 0;
+  border-radius: 48% 48% 0 0 / 30% 30% 0 0;
+  background: linear-gradient(180deg, #d9dde5 0%, #b6bcc8 100%);
+  box-shadow: inset 0 3cqw 6cqw rgb(255 255 255 / 0.35);
+}
+.sc-card {
+  position: absolute;
+  top: 37%;
+  width: 34%;
+  aspect-ratio: 4/3.3;
+  display: grid;
+  place-items: center;
+  border-radius: 3cqw;
+  font-weight: 800;
+  font-size: 6cqw;
+  border: 0.8cqw solid #fff;
+  box-shadow: 0 3cqw 6cqw rgb(0 0 0 / 0.4);
+  opacity: 0;
+}
+.sc-before {
+  left: 8%;
+  background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+  --sc-rot: -6deg;
+  animation: sc-card var(--sc-loop) var(--ease-out, ease-out) 0.5s infinite;
+}
+.sc-after {
+  right: 8%;
+  background: linear-gradient(135deg, #f97316, #9a3412);
+  --sc-rot: 6deg;
+  animation: sc-card var(--sc-loop) var(--ease-out, ease-out) 0.9s infinite;
+}
+.sc-caption {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 12%;
+  text-align: center;
+  font-weight: 800;
+  font-size: 7cqw;
+  text-shadow: 0 0.6cqw 1.6cqw rgb(0 0 0 / 0.7);
+}
+.sc-caption span {
+  display: inline-block;
+  margin: 0 0.7cqw;
+  opacity: 0;
+  animation: sc-word var(--sc-loop) ease-out infinite;
+}
+.sc-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1.2cqw;
+  width: 100%;
+  background: linear-gradient(90deg, #1d4ed8, #06b6d4);
+  transform-origin: left;
+  animation: sc-progress var(--sc-loop) linear infinite;
+}
+@keyframes sc-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.02); }
+}
+@keyframes sc-nod {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  30% { transform: translateX(-50%) rotate(-4deg); }
+  65% { transform: translateX(-50%) rotate(3deg); }
+}
+@keyframes sc-pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  6%, 92% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+@keyframes sc-card {
+  0% { opacity: 0; transform: translateY(6cqw) rotate(0deg) scale(0.8); }
+  8%, 88% { opacity: 1; transform: translateY(0) rotate(var(--sc-rot)) scale(1); }
+  100% { opacity: 0; transform: translateY(0) rotate(var(--sc-rot)) scale(1); }
+}
+@keyframes sc-word {
+  0% { opacity: 0; transform: translateY(2cqw) scale(0.9); color: #fde047; }
+  4% { opacity: 1; transform: translateY(0) scale(1.12); color: #fde047; }
+  9% { transform: scale(1); color: #fff; }
+  85% { opacity: 1; }
+  92%, 100% { opacity: 0; }
+}
+@keyframes sc-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sc-scene *, .sc-scene { animation: none !important; }
+  .sc-card, .sc-caption span { opacity: 1; }
+  .sc-before { transform: rotate(-6deg); }
+  .sc-after { transform: rotate(6deg); }
+}

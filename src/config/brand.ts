@@ -8,7 +8,7 @@ export const BRAND = {
     "Para creadores de contenido: edita tus videos con Claude en minutos, no en horas. Prompts gratis para Claude Code, ffmpeg y Remotion, y muy pronto el Studio para tu Claude.",
   // Nombre del Studio (lo que la gente instala en su Claude para editar con plantillas).
   // Cámbialo aquí y se actualiza en toda la web.
-  studioName: "VidStudio",
+  studioName: "Juanfra Studio",
   // Tutorial general de cómo lanzar una plantilla (enlace de YouTube).
   // Si lo dejas vacío (""), no se muestra. Ej: "https://www.youtube.com/watch?v=XXXXXXXXXXX"
   tutorialUrl: "",

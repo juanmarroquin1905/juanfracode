@@ -6,7 +6,7 @@ import { SectionTitle } from "@/components/sections";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialButtons } from "@/components/socials";
-import { StudioWindow } from "@/components/studio-window";
+import { StudioShowcase } from "@/components/studio-showcase";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { BRAND } from "@/config/brand";
 
@@ -70,7 +70,7 @@ export default function Home() {
           </p>
         </header>
 
-        <StudioWindow />
+        <StudioShowcase />
 
         {/* 2. Cómo funciona */}
         <section id="como-funciona" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24">
