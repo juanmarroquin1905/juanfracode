@@ -69,17 +69,25 @@ export default function Home() {
       <OldAnchors />
       <SiteHeader />
       <main id="top" className="scroll-mt-24">
-        {/* 1. Promesa + lista de espera */}
-        <header className="mx-auto max-w-3xl px-4 pt-8 pb-10 text-center sm:pt-14">
+        {/* 1. Promesa */}
+        <header className="mx-auto max-w-3xl px-4 pt-8 pb-8 text-center sm:pt-14">
           <p className="enter chip">Próximamente · Lista de espera abierta</p>
           <h1 className="enter enter-1 mt-4 text-[clamp(32px,4.8vw,58px)] leading-[1.04] font-bold tracking-[-0.04em] text-balance text-ink">
-            Tu editor de video
-            <span className="text-gradient block pb-[0.12em]">dentro de Claude</span>
+            Deja de perder horas
+            <span className="text-gradient block pb-[0.12em]">editando tus videos</span>
           </h1>
           <p className="enter enter-2 mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-mut">
-            Arrastras tu video, eliges una plantilla y Claude hace la parte lenta. Edita en minutos, no en horas.
+            Lo que te toma horas en el editor, {STUDIO} lo hace en minutos dentro de Claude. Arrastras tu video, eliges una plantilla y sale listo para publicar.
           </p>
-          <div className="enter enter-3 mt-7">
+        </header>
+
+        {/* 2. VSL */}
+        <Vsl />
+
+        {/* 3. Lista de espera */}
+        <div id="lista-espera" className="mx-auto max-w-3xl scroll-mt-28 px-4 pt-8 text-center">
+          <p className="font-semibold text-ink">Recupera tus horas: únete a la lista de espera</p>
+          <div className="mt-4">
             <WaitlistForm id="lista" />
           </div>
           <p className="mt-4 text-sm text-mut">
@@ -88,9 +96,7 @@ export default function Home() {
               Ver cómo funciona
             </a>
           </p>
-        </header>
-
-        <Vsl />
+        </div>
 
         {/* Antes y después */}
         <section aria-labelledby="antes-despues" className="mx-auto max-w-5xl px-4 pt-20">
