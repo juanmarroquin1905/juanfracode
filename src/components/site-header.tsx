@@ -16,16 +16,12 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-0.5 text-sm sm:gap-1">
           <ThemeToggle />
-          {BRAND.socials.tiktok && (
-            <a
-              href={BRAND.socials.tiktok}
-              target="_blank"
-              rel="noreferrer"
-              className="press rounded-full bg-night px-3 py-2 sm:ml-1 sm:px-4 font-semibold text-white transition-transform duration-150"
-            >
-              Sígueme
-            </a>
-          )}
+          <Link
+            href="/#lista"
+            className="press rounded-full bg-night px-3 py-2 font-semibold whitespace-nowrap text-white transition-transform duration-150 sm:ml-1 sm:px-4"
+          >
+            Lista de espera
+          </Link>
         </div>
       </div>
       {/* En celular el menú va en una fila debajo de la barra, siempre a la vista */}

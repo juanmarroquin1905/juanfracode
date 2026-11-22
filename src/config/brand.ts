@@ -2,10 +2,13 @@
 // Si dejas una red vacía (""), no se muestra.
 export const BRAND = {
   name: "Juanfra Code",
-  title: "Crea con Claude: micro apps, webs y videos",
-  titleHighlight: "micro apps, webs y videos", // parte del título que va con degradado
+  title: "Edita tus videos con Claude",
+  titleHighlight: "con Claude", // parte del título que va con degradado
   tagline:
-    "Aprende a crear micro apps web, páginas web y videos con Claude, aunque nunca hayas programado. Herramientas, ejemplos y skills gratis.",
+    "Para creadores de contenido: edita tus videos con Claude en minutos, no en horas. Prompts gratis para Claude Code, ffmpeg y Remotion, y muy pronto el Studio para tu Claude.",
+  // Nombre del Studio (lo que la gente instala en su Claude para editar con plantillas).
+  // Cámbialo aquí y se actualiza en toda la web.
+  studioName: "Juanfra Studio",
   // Tutorial general de cómo lanzar una plantilla (enlace de YouTube).
   // Si lo dejas vacío (""), no se muestra. Ej: "https://www.youtube.com/watch?v=XXXXXXXXXXX"
   tutorialUrl: "",
@@ -13,7 +16,7 @@ export const BRAND = {
   minStatToShow: 10,
   // Sección "Quién soy" del inicio.
   about:
-    "Enseño a crear con Claude desde cero, aunque nunca hayas programado: micro apps web, páginas web y videos. Lo que ves en esta web lo construyo en mis videos y te dejo las herramientas para que las uses.",
+    "Soy creador de contenido y uso Claude para dejar de pasar horas editando. Te enseño mi flujo, desde el guion hasta el video listo, y te dejo las herramientas que uso en mis propios videos.",
   socials: {
     tiktok: "https://www.tiktok.com/@juanfracode",
     instagram: "https://www.instagram.com/juanfracode",
